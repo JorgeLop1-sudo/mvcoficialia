@@ -162,7 +162,7 @@
     <script>
         function filterOficios(estado) {
             // Redirigir a la página de expedientes con el filtro aplicado
-            window.location.href = 'expedientes.php?estado=' + estado;
+            window.location.href = 'index.php?estado=' + estado;
         }
         
         document.addEventListener('DOMContentLoaded', function() {

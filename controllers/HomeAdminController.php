@@ -14,8 +14,8 @@ class HomeAdminController {
         }
 
         // Conexión BD
-        $conn = mysqli_connect("localhost", "root", "", "oficialiap");
-        if (!$conn) die("Error DB: " . mysqli_connect_error());
+        $database = new Database();
+        $conn = $database->connect();
 
         $oficioModel = new Oficio($conn);
         $estadisticas = $oficioModel->getEstadisticas();
