@@ -1,129 +1,3 @@
-<?php
-//session_start();
-
-// Headers para prevenir caching
-header("Cache-Control: no-cache, no-store, must-revalidate");
-header("Pragma: no-cache");
-header("Expires: 0");
-
-// Verificar si el usuario está logueado y es administrador
-if (!isset($_SESSION['usuario']) || $_SESSION['tipo_usuario'] !== 'admin') {
-    header("Location: ../../inicio/index.php");
-    exit();
-}
-
-// Conexión a la base de datos
-$dbhost = "localhost";
-$dbuser = "root";
-$dbpass = "";
-$dbname = "oficialiap";
-
-$conn = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname);
-if (!$conn) {
-    die("No hay conexión: " . mysqli_connect_error());
-}
-
-// Obtener estadísticas de oficios
-$estadisticas = [
-    'pendientes' => 0,
-    'en_tramite' => 0,
-    'atendidos' => 0,
-    'denegados' => 0
-];
-
-// Consulta para contar oficios por estado
-$query_estadisticas = "SELECT estado, COUNT(*) as total FROM oficios WHERE activo = 1 GROUP BY estado";
-$result_estadisticas = mysqli_query($conn, $query_estadisticas);
-
-if ($result_estadisticas) {
-    while ($row = mysqli_fetch_assoc($result_estadisticas)) {
-        switch ($row['estado']) {
-            case 'pendiente':
-                $estadisticas['pendientes'] = $row['total'];
-                break;
-            case 'tramite':
-                $estadisticas['en_tramite'] = $row['total'];
-                break;
-            case 'completado':
-                $estadisticas['atendidos'] = $row['total'];
-                break;
-            case 'denegado':
-                $estadisticas['denegados'] = $row['total'];
-                break;
-        }
-    }
-}
-
-// Obtener actividad reciente (últimos 10 oficios registrados)
-$actividad_reciente = [];
-$query_actividad = "
-    SELECT o.*, a.nombre as area_nombre, l.nombre as usuario_nombre 
-    FROM oficios o 
-    LEFT JOIN areas a ON o.area_id = a.id 
-    LEFT JOIN login l ON o.usuario_id = l.id 
-    WHERE o.activo = 1 
-    ORDER BY o.fecha_registro DESC 
-    LIMIT 10
-";
-$result_actividad = mysqli_query($conn, $query_actividad);
-
-if ($result_actividad) {
-    while ($row = mysqli_fetch_assoc($result_actividad)) {
-        $actividad_reciente[] = $row;
-    }
-}
-
-// Cerrar conexión
-mysqli_close($conn);
-
-// Función para formatear la fecha
-function formatFecha($fecha) {
-    $fecha_obj = new DateTime($fecha);
-    $hoy = new DateTime();
-    $ayer = new DateTime('yesterday');
-    
-    if ($fecha_obj->format('Y-m-d') === $hoy->format('Y-m-d')) {
-        return 'Hoy, ' . $fecha_obj->format('H:i');
-    } elseif ($fecha_obj->format('Y-m-d') === $ayer->format('Y-m-d')) {
-        return 'Ayer, ' . $fecha_obj->format('H:i');
-    } else {
-        return $fecha_obj->format('d/m/Y H:i');
-    }
-}
-
-// Función para obtener el icono según el tipo de actividad
-function getActivityIcon($estado) {
-    switch ($estado) {
-        case 'pendiente':
-            return 'fas fa-clock text-warning';
-        case 'tramite':
-            return 'fas fa-tasks text-primary';
-        case 'completado':
-            return 'fas fa-check-circle text-success';
-        case 'denegado':
-            return 'fas fa-times-circle text-danger';
-        default:
-            return 'fas fa-file-alt text-info';
-    }
-}
-
-// Función para obtener el texto descriptivo de la actividad
-function getActivityText($oficio) {
-    switch ($oficio['estado']) {
-        case 'pendiente':
-            return "Nuevo oficio registrado: " . $oficio['asunto'];
-        case 'tramite':
-            return "Oficio en trámite: " . $oficio['asunto'];
-        case 'completado':
-            return "Oficio completado: " . $oficio['asunto'];
-        case 'denegado':
-            return "Oficio denegado: " . $oficio['asunto'];
-        default:
-            return "Oficio actualizado: " . $oficio['asunto'];
-    }
-}
-?>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -132,7 +6,7 @@ function getActivityText($oficio) {
     <title>SIS-MPV - Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="/mvc_login/css/dashboard/styledash.css">
+    <link rel="stylesheet" href="/mvc_oficialiapartes/css/dashboard/styledash.css">
     <style>
         
     </style>
@@ -147,31 +21,31 @@ function getActivityText($oficio) {
         
         <ul class="nav flex-column">
             <li class="nav-item">
-                <a class="nav-link active" href="homeadmin.php">
+                <a class="nav-link active" href="index.php?action=homeadmin">
                     <i class="fas fa-home"></i>
                     <span>Inicio</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="areas.php">
+                <a class="nav-link" href="index.php?action=areasadmin">
                     <i class="fas fa-layer-group"></i>
                     <span>Áreas</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="users.php">
+                <a class="nav-link" href="index.php?action=usersadmin">
                     <i class="fas fa-users"></i>
                     <span>Usuarios</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="expedientes.php">
+                <a class="nav-link" href="index.php?action=expedientesadmin">
                     <i class="fas fa-folder"></i>
                     <span>Expedientes</span>
                 </a>
             </li>
             <li class="nav-item mt-4">
-                <a class="nav-link" href="config.php">
+                <a class="nav-link" href="index.php?action=configadmin">
                     <i class="fas fa-cog"></i>
                     <span>Configuración</span>
                 </a>

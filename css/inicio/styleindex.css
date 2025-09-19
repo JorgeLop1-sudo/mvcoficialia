@@ -6,7 +6,7 @@
         }
         
         body {
-            background: url('../images/fondo.jpg') no-repeat center center fixed;
+            background: url('/mvc_oficialiapartes/css/images/fondo.jpg') no-repeat center center fixed;
             background-size: cover;
             min-height: 100vh;
             display: flex;
