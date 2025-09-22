@@ -43,7 +43,6 @@
         
         <ul class="nav flex-column">
 
-            
             <li class="nav-item">
                 <a class="nav-link" href="index.php?action=homedash">
                     <i class="fas fa-home"></i>
@@ -51,7 +50,6 @@
                 </a>
             </li>
             
-
             <?php if ($_SESSION['tipo_usuario'] === 'admin'): ?>
                 <li class="nav-item">
                     <a class="nav-link" href="index.php?action=areasadmin">
@@ -65,28 +63,17 @@
                         <span>Usuarios</span>
                     </a>
                 </li>
+            <?php endif; ?>
+
             <li class="nav-item">
-                <a class="nav-link" href="index.php?action=expedientesadmin">
+                <a class="nav-link" href="index.php?action=expedientes">
                     <i class="fas fa-folder"></i>
                     <span>Expedientes</span>
                 </a>
             </li>
-            <?php endif; ?>
-
-            <?php if ($_SESSION['tipo_usuario'] === 'user'): ?>
-            <li class="nav-item">
-                <a class="nav-link" href="index.php?action=expedientesuser">
-                    <i class="fas fa-folder"></i>
-                    <span>Expedientes</span>
-                </a>
-            </li>
-            <?php endif; ?>
-
-
-
 
             <li class="nav-item mt-4">
-                <a class="nav-link active" href="index.php?action=config">
+                <a class="nav-link  active" href="index.php?action=config">
                     <i class="fas fa-cog"></i>
                     <span>Configuración</span>
                 </a>
@@ -99,6 +86,7 @@
                 </a>
             </li>
         </ul>
+        
     </div>
 
     <!-- Main Content -->

@@ -69,65 +69,53 @@
             <h3>SIS-OP</h3>
             <p>Sistema de Oficialia de Partes</p>
         </div>
-        
+
         <ul class="nav flex-column">
 
-            
-            <li class="nav-item">
-                <a class="nav-link active" href="index.php?action=homedash">
-                    <i class="fas fa-home"></i>
-                    <span>Inicio</span>
-                </a>
-            </li>
-            
+<li class="nav-item">
+    <a class="nav-link" href="index.php?action=homedash">
+        <i class="fas fa-home"></i>
+        <span>Inicio</span>
+    </a>
+</li>
 
-            <?php if ($_SESSION['tipo_usuario'] === 'admin'): ?>
-                <li class="nav-item">
-                    <a class="nav-link" href="index.php?action=areasadmin">
-                        <i class="fas fa-layer-group"></i>
-                        <span>Áreas</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="index.php?action=usersadmin">
-                        <i class="fas fa-users"></i>
-                        <span>Usuarios</span>
-                    </a>
-                </li>
-            <li class="nav-item">
-                <a class="nav-link" href="index.php?action=expedientesadmin">
-                    <i class="fas fa-folder"></i>
-                    <span>Expedientes</span>
-                </a>
-            </li>
-            <?php endif; ?>
+<?php if ($_SESSION['tipo_usuario'] === 'admin'): ?>
+    <li class="nav-item">
+        <a class="nav-link" href="index.php?action=areasadmin">
+            <i class="fas fa-layer-group"></i>
+            <span>Áreas</span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="index.php?action=usersadmin">
+            <i class="fas fa-users"></i>
+            <span>Usuarios</span>
+        </a>
+    </li>
+<?php endif; ?>
 
-            <?php if ($_SESSION['tipo_usuario'] === 'user'): ?>
-            <li class="nav-item">
-                <a class="nav-link" href="index.php?action=expedientesuser">
-                    <i class="fas fa-folder"></i>
-                    <span>Expedientes</span>
-                </a>
-            </li>
-            <?php endif; ?>
+<li class="nav-item">
+    <a class="nav-link active" href="index.php?action=expedientes">
+        <i class="fas fa-folder"></i>
+        <span>Expedientes</span>
+    </a>
+</li>
 
+<li class="nav-item mt-4">
+    <a class="nav-link" href="index.php?action=config">
+        <i class="fas fa-cog"></i>
+        <span>Configuración</span>
+    </a>
+</li>
 
-            
-
-            <li class="nav-item mt-4">
-                <a class="nav-link" href="index.php?action=config">
-                    <i class="fas fa-cog"></i>
-                    <span>Configuración</span>
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link" href="index.php?action=logout">
-                    <i class="fas fa-sign-out-alt"></i>
-                    <span>Cerrar Sesión</span>
-                </a>
-            </li>
-        </ul>
+<li class="nav-item">
+    <a class="nav-link" href="index.php?action=logout">
+        <i class="fas fa-sign-out-alt"></i>
+        <span>Cerrar Sesión</span>
+    </a>
+</li>
+</ul>
+        
     </div>
 
     <!-- Main Content -->

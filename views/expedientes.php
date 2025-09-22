@@ -19,24 +19,43 @@
         </div>
         
         <ul class="nav flex-column">
+
             <li class="nav-item">
                 <a class="nav-link" href="index.php?action=homedash">
                     <i class="fas fa-home"></i>
                     <span>Inicio</span>
                 </a>
             </li>
+            
+            <?php if ($_SESSION['tipo_usuario'] === 'admin'): ?>
+                <li class="nav-item">
+                    <a class="nav-link" href="index.php?action=areasadmin">
+                        <i class="fas fa-layer-group"></i>
+                        <span>Áreas</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="index.php?action=usersadmin">
+                        <i class="fas fa-users"></i>
+                        <span>Usuarios</span>
+                    </a>
+                </li>
+            <?php endif; ?>
+
             <li class="nav-item">
-                <a class="nav-link active" href="index.php?action=expedientesuser">
+                <a class="nav-link  active" href="index.php?action=expedientes">
                     <i class="fas fa-folder"></i>
                     <span>Expedientes</span>
                 </a>
             </li>
+
             <li class="nav-item mt-4">
                 <a class="nav-link" href="index.php?action=config">
                     <i class="fas fa-cog"></i>
                     <span>Configuración</span>
                 </a>
             </li>
+
             <li class="nav-item">
                 <a class="nav-link" href="index.php?action=logout">
                     <i class="fas fa-sign-out-alt"></i>
@@ -44,13 +63,14 @@
                 </a>
             </li>
         </ul>
+        
     </div>
 
     <!-- Main Content -->
     <div class="main-content">
         <!-- Header -->
         <div class="header">
-            <h2 class="mb-0">Dashboard Administrador</h2>
+            <h2 class="mb-0">Dashboard</h2>
             <div class="user-info">
                 <div class="user-avatar"><?php echo substr($_SESSION['nombre'], 0, 2); ?></div>
                 <div>
@@ -82,7 +102,7 @@
         <div class="search-section">
             <h5 class="search-title">Búsqueda de Expedientes</h5>
             <form method="GET" action="">
-                <input type="hidden" name="action" value="expedientesuser">
+                <input type="hidden" name="action" value="expedientesadmin">
                 <div class="search-grid">
                     <div class="search-field">
                         <label for="numero">Número de Documento</label>
@@ -92,14 +112,24 @@
                         <label for="estado">Estado</label>
                         <select id="estado" name="estado">
                             <option value="">Todos los estados</option>
-                            <option value="tramite" <?php echo ($filtros['estado'] ?? '') == 'tramite' ? 'selected' : ''; ?>>En tramite</option>
-                            <option value="completado" <?php echo ($filtros['estado'] ?? '') == 'completado' ? 'selected' : ''; ?>>Completado</option>
-                            <option value="denegado" <?php echo ($filtros['estado'] ?? '') == 'denegado' ? 'selected' : ''; ?>>Denegado</option>
+
+                            <?php if ($_SESSION['tipo_usuario'] === 'admin'): ?>
+                                <option value="pendiente" <?php echo ($filtros['estado'] ?? '') == 'pendiente' ? 'selected' : ''; ?>>Pendiente</option>
+                                <option value="tramite" <?php echo ($filtros['estado'] ?? '') == 'tramite' ? 'selected' : ''; ?>>En tramite</option>
+                                <option value="completado" <?php echo ($filtros['estado'] ?? '') == 'completado' ? 'selected' : ''; ?>>Completado</option>
+                                <option value="denegado" <?php echo ($filtros['estado'] ?? '') == 'denegado' ? 'selected' : ''; ?>>Denegado</option>
+                            <?php endif; ?>
+
+                            <?php if ($_SESSION['tipo_usuario'] === 'user'): ?>
+                                <option value="tramite" <?php echo ($filtros['estado'] ?? '') == 'tramite' ? 'selected' : ''; ?>>En tramite</option>
+                                <option value="completado" <?php echo ($filtros['estado'] ?? '') == 'completado' ? 'selected' : ''; ?>>Completado</option>
+                                <option value="denegado" <?php echo ($filtros['estado'] ?? '') == 'denegado' ? 'selected' : ''; ?>>Denegado</option>
+                            <?php endif; ?>
                         </select>
                     </div>
                 </div>
                 <div class="search-actions">
-                    <a href="index.php?action=expedientesuser" class="btn btn-secondary">Limpiar</a>
+                    <a href="index.php?action=expedientes" class="btn btn-secondary">Limpiar</a>
                     <button type="submit" class="btn btn-primary">Buscar</button>
                 </div>
             </form>
@@ -219,7 +249,12 @@
                                         <a href="index.php?action=responderoficio&id=<?php echo $expediente['id']; ?>" class="btn btn-sm btn-success" title="Responder documento">
                                             <i class="fas fa-reply"></i>
                                         </a>
-                                        </button>
+                                    
+                                        <?php if ($_SESSION['tipo_usuario'] === 'admin'): ?>
+                                            <button class="btn btn-sm btn-danger" title="Eliminar documento" onclick="confirmarEliminacion(<?php echo $expediente['id']; ?>)">
+                                            <i class="fas fa-trash"></i>
+                                            </button>
+                                        <?php endif; ?>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
@@ -239,7 +274,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form method="POST" action="">
-                    <input type="hidden" name="action" value="expedientesuser">
+                    <input type="hidden" name="action" value="expedientes">
                     <div class="modal-body">
                         <input type="hidden" name="oficio_id" id="oficio_id">
                         <input type="hidden" name="derivar_oficio" value="1">
@@ -342,6 +377,11 @@
             $('#modalDerivacion').modal('show');
         }
 
+        function confirmarEliminacion(id) {
+            if (confirm('¿Está seguro de eliminar este oficio? Esta acción no se puede deshacer.')) {
+                window.location.href = 'index.php?action=expedientes&eliminar=' + id;
+            }
+        }
 
         function cargarUsuariosPorArea(areaId) {
             if (!areaId) {
@@ -350,7 +390,7 @@
             }
             
             $.ajax({
-                url: 'index.php?action=expedientesuser&ajax=usuarios_por_area&area_id=' + areaId,
+                url: 'index.php?action=expedientes&ajax=usuarios_por_area&area_id=' + areaId,
                 type: 'GET',
                 dataType: 'json',
                 success: function(response) {

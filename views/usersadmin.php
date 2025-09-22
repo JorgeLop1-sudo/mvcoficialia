@@ -54,7 +54,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="index.php?action=expedientesadmin">
+                <a class="nav-link" href="index.php?action=expedientes">
                     <i class="fas fa-folder"></i>
                     <span>Expedientes</span>
                 </a>

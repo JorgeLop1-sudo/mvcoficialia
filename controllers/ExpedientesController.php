@@ -3,14 +3,14 @@ require_once __DIR__ . '/../models/Expediente.php';
 require_once __DIR__ . '/../models/Area.php';
 require_once __DIR__ . '/../models/User.php';
 
-class ExpedientesUserController {
+class ExpedientesController {
     public function index() {
         if (session_status() === PHP_SESSION_NONE) session_start();
 
-        if (!isset($_SESSION['usuario']) || $_SESSION['tipo_usuario'] !== 'user') {
+        /*if (!isset($_SESSION['usuario']) || $_SESSION['tipo_usuario'] !== 'admin') {
             header("Location: index.php?action=login");
             exit();
-        }
+        }*/
 
         $database = new Database();
         $conn = $database->connect();
@@ -50,7 +50,7 @@ class ExpedientesUserController {
         // Procesar eliminación de oficio
         if (isset($_GET['eliminar'])) {
             $mensaje = $expedienteModel->eliminar($_GET['eliminar']);
-            header("Location: index.php?action=expedientesuser&mensaje=" . urlencode($mensaje));
+            header("Location: index.php?action=expedientes&mensaje=" . urlencode($mensaje));
             exit();
         }
 
@@ -64,7 +64,7 @@ class ExpedientesUserController {
             );
             
             if (strpos($mensaje, 'Error') === false) {
-                header("Location: index.php?action=expedientesuser&mensaje=" . urlencode($mensaje));
+                header("Location: index.php?action=expedientes&mensaje=" . urlencode($mensaje));
                 exit();
             } else {
                 $error = $mensaje;
@@ -77,7 +77,7 @@ class ExpedientesUserController {
         $view_data = compact('expedientes', 'areas', 'usuarios', 'mensaje', 'error', 'filtros');
         extract($view_data);
 
-        include __DIR__ . '/../views/expedientesuser.php';
+        include __DIR__ . '/../views/expedientes.php';
     }
 }
 ?>
