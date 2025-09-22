@@ -5,6 +5,10 @@ require_once __DIR__ . '/controllers/AreasAdminController.php';
 require_once __DIR__ . '/controllers/UsersAdminController.php';
 require_once __DIR__ . '/controllers/ExpedientesAdminController.php';
 require_once __DIR__ . '/controllers/ConfigAdminController.php'; 
+require_once __DIR__ . '/controllers/ResponderOficioController.php'; 
+require_once __DIR__ . '/controllers/HomeUserController.php';
+require_once __DIR__ . '/controllers/ExpedientesUserController.php';
+require_once __DIR__ . '/controllers/ConfigUserController.php'; 
 
 
 $action = $_GET['action'] ?? 'login';
@@ -30,7 +34,19 @@ switch ($action) {
         break;    
     case 'configadmin': // Añadir este caso
         (new ConfigAdminController())->index();
+        break;
+    case 'expedientesuser': // Añadir este caso
+        (new ExpedientesUserController())->index();
         break;    
+    case 'configuser': // Añadir este caso
+        (new ConfigUserController())->index();
+        break;       
+    case 'responderoficio':
+        (new ResponderOficioController())->index();
+        break;
+    case 'homeuser':
+        (new HomeUserController())->user();
+        break;
     default:
         (new LoginController())->login();
         break;

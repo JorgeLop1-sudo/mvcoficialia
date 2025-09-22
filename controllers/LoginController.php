@@ -1,5 +1,7 @@
 <?php
 require_once __DIR__ . '/../models/Usuario.php';
+require_once __DIR__ . '/../models/User.php';
+require_once __DIR__ . '/../config/database.php';
 
 class LoginController {
     private $usuarioModel;
@@ -25,7 +27,12 @@ class LoginController {
                 $_SESSION['nombre'] = $user['nombre'];
                 $_SESSION['tipo_usuario'] = $user['tipo_usuario'];
 
-                header("Location: index.php?action=homeadmin");
+                // Redirigir según el tipo de usuario
+                if ($user['tipo_usuario'] === 'admin') {
+                    header("Location: index.php?action=homeadmin");
+                } else {
+                    header("Location: index.php?action=homeuser");
+                }
                 exit;
             } else {
                 $error = ($res['reason'] === 'not_found') ? (($login_type === 'email') ? "Correo no encontrado" : "Usuario no encontrado") : "Contraseña incorrecta";
@@ -39,13 +46,40 @@ class LoginController {
             header("Location: index.php?action=login");
             exit;
         }
-        $usuarioData = $this->usuarioModel->getByUsuario($_SESSION['usuario']);
-        include __DIR__ . '/../views/homeadmin.php';
+        
+        // Redirigir según el tipo de usuario
+        if ($_SESSION['tipo_usuario'] === 'admin') {
+            header("Location: index.php?action=homeadmin");
+        } else {
+            header("Location: index.php?action=homeuser");
+        }
+        exit;
     }
 
     public function logout() {
+        // Iniciar sesión si no está iniciada
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+        
+        // Limpiar todas las variables de sesión
+        $_SESSION = array();
+        
+        // Si se desea destruir la cookie de sesión completamente,
+        // borra también la cookie de sesión.
+        if (ini_get("session.use_cookies")) {
+            $params = session_get_cookie_params();
+            setcookie(session_name(), '', time() - 42000,
+                $params["path"], $params["domain"],
+                $params["secure"], $params["httponly"]
+            );
+        }
+        
+        // Destruir la sesión
         session_destroy();
+        
+        // Redirigir al login
         header("Location: index.php?action=login");
-        exit;
+        exit();
     }
 }

@@ -106,5 +106,30 @@ class Expediente {
         
         return $usuarios;
     }
+
+    public function actualizarRespuesta($id, $respuesta, $estado) {
+        $id = mysqli_real_escape_string($this->conn, $id);
+        $respuesta = mysqli_real_escape_string($this->conn, $respuesta);
+        $estado = mysqli_real_escape_string($this->conn, $estado);
+        
+        $update_query = "UPDATE oficios SET 
+                        respuesta = '$respuesta',
+                        estado = '$estado',
+                        fecha_respuesta = NOW()
+                        WHERE id = '$id'";
+        
+        if (mysqli_query($this->conn, $update_query)) {
+            return [
+                'success' => true,
+                'mensaje' => "Oficio " . ($estado == 'completado' ? 'completado' : 'denegado') . " correctamente"
+            ];
+        } else {
+            return [
+                'success' => false,
+                'mensaje' => "Error al actualizar el oficio: " . mysqli_error($this->conn)
+            ];
+        }
+    }
+    
 }
 ?>

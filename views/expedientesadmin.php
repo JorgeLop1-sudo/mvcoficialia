@@ -50,7 +50,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="../../inicio/logout.php">
+                <a class="nav-link" href="index.php?action=logout">
                     <i class="fas fa-sign-out-alt"></i>
                     <span>Cerrar Sesión</span>
                 </a>
@@ -229,7 +229,7 @@
                                             <i class="fas fa-share"></i>
                                         </button>
                                         
-                                        <a href="responder_oficio.php?id=<?php echo $expediente['id']; ?>" class="btn btn-sm btn-success" title="Responder documento">
+                                        <a href="index.php?action=responderoficio&id=<?php echo $expediente['id']; ?>" class="btn btn-sm btn-success" title="Responder documento">
                                             <i class="fas fa-reply"></i>
                                         </a>
                                         

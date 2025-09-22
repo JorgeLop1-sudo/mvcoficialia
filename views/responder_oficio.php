@@ -1,112 +1,3 @@
-<?php
-session_start();
-
-// Verificar si el usuario está logueado
-if (!isset($_SESSION['usuario'])) {
-    header("Location: ../../inicio/index.php");
-    exit();
-}
-
-// Conexión a la base de datos
-$dbhost = "localhost";
-$dbuser = "root";
-$dbpass = "";
-$dbname = "oficialiap";
-
-$conn = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname);
-if (!$conn) {
-    die("No hay conexión: " . mysqli_connect_error());
-}
-
-// Obtener el ID del oficio a responder
-if (!isset($_GET['id']) || empty($_GET['id'])) {
-    header("Location: " . ($_SESSION['tipo_usuario'] === 'admin' ? 'expedientes.php' : 'expedientesuser.php'));
-    exit();
-}
-
-$oficio_id = mysqli_real_escape_string($conn, $_GET['id']);
-
-// Obtener información del oficio
-$query = "
-    SELECT o.*, a.nombre as area_nombre, l.nombre as usuario_nombre,
-           ad.nombre as area_derivada_nombre, ud.nombre as usuario_derivado_nombre
-    FROM oficios o 
-    LEFT JOIN areas a ON o.area_id = a.id 
-    LEFT JOIN login l ON o.usuario_id = l.id
-    LEFT JOIN areas ad ON o.area_derivada_id = ad.id
-    LEFT JOIN login ud ON o.usuario_derivado_id = ud.id
-    WHERE o.id = '$oficio_id'
-";
-
-$result = mysqli_query($conn, $query);
-$oficio = mysqli_fetch_assoc($result);
-
-if (!$oficio) {
-    header("Location: " . ($_SESSION['tipo_usuario'] === 'admin' ? 'expedientes.php' : 'expedientesuser.php'));
-    exit();
-}
-
-// Verificar permisos (solo el usuario asignado o admin puede responder)
-$puede_responder = false;
-if ($_SESSION['tipo_usuario'] === 'admin') {
-    $puede_responder = true;
-} else {
-    // Para usuarios regulares, verificar si es el usuario asignado
-    if (isset($_SESSION['id']) && $oficio['usuario_derivado_id'] == $_SESSION['id']) {
-        $puede_responder = true;
-    } elseif (isset($_SESSION['user_id']) && $oficio['usuario_derivado_id'] == $_SESSION['user_id']) {
-        $puede_responder = true;
-    } elseif (isset($_SESSION['usuario_id']) && $oficio['usuario_derivado_id'] == $_SESSION['usuario_id']) {
-        $puede_responder = true;
-    }
-}
-
-if (!$puede_responder) {
-    header("Location: " . ($_SESSION['tipo_usuario'] === 'admin' ? 'expedientes.php' : 'expedientesuser.php'));
-    exit();
-}
-
-// Procesar respuesta del oficio
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    if (isset($_POST['completar'])) {
-        // Completar el oficio
-        $respuesta = mysqli_real_escape_string($conn, $_POST['respuesta']);
-        
-        $update_query = "UPDATE oficios SET 
-                        respuesta = '$respuesta',
-                        estado = 'completado',
-                        fecha_respuesta = NOW()
-                        WHERE id = '$oficio_id'";
-        
-        if (mysqli_query($conn, $update_query)) {
-            header("Location: " . ($_SESSION['tipo_usuario'] === 'admin' ? 'expedientes.php' : 'expedientesuser.php') . "?mensaje=Oficio marcado como completado");
-            exit();
-        } else {
-            $mensaje_error = "Error al completar el oficio: " . mysqli_error($conn);
-        }
-    } elseif (isset($_POST['denegar'])) {
-        // Denegar el oficio
-        $respuesta = mysqli_real_escape_string($conn, $_POST['respuesta']);
-        
-        $update_query = "UPDATE oficios SET 
-                        respuesta = '$respuesta',
-                        estado = 'denegado',
-                        fecha_respuesta = NOW()
-                        WHERE id = '$oficio_id'";
-        
-        if (mysqli_query($conn, $update_query)) {
-            header("Location: " . ($_SESSION['tipo_usuario'] === 'admin' ? 'expedientes.php' : 'expedientesuser.php') . "?mensaje=Oficio denegado");
-            exit();
-        } else {
-            $mensaje_error = "Error al denegar el oficio: " . mysqli_error($conn);
-        }
-    }
-}
-
-// Cerrar conexión
-mysqli_close($conn);
-?>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -115,7 +6,7 @@ mysqli_close($conn);
     <title>SIS-OP - Responder Oficio</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="..\..\css\dashboard\styledash.css">
+    <link rel="stylesheet" href="/mvc_oficialiapartes/css/dashboard/styledash.css">
     <style>
         .document-details {
             background-color: #f8f9fa;
@@ -181,39 +72,39 @@ mysqli_close($conn);
         
         <ul class="nav flex-column">
             <li class="nav-item">
-                <a class="nav-link" href="<?php echo $_SESSION['tipo_usuario'] === 'admin' ? 'homeadmin.php' : 'homeuser.php'; ?>">
+                <a class="nav-link" href="index.php?action=homeadmin">
                     <i class="fas fa-home"></i>
                     <span>Inicio</span>
                 </a>
             </li>
             <?php if ($_SESSION['tipo_usuario'] === 'admin'): ?>
                 <li class="nav-item">
-                    <a class="nav-link" href="areas.php">
+                    <a class="nav-link" href="index.php?action=areasadmin">
                         <i class="fas fa-layer-group"></i>
                         <span>Áreas</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="users.php">
+                    <a class="nav-link" href="index.php?action=usersadmin">
                         <i class="fas fa-users"></i>
                         <span>Usuarios</span>
                     </a>
                 </li>
             <?php endif; ?>
             <li class="nav-item">
-                <a class="nav-link" href="<?php echo $_SESSION['tipo_usuario'] === 'admin' ? 'expedientes.php' : 'expedientesuser.php'; ?>">
+                <a class="nav-link" href="index.php?action=expedientesadmin">
                     <i class="fas fa-folder"></i>
                     <span>Expedientes</span>
                 </a>
             </li>
             <li class="nav-item mt-4">
-                <a class="nav-link" href="<?php echo $_SESSION['tipo_usuario'] === 'admin' ? 'config.php' : 'configuser.php'; ?>">
+                <a class="nav-link" href="index.php?action=configadmin">
                     <i class="fas fa-cog"></i>
                     <span>Configuración</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="../../inicio/logout.php">
+                <a class="nav-link" href="index.php?action=logout">
                     <i class="fas fa-sign-out-alt"></i>
                     <span>Cerrar Sesión</span>
                 </a>
@@ -225,7 +116,7 @@ mysqli_close($conn);
     <div class="main-content">
         <!-- Header -->
         <div class="header">
-            <h2 class="mb-0">Dashboard <?php echo $_SESSION['tipo_usuario'] === 'admin' ? 'Administrador' : 'Usuario'; ?></h2>
+            <h2 class="mb-0">Dashboard Administrador</h2>
             <div class="user-info">
                 <div class="user-avatar"><?php echo substr($_SESSION['nombre'], 0, 2); ?></div>
                 <div>
@@ -236,9 +127,9 @@ mysqli_close($conn);
         </div>
 
         <!-- Mostrar mensajes de error -->
-        <?php if (isset($mensaje_error)): ?>
+        <?php if (!empty($mensaje_error)): ?>
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <?php echo $mensaje_error; ?>
+                <?php echo htmlspecialchars($mensaje_error); ?>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         <?php endif; ?>
@@ -306,11 +197,11 @@ mysqli_close($conn);
                     </div>
                     <div class="detail-row">
                         <span class="detail-label">Área Origen:</span>
-                        <span class="detail-value"><?php echo htmlspecialchars($oficio['area_nombre']); ?></span>
+                        <span class="detail-value"><?php echo htmlspecialchars($oficio['area_nombre'] ?? 'N/A'); ?></span>
                     </div>
                     <div class="detail-row">
                         <span class="detail-label">Usuario Origen:</span>
-                        <span class="detail-value"><?php echo htmlspecialchars($oficio['usuario_nombre']); ?></span>
+                        <span class="detail-value"><?php echo htmlspecialchars($oficio['usuario_nombre'] ?? 'N/A'); ?></span>
                     </div>
                 </div>
             </div>
@@ -386,7 +277,7 @@ mysqli_close($conn);
                     
                     <div class="action-buttons">
                         <div class="d-flex justify-content-between">
-                            <a href="<?php echo $_SESSION['tipo_usuario'] === 'admin' ? 'expedientes.php' : 'expedientesuser.php'; ?>" class="btn btn-secondary">
+                            <a href="index.php?action=expedientesadmin" class="btn btn-secondary">
                                 <i class="fas fa-arrow-left me-1"></i> Volver
                             </a>
                             <div>

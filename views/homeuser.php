@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SIS-MPV - Dashboard</title>
+    <title>SIS-MPV - Dashboard Usuario</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="/mvc_oficialiapartes/css/dashboard/styledash.css">
     <style>
-        
+        /* Estilos específicos para el dashboard de usuario si son necesarios */
     </style>
 </head>
 <body>
@@ -21,31 +21,19 @@
         
         <ul class="nav flex-column">
             <li class="nav-item">
-                <a class="nav-link active" href="index.php?action=homeadmin">
+                <a class="nav-link active" href="index.php?action=homeuser">
                     <i class="fas fa-home"></i>
                     <span>Inicio</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="index.php?action=areasadmin">
-                    <i class="fas fa-layer-group"></i>
-                    <span>Áreas</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="index.php?action=usersadmin">
-                    <i class="fas fa-users"></i>
-                    <span>Usuarios</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="index.php?action=expedientesadmin">
+                <a class="nav-link" href="index.php?action=expedientesuser">
                     <i class="fas fa-folder"></i>
                     <span>Expedientes</span>
                 </a>
             </li>
             <li class="nav-item mt-4">
-                <a class="nav-link" href="index.php?action=configadmin">
+                <a class="nav-link" href="index.php?action=configuser">
                     <i class="fas fa-cog"></i>
                     <span>Configuración</span>
                 </a>
@@ -58,12 +46,11 @@
             </li>
         </ul>
     </div>
-
     
     <div class="main-content">
         
         <div class="header">
-            <h2 class="mb-0">Dashboard Administrador</h2>
+            <h2 class="mb-0">Dashboard Usuario</h2>
             <div class="user-info">
                 <div class="user-avatar"><?php echo substr($_SESSION['nombre'], 0, 2); ?></div>
                 <div>
@@ -74,15 +61,8 @@
         </div>
 
        
-        <h3 class="dashboard-title">Resumen de Oficios</h3>
+        <h3 class="dashboard-title">Mis Oficios</h3>
         <div class="stats-container">
-            <div class="stat-card pending" onclick="filterOficios('pendiente')">
-                <div class="stat-icon">
-                    <i class="fas fa-clock"></i>
-                </div>
-                <div class="stat-number"><?php echo $estadisticas['pendientes']; ?></div>
-                <div class="stat-title">Pendientes</div>
-            </div>
             
             <div class="stat-card in-process" onclick="filterOficios('tramite')">
                 <div class="stat-icon">
@@ -111,7 +91,7 @@
 
         <!-- Recent Activity -->
         <div class="recent-activity">
-            <h4 class="activity-title">Actividad Reciente</h4>
+            <h4 class="activity-title">Mi Actividad Reciente</h4>
             
             <?php if (empty($actividad_reciente)): ?>
                 <div class="no-activity">
@@ -162,11 +142,11 @@
     <script>
         function filterOficios(estado) {
             // Redirigir a la página de expedientes con el filtro aplicado
-            window.location.href = 'index.php?action=expedientesadmin&estado=' + estado;
+            window.location.href = 'index.php?action=expedientesuser&estado=' + estado;
         }
         
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('Dashboard administrativo cargado');
+            console.log('Dashboard de usuario cargado');
             // Aquí puedes agregar más funcionalidades JavaScript si es necesario
         });
     </script>
