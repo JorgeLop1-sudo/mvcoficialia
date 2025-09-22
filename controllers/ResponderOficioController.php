@@ -48,13 +48,26 @@ class ResponderOficioController {
                 $nuevo_estado = isset($_POST['completar']) ? 'completado' : 'denegado';
                 
                 $resultado = $expedienteModel->actualizarRespuesta($oficio_id, $respuesta, $nuevo_estado);
-                
-                if ($resultado['success']) {
-                    header("Location: index.php?action=expedientesadmin&mensaje=" . urlencode($resultado['mensaje']));
-                    exit();
-                } else {
-                    $mensaje_error = $resultado['mensaje'];
+
+                if ($_SESSION['tipo_usuario'] === 'admin' ) {
+                    if ($resultado['success']) {
+                        header("Location: index.php?action=expedientesadmin&mensaje=" . urlencode($resultado['mensaje']));
+                        exit();
+                    } else {
+                        $mensaje_error = $resultado['mensaje'];
+                    }
                 }
+
+                if ($_SESSION['tipo_usuario'] === 'user' ) {
+                    if ($resultado['success']) {
+                        header("Location: index.php?action=expedientesuser&mensaje=" . urlencode($resultado['mensaje']));
+                        exit();
+                    } else {
+                        $mensaje_error = $resultado['mensaje'];
+                    }
+                }
+
+                
             }
         }
 
@@ -68,7 +81,7 @@ class ResponderOficioController {
     }
 
     private function verificarPermisos($oficio, $session) {
-        if ($session['tipo_usuario'] === 'admin') {
+        if ($session['tipo_usuario'] === 'admin' || $session['tipo_usuario'] === 'user') {
             return true;
         }
 

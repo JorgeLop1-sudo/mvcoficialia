@@ -36,7 +36,7 @@
         
         <ul class="nav flex-column">
             <li class="nav-item">
-                <a class="nav-link" href="index.php?action=homeadmin">
+                <a class="nav-link" href="index.php?action=homedash">
                     <i class="fas fa-home"></i>
                     <span>Inicio</span>
                 </a>
@@ -60,7 +60,7 @@
                 </a>
             </li>
             <li class="nav-item mt-4">
-                <a class="nav-link" href="index.php?action=configadmin">
+                <a class="nav-link" href="index.php?action=config">
                     <i class="fas fa-cog"></i>
                     <span>Configuración</span>
                 </a>

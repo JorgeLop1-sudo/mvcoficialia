@@ -71,12 +71,16 @@
         </div>
         
         <ul class="nav flex-column">
+
+            
             <li class="nav-item">
-                <a class="nav-link" href="index.php?action=homeadmin">
+                <a class="nav-link active" href="index.php?action=homedash">
                     <i class="fas fa-home"></i>
                     <span>Inicio</span>
                 </a>
             </li>
+            
+
             <?php if ($_SESSION['tipo_usuario'] === 'admin'): ?>
                 <li class="nav-item">
                     <a class="nav-link" href="index.php?action=areasadmin">
@@ -90,19 +94,33 @@
                         <span>Usuarios</span>
                     </a>
                 </li>
-            <?php endif; ?>
             <li class="nav-item">
                 <a class="nav-link" href="index.php?action=expedientesadmin">
                     <i class="fas fa-folder"></i>
                     <span>Expedientes</span>
                 </a>
             </li>
+            <?php endif; ?>
+
+            <?php if ($_SESSION['tipo_usuario'] === 'user'): ?>
+            <li class="nav-item">
+                <a class="nav-link" href="index.php?action=expedientesuser">
+                    <i class="fas fa-folder"></i>
+                    <span>Expedientes</span>
+                </a>
+            </li>
+            <?php endif; ?>
+
+
+            
+
             <li class="nav-item mt-4">
-                <a class="nav-link" href="index.php?action=configadmin">
+                <a class="nav-link" href="index.php?action=config">
                     <i class="fas fa-cog"></i>
                     <span>Configuración</span>
                 </a>
             </li>
+
             <li class="nav-item">
                 <a class="nav-link" href="index.php?action=logout">
                     <i class="fas fa-sign-out-alt"></i>
@@ -277,9 +295,19 @@
                     
                     <div class="action-buttons">
                         <div class="d-flex justify-content-between">
+
+                            <?php if ($_SESSION['tipo_usuario'] === 'admin'): ?>
                             <a href="index.php?action=expedientesadmin" class="btn btn-secondary">
                                 <i class="fas fa-arrow-left me-1"></i> Volver
                             </a>
+                            <?php endif; ?>
+
+                            <?php if ($_SESSION['tipo_usuario'] === 'user'): ?>
+                            <a href="index.php?action=expedientesuser" class="btn btn-secondary">
+                                <i class="fas fa-arrow-left me-1"></i> Volver
+                            </a>
+                            <?php endif; ?>
+
                             <div>
                                 <button type="submit" name="denegar" class="btn btn-danger me-2">
                                     <i class="fas fa-times-circle me-1"></i> Denegar

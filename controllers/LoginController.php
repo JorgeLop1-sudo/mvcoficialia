@@ -29,9 +29,9 @@ class LoginController {
 
                 // Redirigir según el tipo de usuario
                 if ($user['tipo_usuario'] === 'admin') {
-                    header("Location: index.php?action=homeadmin");
+                    header("Location: index.php?action=homedash");
                 } else {
-                    header("Location: index.php?action=homeuser");
+                    header("Location: index.php?action=homedash");
                 }
                 exit;
             } else {
@@ -49,9 +49,9 @@ class LoginController {
         
         // Redirigir según el tipo de usuario
         if ($_SESSION['tipo_usuario'] === 'admin') {
-            header("Location: index.php?action=homeadmin");
+            header("Location: index.php?action=homedash");
         } else {
-            header("Location: index.php?action=homeuser");
+            header("Location: index.php?action=homedash");
         }
         exit;
     }

@@ -2,14 +2,14 @@
 require_once __DIR__ . '/../models/User.php';
 require_once __DIR__ . '/../models/Area.php';
 
-class ConfigAdminController {
+class ConfigController {
     public function index() {
         if (session_status() === PHP_SESSION_NONE) session_start();
 
-        if (!isset($_SESSION['usuario']) || $_SESSION['tipo_usuario'] !== 'admin') {
+        /*if (!isset($_SESSION['usuario']) || $_SESSION['tipo_usuario'] !== 'admin') {
             header("Location: index.php?action=login");
             exit();
-        }
+        }*/
 
         // PROCESAR FORMULARIOS PRIMERO (para AJAX)
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
@@ -46,7 +46,7 @@ class ConfigAdminController {
         $view_data = compact('usuario_actual');
         extract($view_data);
 
-        include __DIR__ . '/../views/configadmin.php';
+        include __DIR__ . '/../views/config.php';
     }
 
     private function procesarFormulario() {
