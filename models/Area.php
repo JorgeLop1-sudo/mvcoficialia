@@ -46,8 +46,8 @@ class Area {
 
     public function obtenerPorId($id) {
         $id = mysqli_real_escape_string($this->conn, $id);
-        $result = mysqli_query($this->conn, "SELECT * FROM areas WHERE id = '$id'");
-        return $result && mysqli_num_rows($result) > 0 ? mysqli_fetch_assoc($result) : null;
+        $query = mysqli_query($this->conn, "SELECT * FROM areas WHERE id = '$id'");
+        return $query && mysqli_num_rows($query) > 0 ? mysqli_fetch_assoc($query) : null;
     }
 
     public function crear($nombre, $descripcion) {

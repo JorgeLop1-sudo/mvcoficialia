@@ -4,6 +4,8 @@ require_once __DIR__ . '/controllers/HomeAdminController.php';
 require_once __DIR__ . '/controllers/AreasAdminController.php';
 require_once __DIR__ . '/controllers/UsersAdminController.php';
 require_once __DIR__ . '/controllers/ExpedientesAdminController.php';
+require_once __DIR__ . '/controllers/ConfigAdminController.php'; 
+
 
 $action = $_GET['action'] ?? 'login';
 
@@ -26,7 +28,9 @@ switch ($action) {
     case 'expedientesadmin': // Añadir este caso
         (new ExpedientesAdminController())->index();
         break;    
-        
+    case 'configadmin': // Añadir este caso
+        (new ConfigAdminController())->index();
+        break;    
     default:
         (new LoginController())->login();
         break;

@@ -64,15 +64,17 @@ class User {
         $usuario = mysqli_real_escape_string($this->conn, $usuario);
         $nombre = mysqli_real_escape_string($this->conn, $nombre);
         $tipo_usuario = mysqli_real_escape_string($this->conn, $tipo_usuario);
-        $area_id = mysqli_real_escape_string($this->conn, $area_id);
         $email = mysqli_real_escape_string($this->conn, $email);
-
+        
+        // Manejar area_id NULL
+        $area_id_value = ($area_id === null || $area_id === '') ? 'NULL' : "'" . mysqli_real_escape_string($this->conn, $area_id) . "'";
+    
         // Verificar si el usuario ya existe (excluyendo el actual)
         $check_user_query = mysqli_query($this->conn, "SELECT * FROM login WHERE usuario = '$usuario' AND id != '$id'");
         if (mysqli_num_rows($check_user_query) > 0) {
             return "Error: El nombre de usuario ya existe";
         }
-
+    
         // Verificar si el correo ya existe (excluyendo el actual)
         if (!empty($email)) {
             $check_email_query = mysqli_query($this->conn, "SELECT * FROM login WHERE email = '$email' AND id != '$id'");
@@ -80,15 +82,15 @@ class User {
                 return "Error: El correo electrónico ya está registrado";
             }
         }
-
+    
         $password_update = "";
         if ($password) {
             $password_hashed = password_hash($password, PASSWORD_DEFAULT);
             $password_update = ", password = '$password_hashed'";
         }
-
+    
         $update_query = "UPDATE login SET usuario = '$usuario', nombre = '$nombre', 
-                         tipo_usuario = '$tipo_usuario', area_id = '$area_id', email = '$email'
+                         tipo_usuario = '$tipo_usuario', area_id = $area_id_value, email = '$email'
                          $password_update WHERE id = '$id'";
         
         return mysqli_query($this->conn, $update_query) 
