@@ -14,7 +14,7 @@ $login_type = "users";
     <title>Oficialía de Partes - Login</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="/mvc_oficialiapartes/css/inicio/styleindex.css">
+    <link rel="stylesheet" href="/mvc_oficialiapartes/css/caseta/styleindex.css">
 </head>
 <body>
 <div>
@@ -24,9 +24,8 @@ $login_type = "users";
     </div>
     
     <div class="nav-links">
-        <a href="index.php" class="nav-link"><i class="fas fa-home"></i> Inicio</a>
-        <a href="registrar.php" class="nav-link"><i class="fas fa-file-alt"></i> Registrar Oficio</a>
-        <a href="buscar.php" class="nav-link"><i class="fas fa-search"></i> Buscar Oficio</a>
+        <a href="index.php?action=login" class="nav-link"><i class="fas fa-user"></i> Iniciar Sesion</a>
+        <a href="index.php?action=buscar" class="nav-link"><i class="fas fa-search"></i> Buscar Oficio</a>
     </div>
 
     <div class="login-container">

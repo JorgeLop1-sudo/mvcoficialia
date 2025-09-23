@@ -7,6 +7,7 @@ require_once __DIR__ . '/controllers/ExpedientesController.php';
 require_once __DIR__ . '/controllers/ConfigController.php'; 
 require_once __DIR__ . '/controllers/ResponderOficioController.php'; 
 require_once __DIR__ . '/controllers/CasetaDashController.php'; 
+require_once __DIR__ . '/controllers/BuscarController.php'; 
 
 
 $action = $_GET['action'] ?? 'login';
@@ -39,6 +40,13 @@ switch ($action) {
     case 'casetadash':
         (new CasetaDashController())->index();
         break;
+    case 'buscar':
+        (new BuscarController())->index();
+        break;
+    case 'buscar_oficio': // Añadir nuevo caso para la búsqueda AJAX
+        (new BuscarController())->buscarOficio();
+        break;
+    
     default:
         (new LoginController())->login();
         break;
