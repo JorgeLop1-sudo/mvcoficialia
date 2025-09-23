@@ -60,7 +60,61 @@
             background-color: #f8d7da;
             color: #721c24;
         }
-    </style>
+    
+
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+        }
+        .timeline-item {
+            position: relative;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #e9ecef;
+        }
+        .timeline-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        .timeline-marker {
+            position: absolute;
+            left: -30px;
+            top: 0;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: #007bff;
+            border: 3px solid white;
+            box-shadow: 0 0 0 3px #007bff;
+        }
+        .timeline-item-current .timeline-marker {
+            background-color: #28a745;
+            box-shadow: 0 0 0 3px #28a745;
+        }
+        .timeline-header {
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .timeline-date {
+            color: #6c757d;
+            font-size: 0.9em;
+        }
+        .timeline-details {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        .timeline-response {
+            background-color: white;
+            padding: 10px;
+            border-left: 3px solid #007bff;
+            margin-top: 10px;
+        }
+        </style>
+
 </head>
 <body>
     
@@ -72,49 +126,49 @@
 
         <ul class="nav flex-column">
 
-<li class="nav-item">
-    <a class="nav-link" href="index.php?action=homedash">
-        <i class="fas fa-home"></i>
-        <span>Inicio</span>
-    </a>
-</li>
+            <li class="nav-item">
+                <a class="nav-link" href="index.php?action=homedash">
+                    <i class="fas fa-home"></i>
+                    <span>Inicio</span>
+                </a>
+            </li>
 
-<?php if ($_SESSION['tipo_usuario'] === 'admin'): ?>
-    <li class="nav-item">
-        <a class="nav-link" href="index.php?action=areasadmin">
-            <i class="fas fa-layer-group"></i>
-            <span>Áreas</span>
-        </a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="index.php?action=usersadmin">
-            <i class="fas fa-users"></i>
-            <span>Usuarios</span>
-        </a>
-    </li>
-<?php endif; ?>
+            <?php if ($_SESSION['tipo_usuario'] === 'admin'): ?>
+                <li class="nav-item">
+                    <a class="nav-link" href="index.php?action=areasadmin">
+                        <i class="fas fa-layer-group"></i>
+                        <span>Áreas</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="index.php?action=usersadmin">
+                        <i class="fas fa-users"></i>
+                        <span>Usuarios</span>
+                    </a>
+                </li>
+            <?php endif; ?>
 
-<li class="nav-item">
-    <a class="nav-link active" href="index.php?action=expedientes">
-        <i class="fas fa-folder"></i>
-        <span>Expedientes</span>
-    </a>
-</li>
+            <li class="nav-item">
+                <a class="nav-link active" href="index.php?action=expedientes">
+                    <i class="fas fa-folder"></i>
+                    <span>Expedientes</span>
+                </a>
+            </li>
 
-<li class="nav-item mt-4">
-    <a class="nav-link" href="index.php?action=config">
-        <i class="fas fa-cog"></i>
-        <span>Configuración</span>
-    </a>
-</li>
+            <li class="nav-item mt-4">
+                <a class="nav-link" href="index.php?action=config">
+                    <i class="fas fa-cog"></i>
+                    <span>Configuración</span>
+                </a>
+            </li>
 
-<li class="nav-item">
-    <a class="nav-link" href="index.php?action=logout">
-        <i class="fas fa-sign-out-alt"></i>
-        <span>Cerrar Sesión</span>
-    </a>
-</li>
-</ul>
+            <li class="nav-item">
+                <a class="nav-link" href="index.php?action=logout">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Cerrar Sesión</span>
+                </a>
+            </li>
+        </ul>
         
     </div>
 
@@ -138,6 +192,79 @@
                 <?php echo htmlspecialchars($mensaje_error); ?>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
+        <?php endif; ?>
+
+        <!-- Historial de Derivaciones -->
+        <?php if (!empty($historial_derivaciones)): ?>
+        <div class="card mt-4">
+            <div class="card-header">
+                <h5 class="mb-0">Historial de Derivaciones</h5>
+            </div>
+            <div class="card-body">
+                <div class="timeline">
+                    <?php foreach ($historial_derivaciones as $index => $derivacion): ?>
+                        <div class="timeline-item <?php echo $index === 0 ? 'timeline-item-current' : ''; ?>">
+                            <div class="timeline-marker"></div>
+                            <div class="timeline-content">
+                                <div class="timeline-header">
+                                    <strong>Paso <?php echo $index + 1; ?></strong>
+                                    <span class="timeline-date">
+                                        <?php echo date('d/m/Y H:i', strtotime($derivacion['fecha_derivacion'] ?? $derivacion['fecha_registro'])); ?>
+                                    </span>
+                                </div>
+                                
+                                <div class="timeline-details">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <strong>Origen:</strong><br>
+                                            Área: <?php echo htmlspecialchars($derivacion['area_origen'] ?? 'N/A'); ?><br>
+                                            Usuario: <?php echo htmlspecialchars($derivacion['usuario_origen'] ?? 'N/A'); ?>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <?php if (!empty($derivacion['area_derivada'])): ?>
+                                                <strong>Derivado a:</strong><br>
+                                                Área: <?php echo htmlspecialchars($derivacion['area_derivada']); ?><br>
+                                                <?php if (!empty($derivacion['usuario_derivado'])): ?>
+                                                    Usuario: <?php echo htmlspecialchars($derivacion['usuario_derivado']); ?>
+                                                <?php endif; ?>
+                                            <?php else: ?>
+                                                <strong>Estado actual:</strong><br>
+                                                <span class="badge-estado <?php 
+                                                    switch($derivacion['estado']) {
+                                                        case 'pendiente': echo 'badge-pendiente'; break;
+                                                        case 'tramite': echo 'badge-proceso'; break;
+                                                        case 'completado': echo 'badge-completado'; break;
+                                                        case 'denegado': echo 'badge-denegado'; break;
+                                                        default: echo 'badge-pendiente';
+                                                    }
+                                                ?>">
+                                                    <?php 
+                                                    switch($derivacion['estado']) {
+                                                        case 'pendiente': echo 'Pendiente'; break;
+                                                        case 'tramite': echo 'En trámite'; break;
+                                                        case 'completado': echo 'Completado'; break;
+                                                        case 'denegado': echo 'Denegado'; break;
+                                                        default: echo 'Pendiente';
+                                                    }
+                                                    ?>
+                                                </span>
+                                            <?php endif; ?>
+                                        </div>
+                                    </div>
+                                    
+                                    <?php if (!empty($derivacion['respuesta'])): ?>
+                                        <div class="timeline-response mt-2">
+                                            <strong>Respuesta/Comentario:</strong><br>
+                                            <?php echo nl2br(htmlspecialchars($derivacion['respuesta'])); ?>
+                                        </div>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+        </div>
         <?php endif; ?>
 
         <!-- Page Title -->
@@ -285,13 +412,13 @@
                         <div class="d-flex justify-content-between">
 
                             <?php if ($_SESSION['tipo_usuario'] === 'admin'): ?>
-                            <a href="index.php?action=expedientesadmin" class="btn btn-secondary">
+                            <a href="index.php?action=expedientes" class="btn btn-secondary">
                                 <i class="fas fa-arrow-left me-1"></i> Volver
                             </a>
                             <?php endif; ?>
 
                             <?php if ($_SESSION['tipo_usuario'] === 'user'): ?>
-                            <a href="index.php?action=expedientesuser" class="btn btn-secondary">
+                            <a href="index.php?action=expedientes" class="btn btn-secondary">
                                 <i class="fas fa-arrow-left me-1"></i> Volver
                             </a>
                             <?php endif; ?>

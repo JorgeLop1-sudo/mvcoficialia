@@ -232,30 +232,36 @@
                                         <?php endif; ?>
                                     </td>
                                     <td class="action-buttons">
-                                        <?php if (!empty($expediente['archivo_ruta'])): ?>
-                                            <a href="<?php echo $expediente['archivo_ruta']; ?>" target="_blank" class="btn btn-sm btn-primary" title="Ver documento">
-                                                <i class="fas fa-eye"></i>
-                                            </a>
-                                        <?php else: ?>
-                                            <button class="btn btn-sm btn-secondary" title="Sin documento" disabled>
-                                                <i class="fas fa-eye-slash"></i>
-                                            </button>
-                                        <?php endif; ?>
-                                        
+                                    <?php if (!empty($expediente['archivo_ruta'])): ?>
+                                        <a href="<?php echo $expediente['archivo_ruta']; ?>" target="_blank" class="btn btn-sm btn-primary" title="Ver documento">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                    <?php else: ?>
+                                        <button class="btn btn-sm btn-secondary" title="Sin documento" disabled>
+                                            <i class="fas fa-eye-slash"></i>
+                                        </button>
+                                    <?php endif; ?>
+                                    
+                                    <!-- Solo mostrar derivar si es admin o si el oficio está asignado al usuario -->
+                                    <?php if ($tipo_usuario === 'admin' || $expediente['usuario_derivado_id'] == $_SESSION['id']): ?>
                                         <button class="btn btn-sm btn-warning" title="Derivar documento" onclick="abrirModalDerivacion(<?php echo $expediente['id']; ?>, '<?php echo htmlspecialchars($expediente['respuesta'] ?? ''); ?>')">
                                             <i class="fas fa-share"></i>
                                         </button>
-                                        
+                                    <?php endif; ?>
+                                    
+                                    <!-- Solo mostrar responder si el oficio está asignado al usuario actual -->
+                                    <?php if ($expediente['usuario_derivado_id'] == $_SESSION['id'] || $tipo_usuario === 'admin'): ?>
                                         <a href="index.php?action=responderoficio&id=<?php echo $expediente['id']; ?>" class="btn btn-sm btn-success" title="Responder documento">
                                             <i class="fas fa-reply"></i>
                                         </a>
-                                    
-                                        <?php if ($_SESSION['tipo_usuario'] === 'admin'): ?>
-                                            <button class="btn btn-sm btn-danger" title="Eliminar documento" onclick="confirmarEliminacion(<?php echo $expediente['id']; ?>)">
+                                    <?php endif; ?>
+
+                                    <?php if ($tipo_usuario === 'admin'): ?>
+                                        <button class="btn btn-sm btn-danger" title="Eliminar documento" onclick="confirmarEliminacion(<?php echo $expediente['id']; ?>)">
                                             <i class="fas fa-trash"></i>
-                                            </button>
-                                        <?php endif; ?>
-                                    </td>
+                                        </button>
+                                    <?php endif; ?>
+                                </td>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>

@@ -7,11 +7,6 @@ class ExpedientesController {
     public function index() {
         if (session_status() === PHP_SESSION_NONE) session_start();
 
-        /*if (!isset($_SESSION['usuario']) || $_SESSION['tipo_usuario'] !== 'admin') {
-            header("Location: index.php?action=login");
-            exit();
-        }*/
-
         $database = new Database();
         $conn = $database->connect();
         $expedienteModel = new Expediente($conn);
@@ -21,6 +16,10 @@ class ExpedientesController {
         $mensaje = "";
         $error = "";
         $filtros = [];
+
+        // Obtener información del usuario actual
+        $usuario_id = $_SESSION['id'] ?? null;
+        $tipo_usuario = $_SESSION['tipo_usuario'] ?? 'user';
 
         // Manejar solicitud AJAX para usuarios por área
         if (isset($_GET['ajax']) && $_GET['ajax'] == 'usuarios_por_area' && isset($_GET['area_id'])) {
@@ -44,11 +43,11 @@ class ExpedientesController {
             $filtros['estado'] = $_GET['estado'];
         }
 
-        // Obtener expedientes con filtros
-        $expedientes = $expedienteModel->obtenerTodos($filtros);
+        // Obtener expedientes con filtros y según el tipo de usuario
+        $expedientes = $expedienteModel->obtenerTodos($filtros, $usuario_id, $tipo_usuario);
 
-        // Procesar eliminación de oficio
-        if (isset($_GET['eliminar'])) {
+        // Procesar eliminación de oficio (solo admin)
+        if (isset($_GET['eliminar']) && $tipo_usuario === 'admin') {
             $mensaje = $expedienteModel->eliminar($_GET['eliminar']);
             header("Location: index.php?action=expedientes&mensaje=" . urlencode($mensaje));
             exit();
@@ -74,7 +73,7 @@ class ExpedientesController {
         mysqli_close($conn);
 
         // Pasar variables a la vista
-        $view_data = compact('expedientes', 'areas', 'usuarios', 'mensaje', 'error', 'filtros');
+        $view_data = compact('expedientes', 'areas', 'usuarios', 'mensaje', 'error', 'filtros', 'tipo_usuario');
         extract($view_data);
 
         include __DIR__ . '/../views/expedientes.php';
