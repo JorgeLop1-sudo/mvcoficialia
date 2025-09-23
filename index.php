@@ -6,6 +6,7 @@ require_once __DIR__ . '/controllers/UsersAdminController.php';
 require_once __DIR__ . '/controllers/ExpedientesController.php';
 require_once __DIR__ . '/controllers/ConfigController.php'; 
 require_once __DIR__ . '/controllers/ResponderOficioController.php'; 
+require_once __DIR__ . '/controllers/CasetaDashController.php'; 
 
 
 $action = $_GET['action'] ?? 'login';
@@ -34,6 +35,9 @@ switch ($action) {
         break;      
     case 'responderoficio':
         (new ResponderOficioController())->index();
+        break;
+    case 'casetadash':
+        (new CasetaDashController())->index();
         break;
     default:
         (new LoginController())->login();

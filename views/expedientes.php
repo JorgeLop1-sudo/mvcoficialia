@@ -102,7 +102,7 @@
         <div class="search-section">
             <h5 class="search-title">Búsqueda de Expedientes</h5>
             <form method="GET" action="">
-                <input type="hidden" name="action" value="expedientesadmin">
+                <input type="hidden" name="action" value="expedientes">
                 <div class="search-grid">
                     <div class="search-field">
                         <label for="numero">Número de Documento</label>
