@@ -61,59 +61,119 @@
             color: #721c24;
         }
     
-
-        .timeline {
+        
+        .derivation-timeline {
             position: relative;
-            padding-left: 30px;
+            padding-left: 40px;
         }
+
         .timeline-item {
             position: relative;
-            margin-bottom: 20px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid #e9ecef;
+            margin-bottom: 30px;
         }
+
         .timeline-item:last-child {
-            border-bottom: none;
             margin-bottom: 0;
-            padding-bottom: 0;
         }
+
+        .timeline-item.current .timeline-marker {
+            color: #28a745;
+            background-color: #fff;
+            border: 2px solid #28a745;
+        }
+
         .timeline-marker {
             position: absolute;
-            left: -30px;
-            top: 0;
-            width: 20px;
-            height: 20px;
+            left: -40px;
+            top: 20px;
+            width: 30px;
+            height: 30px;
             border-radius: 50%;
             background-color: #007bff;
-            border: 3px solid white;
-            box-shadow: 0 0 0 3px #007bff;
-        }
-        .timeline-item-current .timeline-marker {
-            background-color: #28a745;
-            box-shadow: 0 0 0 3px #28a745;
-        }
-        .timeline-header {
+            color: white;
             display: flex;
-            justify-content: between;
             align-items: center;
-            margin-bottom: 10px;
+            justify-content: center;
+            z-index: 2;
         }
-        .timeline-date {
-            color: #6c757d;
-            font-size: 0.9em;
+
+        .timeline-content {
+            border-left: 3px solid #007bff;
+            margin-left: 10px;
+            padding-left: 0;
         }
-        .timeline-details {
+
+        .timeline-item.current .timeline-content {
+            border-left-color: #28a745;
+        }
+
+        .timeline-header {
             background-color: #f8f9fa;
-            padding: 15px;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .timeline-step {
+            color: #495057;
+        }
+
+        .section-title {
+            color: #495057;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            border-bottom: 1px dashed #dee2e6;
+            padding-bottom: 5px;
+        }
+
+        .info-box {
+            background-color: #f8f9fa;
+            padding: 10px;
             border-radius: 5px;
         }
-        .timeline-response {
-            background-color: white;
-            padding: 10px;
-            border-left: 3px solid #007bff;
-            margin-top: 10px;
+
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
         }
-        </style>
+
+        .info-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .info-label {
+            font-weight: 600;
+            color: #6c757d;
+        }
+
+        .info-value {
+            color: #495057;
+        }
+
+        .response-content {
+            background-color: #fff;
+            border: 1px solid #e9ecef;
+            border-radius: 5px;
+            padding: 10px;
+            font-size: 0.9rem;
+        }
+
+        .final-status {
+            text-align: center;
+            padding: 15px;
+        }
+
+        /* Línea conectadora */
+        .derivation-timeline::before {
+            content: '';
+            position: absolute;
+            left: -25px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background-color: #dee2e6;
+            z-index: 1;
+        }
+    </style>
 
 </head>
 <body>
@@ -197,65 +257,123 @@
         <!-- Historial de Derivaciones -->
         <?php if (!empty($historial_derivaciones)): ?>
         <div class="card mt-4">
-            <div class="card-header">
-                <h5 class="mb-0">Historial de Derivaciones</h5>
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0"><i class="fas fa-history me-2"></i>Historial de Derivaciones</h5>
             </div>
             <div class="card-body">
-                <div class="timeline">
+                <div class="derivation-timeline">
                     <?php foreach ($historial_derivaciones as $index => $derivacion): ?>
-                        <div class="timeline-item <?php echo $index === 0 ? 'timeline-item-current' : ''; ?>">
-                            <div class="timeline-marker"></div>
-                            <div class="timeline-content">
-                                <div class="timeline-header">
-                                    <strong>Paso <?php echo $index + 1; ?></strong>
-                                    <span class="timeline-date">
-                                        <?php echo date('d/m/Y H:i', strtotime($derivacion['fecha_derivacion'] ?? $derivacion['fecha_registro'])); ?>
-                                    </span>
+                        <div class="timeline-item <?php echo ($index === count($historial_derivaciones) - 1) ? 'current' : ''; ?>">
+                            <div class="timeline-marker">
+                                <i class="fas fa-<?php echo ($index === count($historial_derivaciones) - 1) ? 'play-circle' : 'circle'; ?>"></i>
+                            </div>
+                            
+                            <div class="timeline-content card">
+                                <div class="card-header timeline-header">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <strong class="timeline-step">Paso <?php echo $index + 1; ?></strong>
+                                        <span class="badge bg-<?php 
+                                            switch($derivacion['estado']) {
+                                                case 'pendiente': echo 'warning'; break;
+                                                case 'tramite': echo 'info'; break;
+                                                case 'completado': echo 'success'; break;
+                                                case 'denegado': echo 'danger'; break;
+                                                default: echo 'secondary';
+                                            }
+                                        ?>">
+                                            <?php echo ucfirst($derivacion['estado']); ?>
+                                        </span>
+                                    </div>
+                                    <small class="text-muted">
+                                        <i class="fas fa-clock me-1"></i>
+                                        <?php echo date('d/m/Y H:i', strtotime($derivacion['fecha_derivacion'])); ?>
+                                    </small>
                                 </div>
                                 
-                                <div class="timeline-details">
+                                <div class="card-body">
                                     <div class="row">
+                                        <!-- Origen -->
                                         <div class="col-md-6">
-                                            <strong>Origen:</strong><br>
-                                            Área: <?php echo htmlspecialchars($derivacion['area_origen'] ?? 'N/A'); ?><br>
-                                            Usuario: <?php echo htmlspecialchars($derivacion['usuario_origen'] ?? 'N/A'); ?>
+                                            <div class="origin-section">
+                                                <h6 class="section-title">
+                                                    <i class="fas fa-arrow-right-from-bracket me-1"></i>
+                                                    Origen
+                                                </h6>
+                                                <div class="info-box">
+                                                    <div class="info-item">
+                                                        <span class="info-label">Área:</span>
+                                                        <span class="info-value"><?php echo htmlspecialchars($derivacion['area_origen_nombre'] ?? 'N/A'); ?></span>
+                                                    </div>
+                                                    <div class="info-item">
+                                                        <span class="info-label">Usuario:</span>
+                                                        <span class="info-value"><?php echo htmlspecialchars($derivacion['usuario_origen_nombre'] ?? 'N/A'); ?></span>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
+                                        
+                                        <!-- Destino -->
                                         <div class="col-md-6">
-                                            <?php if (!empty($derivacion['area_derivada'])): ?>
-                                                <strong>Derivado a:</strong><br>
-                                                Área: <?php echo htmlspecialchars($derivacion['area_derivada']); ?><br>
-                                                <?php if (!empty($derivacion['usuario_derivado'])): ?>
-                                                    Usuario: <?php echo htmlspecialchars($derivacion['usuario_derivado']); ?>
-                                                <?php endif; ?>
+                                            <?php if (!empty($derivacion['area_destino_nombre'])): ?>
+                                                <div class="destination-section">
+                                                    <h6 class="section-title">
+                                                        <i class="fas fa-arrow-right-to-bracket me-1"></i>
+                                                        Destino
+                                                    </h6>
+                                                    <div class="info-box">
+                                                        <div class="info-item">
+                                                            <span class="info-label">Área:</span>
+                                                            <span class="info-value"><?php echo htmlspecialchars($derivacion['area_destino_nombre']); ?></span>
+                                                        </div>
+                                                        <?php if (!empty($derivacion['usuario_destino_nombre'])): ?>
+                                                            <div class="info-item">
+                                                                <span class="info-label">Usuario:</span>
+                                                                <span class="info-value"><?php echo htmlspecialchars($derivacion['usuario_destino_nombre']); ?></span>
+                                                            </div>
+                                                        <?php endif; ?>
+                                                    </div>
+                                                </div>
                                             <?php else: ?>
-                                                <strong>Estado actual:</strong><br>
-                                                <span class="badge-estado <?php 
-                                                    switch($derivacion['estado']) {
-                                                        case 'pendiente': echo 'badge-pendiente'; break;
-                                                        case 'tramite': echo 'badge-proceso'; break;
-                                                        case 'completado': echo 'badge-completado'; break;
-                                                        case 'denegado': echo 'badge-denegado'; break;
-                                                        default: echo 'badge-pendiente';
-                                                    }
-                                                ?>">
-                                                    <?php 
-                                                    switch($derivacion['estado']) {
-                                                        case 'pendiente': echo 'Pendiente'; break;
-                                                        case 'tramite': echo 'En trámite'; break;
-                                                        case 'completado': echo 'Completado'; break;
-                                                        case 'denegado': echo 'Denegado'; break;
-                                                        default: echo 'Pendiente';
-                                                    }
-                                                    ?>
-                                                </span>
+                                                <div class="final-action-section">
+                                                    <h6 class="section-title text-success">
+                                                        <i class="fas fa-flag-checkered me-1"></i>
+                                                        Acción Final
+                                                    </h6>
+                                                    <div class="final-status">
+                                                        <span class="badge bg-<?php 
+                                                            switch($derivacion['estado']) {
+                                                                case 'completado': echo 'success'; break;
+                                                                case 'denegado': echo 'danger'; break;
+                                                                default: echo 'secondary';
+                                                            }
+                                                        ?>">
+                                                            <?php echo strtoupper($derivacion['estado']); ?>
+                                                        </span>
+                                                    </div>
+                                                </div>
                                             <?php endif; ?>
                                         </div>
                                     </div>
                                     
+                                    <!-- Respuesta/Observaciones -->
                                     <?php if (!empty($derivacion['respuesta'])): ?>
-                                        <div class="timeline-response mt-2">
-                                            <strong>Respuesta/Comentario:</strong><br>
-                                            <?php echo nl2br(htmlspecialchars($derivacion['respuesta'])); ?>
+                                        <div class="response-section mt-3">
+                                            <h6 class="section-title">
+                                                <i class="fas fa-comment-dots me-1"></i>
+                                                Respuesta/Observaciones
+                                            </h6>
+                                            <div class="response-content">
+                                                <?php echo nl2br(htmlspecialchars($derivacion['respuesta'])); ?>
+                                            </div>
+                                        </div>
+                                    <?php endif; ?>
+                                    
+                                    <?php if (!empty($derivacion['observaciones'])): ?>
+                                        <div class="observations-section mt-2">
+                                            <small class="text-muted">
+                                                <i class="fas fa-info-circle me-1"></i>
+                                                <?php echo htmlspecialchars($derivacion['observaciones']); ?>
+                                            </small>
                                         </div>
                                     <?php endif; ?>
                                 </div>
