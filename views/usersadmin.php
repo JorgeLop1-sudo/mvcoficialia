@@ -132,7 +132,7 @@
                                 </div>
                                 <div class="user-detail-text">
                                     <strong>Tipo:</strong> 
-                                    <span class="badge bg-<?php echo $user['tipo_usuario'] == 'admin' ? 'warning' : 'info'; ?>">
+                                    <span class="badge bg-<?php echo $user['tipo_usuario'] == 'Administrador' ? 'warning' : 'info'; ?>">
                                         <?php echo htmlspecialchars($user['tipo_usuario']); ?>
                                     </span>
                                 </div>
@@ -231,8 +231,9 @@
                             <label for="tipo_usuario" class="form-label">Tipo de Usuario *</label>
                             <select class="form-select" id="tipo_usuario" name="tipo_usuario" required>
                                 <option value="" selected disabled>Seleccionar tipo</option>
-                                <option value="admin" <?php echo (isset($form_data['tipo_usuario']) && $form_data['tipo_usuario'] == 'admin') ? 'selected' : ''; ?>>Administrador</option>
-                                <option value="user" <?php echo (isset($form_data['tipo_usuario']) && $form_data['tipo_usuario'] == 'user') ? 'selected' : ''; ?>>Usuario</option>
+                                <option value="Administrador" <?php echo (isset($form_data['tipo_usuario']) && $form_data['tipo_usuario'] == 'Administrador') ? 'selected' : ''; ?>>Administrador</option>
+                                <option value="Usuario" <?php echo (isset($form_data['tipo_usuario']) && $form_data['tipo_usuario'] == 'Usuario') ? 'selected' : ''; ?>>Usuario</option>
+                                <option value="Guardia" <?php echo (isset($form_data['tipo_usuario']) && $form_data['tipo_usuario'] == 'Guardia') ? 'selected' : ''; ?>>Guardia</option>
                             </select>
                         </div>
                         <div class="mb-3">
@@ -312,8 +313,9 @@
                         <div class="mb-3">
                             <label for="tipo_usuario_edit" class="form-label">Tipo de Usuario *</label>
                             <select class="form-select" id="tipo_usuario_edit" name="tipo_usuario" required>
-                                <option value="admin" <?php echo $usuario_editar['tipo_usuario'] == 'admin' ? 'selected' : ''; ?>>Administrador</option>
-                                <option value="user" <?php echo $usuario_editar['tipo_usuario'] == 'user' ? 'selected' : ''; ?>>Usuario</option>
+                                <option value="Administrador" <?php echo $usuario_editar['tipo_usuario'] == 'Administrador' ? 'selected' : ''; ?>>Administrador</option>
+                                <option value="Usuario" <?php echo $usuario_editar['tipo_usuario'] == 'Usuario' ? 'selected' : ''; ?>>Usuario</option>
+                                <option value="Guardia" <?php echo $usuario_editar['tipo_usuario'] == 'Guardia' ? 'selected' : ''; ?>>Guardia</option>
                             </select>
                         </div>
                         <div class="mb-3">
@@ -339,7 +341,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <a href="users.php" class="btn btn-secondary">Cancelar</a>
+                        <a href="index.php?action=usersadmin" class="btn btn-secondary">Cancelar</a>
                         <button type="submit" name="editar_usuario" class="btn btn-success" id="submitButtonEdit">Guardar Cambios</button>
                     </div>
                 </form>

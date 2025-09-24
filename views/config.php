@@ -43,14 +43,16 @@
         
         <ul class="nav flex-column">
 
+            <?php if ($_SESSION['tipo_usuario'] === 'Administrador' || $_SESSION['tipo_usuario'] === 'Usuario'): ?>
             <li class="nav-item">
                 <a class="nav-link" href="index.php?action=homedash">
                     <i class="fas fa-home"></i>
                     <span>Inicio</span>
                 </a>
             </li>
+            <?php endif; ?>
             
-            <?php if ($_SESSION['tipo_usuario'] === 'admin'): ?>
+            <?php if ($_SESSION['tipo_usuario'] === 'Administrador'): ?>
                 <li class="nav-item">
                     <a class="nav-link" href="index.php?action=areasadmin">
                         <i class="fas fa-layer-group"></i>
@@ -65,12 +67,23 @@
                 </li>
             <?php endif; ?>
 
+            <?php if ($_SESSION['tipo_usuario'] === 'Administrador' || $_SESSION['tipo_usuario'] === 'Usuario'): ?>
             <li class="nav-item">
                 <a class="nav-link" href="index.php?action=expedientes">
                     <i class="fas fa-folder"></i>
                     <span>Expedientes</span>
                 </a>
             </li>
+            <?php endif; ?>
+
+            <?php if ($_SESSION['tipo_usuario'] === 'Guardia'): ?>
+            <li class="nav-item">
+                <a class="nav-link active" href="index.php?action=registrar">
+                    <i class="fas fa-file-alt"></i>
+                    <span>Registrar</span>
+                </a>
+            </li>
+            <?php endif; ?>
 
             <li class="nav-item mt-4">
                 <a class="nav-link  active" href="index.php?action=config">
@@ -317,119 +330,6 @@
                     }
                 });
             });
-
-                
-            /*} else {
-                    // Validación del formulario de datos de usuario
-                    $('#userDataForm').on('submit', function(e) {
-                        e.preventDefault();
-                        
-                        console.log('Enviando formulario de usuario...');
-                        
-                        const formData = {
-                            nombre: $('#nombre').val(),
-                            usuario: $('#usuario').val(),
-                            email: $('#email').val()
-                        };
-                        
-                        // Validaciones básicas de frontend
-                        if (!formData.nombre || !formData.usuario || !formData.email) {
-                            showUserFeedback('Por favor, complete todos los campos obligatorios.', 'danger');
-                            return;
-                        }
-                        
-                        if (!isValidEmail(formData.email)) {
-                            showUserFeedback('Por favor, ingrese un correo electrónico válido.', 'danger');
-                            return;
-                        }
-
-                        $.ajax({
-                        url: 'index.php?action=configadmin',
-                        type: 'POST',
-                        data: $(this).serialize(),
-                        success: function(response) {
-                            console.log('Respuesta del servidor:', response);
-                            
-                            try {
-                                const result = JSON.parse(response);
-                                if (result.success) {
-                                    showUserFeedback(result.message, 'success');
-                                    // Actualizar información en la barra superior si el nombre cambió
-                                    if (formData.nombre !== '<?php echo $usuario_actual['nombre']; ?>') {
-                                        setTimeout(() => {
-                                            location.reload(); // Recargar para ver cambios
-                                        }, 1500);
-                                    }
-                                } else {
-                                    showUserFeedback(result.message, 'danger');
-                                }
-                            } catch (e) {
-                                console.error('Error parsing JSON:', e);
-                                console.error('Response received:', response);
-                                showUserFeedback('Error al procesar la respuesta del servidor. Respuesta: ' + response.substring(0, 100), 'danger');
-                            }
-                        },
-                        error: function(xhr, status, error) {
-                            console.error('Error AJAX:', error);
-                            showUserFeedback('Error de conexión con el servidor: ' + error, 'danger');
-                        }
-                    });
-
-                });
-
-                // Validación del formulario de contraseña
-                $('#passwordForm').on('submit', function(e) {
-                    e.preventDefault();
-                    
-                    const currentPassword = $('#currentPassword').val();
-                    const newPassword = $('#newPassword').val();
-                    const confirmPassword = $('#confirmPassword').val();
-                    
-                    // Validaciones
-                    if (!currentPassword || !newPassword || !confirmPassword) {
-                        showPasswordFeedback('Por favor, complete todos los campos.', 'danger');
-                        return;
-                    }
-                    
-                    if (newPassword !== confirmPassword) {
-                        showPasswordFeedback('Las contraseñas nuevas no coinciden.', 'danger');
-                        return;
-                    }
-                    
-                    if (!isPasswordStrong(newPassword)) {
-                        showPasswordFeedback('La nueva contraseña debe tener al menos 8 caracteres, incluir mayúsculas, minúsculas y números.', 'danger');
-                        return;
-                    }
-                    
-                    // Enviar formulario mediante AJAX
-                    $.ajax({
-                        url: 'index.php?action=configadmin',
-                        type: 'POST',
-                        data: $(this).serialize(),
-                        success: function(response) {
-                            try {
-                                const result = JSON.parse(response);
-                                if (result.success) {
-                                    showPasswordFeedback(result.message, 'success');
-                                    $('#passwordForm')[0].reset();
-                                } else {
-                                    showPasswordFeedback(result.message, 'danger');
-                                }
-                            } catch (e) {
-                                showPasswordFeedback('Error al procesar la respuesta del servidor.', 'danger');
-                            }
-                        },
-                        error: function() {
-                            showPasswordFeedback('Error de conexión con el servidor.', 'danger');
-                        }
-                    });
-                });
-
-
-            }*/
-
-
-
 
             function isValidEmail(email) {
                 const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;

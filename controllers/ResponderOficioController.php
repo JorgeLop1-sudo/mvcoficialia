@@ -71,7 +71,7 @@ class ResponderOficioController {
     }
 
     private function verificarPermisos($oficio, $session) {
-        if ($session['tipo_usuario'] === 'admin') {
+        if ($session['tipo_usuario'] === 'Administrador') {
             return true;
         }
 

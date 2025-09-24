@@ -8,18 +8,26 @@ class HomeDashController {
     public function dash() {
         if (session_status() === PHP_SESSION_NONE) session_start();
 
-        // Solo admin puede entrar
-        /*if (!isset($_SESSION['usuario']) || $_SESSION['tipo_usuario'] === 'admin' || $_SESSION['tipo_usuario'] === 'user') {
+        // Verificar si el usuario está autenticado
+        if (!isset($_SESSION['id'])) {
+            header("Cache-Control: no-cache, no-store, must-revalidate");
+            header("Pragma: no-cache");
+            header("Expires: 0");
             header("Location: index.php?action=login");
             exit();
-        }*/
+        }
+
+        // Headers para evitar cache en páginas protegidas
+        header("Cache-Control: no-cache, no-store, must-revalidate");
+        header("Pragma: no-cache");
+        header("Expires: 0");
 
         // Conexión BD
         $database = new Database();
         $conn = $database->connect();
 
 
-        if($_SESSION['tipo_usuario'] === 'admin'){
+        if($_SESSION['tipo_usuario'] === 'Administrador'){
             $oficioModel = new Oficio($conn);
             $estadisticas = $oficioModel->getEstadisticas();
             $actividad_reciente = $oficioModel->getActividadReciente();
@@ -44,7 +52,7 @@ class HomeDashController {
 
 
 
-        if($_SESSION['tipo_usuario'] === 'user'){
+        if($_SESSION['tipo_usuario'] === 'Usuario'){
             // Obtener ID del usuario actual
             $usuario_id = $this->getUsuarioId($conn, $_SESSION['usuario']);
             

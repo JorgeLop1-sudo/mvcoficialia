@@ -21,7 +21,7 @@ class Expediente {
         ";
 
         // Filtrar por usuario si no es admin
-        if ($tipo_usuario !== 'admin' && $usuario_id) {
+        if ($tipo_usuario !== 'Administrador' && $usuario_id) {
             $usuario_id = mysqli_real_escape_string($this->conn, $usuario_id);
             $query .= " AND (o.usuario_derivado_id = '$usuario_id' OR o.usuario_id = '$usuario_id')";
         }

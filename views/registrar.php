@@ -1,92 +1,9 @@
 <?php
-session_start();
-
 // Headers para prevenir caching
 header("Cache-Control: no-cache, no-store, must-revalidate");
 header("Pragma: no-cache");
 header("Expires: 0");
-
-// Conexión a la base de datos
-$dbhost = "localhost";
-$dbuser = "root";
-$dbpass = "";
-$dbname = "oficialiap";
-
-$conn = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname);
-if (!$conn) {
-    die("No hay conexión: " . mysqli_connect_error());
-}
-
-// Procesar formulario de registro de oficio
-$mensaje = "";
-$tipoMensaje = "";
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Recoger y sanitizar datos del formulario
-    $remitente = mysqli_real_escape_string($conn, $_POST['remitente']);
-    $tipo_persona = mysqli_real_escape_string($conn, $_POST['tipoPersona']);
-    $tipo_documento = mysqli_real_escape_string($conn, $_POST['tipoDocumento']);
-    $numero_documento = isset($_POST['numeroDocumento']) ? mysqli_real_escape_string($conn, $_POST['numeroDocumento']) : null;
-    $folios = mysqli_real_escape_string($conn, $_POST['folios']);
-    $correo = mysqli_real_escape_string($conn, $_POST['correo']);
-    $telefono = mysqli_real_escape_string($conn, $_POST['telefono']);
-    $asunto = mysqli_real_escape_string($conn, $_POST['asunto']);
-    
-    // Valores fijos como solicitaste
-    $area_id = 1; // Valor fijo para area_id
-    $usuario_id = 1; // Valor fijo para usuario_id
-    
-    // Verificar si el área existe
-    $query_area_check = mysqli_query($conn, "SELECT id FROM areas WHERE id = '$area_id'");
-    if (mysqli_num_rows($query_area_check) === 0) {
-        $mensaje = "Error: El área seleccionada no es válida";
-        $tipoMensaje = "error";
-    } else {
-        // Procesar archivo subido
-        $archivo_nombre = null;
-        $archivo_ruta = null;
-        $archivo_ruta2 = null;
-        
-        if (isset($_FILES['archivo']) && $_FILES['archivo']['error'] === UPLOAD_ERR_OK) {
-            $directorio = "../uploads/";
-            if (!file_exists($directorio)) {
-                mkdir($directorio, 0777, true);
-            }
-            
-            $archivo_nombre = basename($_FILES['archivo']['name']);
-            $archivo_temporal = $_FILES['archivo']['tmp_name'];
-            $archivo_ruta = $directorio . time() . '_' . $archivo_nombre;
-            $archivo_ruta2 = '../../'.$directorio . time() . '_' . $archivo_nombre;
-            
-            if (!move_uploaded_file($archivo_temporal, $archivo_ruta)) {
-                $mensaje = "Error al subir el archivo.";
-                $tipoMensaje = "error";
-            }
-        }
-        
-        // Si no hay error hasta ahora, insertar en la base de datos
-        if (empty($mensaje)) {
-            $insert_query = "INSERT INTO oficios (remitente, tipo_persona, tipo_documento, numero_documento, folios, correo, telefono, asunto, archivo_nombre, archivo_ruta, area_id, usuario_id) 
-                            VALUES ('$remitente', '$tipo_persona', '$tipo_documento', '$numero_documento', '$folios', '$correo', '$telefono', '$asunto', '$archivo_nombre', '$archivo_ruta2', '$area_id', '$usuario_id')";
-            
-            if (mysqli_query($conn, $insert_query)) {
-                $mensaje = "Oficio registrado correctamente.";
-                $tipoMensaje = "success";
-                
-                // Limpiar el formulario después de un registro exitoso
-                echo '<script>document.getElementById("registerForm").reset();</script>';
-            } else {
-                $mensaje = "Error al registrar el oficio: " . mysqli_error($conn);
-                $tipoMensaje = "error";
-            }
-        }
-    }
-}
-
-// Cerrar conexión
-mysqli_close($conn);
 ?>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -95,49 +12,257 @@ mysqli_close($conn);
     <title>Oficialia de Partes - Registrar Oficio</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    
-    <link rel="stylesheet" href="../css/dashboard/styledash.css">
     <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --success-color: #27ae60;
+        }
+
+        /* Estilos generales */
+        body {
+            background: linear-gradient(135deg, #82adec 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 20px;
+            margin: 0;
+            transition: all 0.3s;
+        }
+
+        /* Botón para abrir/cerrar barra lateral - SIEMPRE VISIBLE */
+        .sidebar-toggle {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1002; /* Mayor z-index para que esté sobre la barra */
+            display: flex;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .sidebar-toggle:hover {
+            background-color: var(--secondary-color);
+            transform: scale(1.1);
+        }
+
+        /* Barra lateral - INICIALMENTE OCULTA */
+        .sidebar {
+            background: var(--primary-color);
+            color: white;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 250px;
+            padding-top: 20px;
+            box-shadow: 3px 0 10px rgba(0, 0, 0, 0.1);
+            z-index: 1001;
+            transition: transform 0.3s ease;
+            transform: translateX(-100%); /* Inicialmente oculta */
+        }
+
+        .sidebar.active {
+            transform: translateX(0); /* Visible cuando tiene clase active */
+        }
+
+        .sidebar-header {
+            padding: 0 20px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .sidebar-header-content {
+            flex: 1;
+        }
+
+        .sidebar-header h3 {
+            font-weight: 700;
+            margin: 0;
+            color: white;
+        }
+
+        .sidebar-header p {
+            color: rgba(255, 255, 255, 0.7);
+            margin: 5px 0 0;
+            font-size: 14px;
+        }
+
+        .close-sidebar {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            padding: 5px;
+            margin-left: 10px;
+        }
+
+        .close-sidebar:hover {
+            color: var(--secondary-color);
+        }
+
+        .nav-link {
+            color: rgba(255, 255, 255, 0.8);
+            padding: 12px 20px;
+            margin: 5px 0;
+            border-radius: 0 30px 30px 0;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: block;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .nav-link i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+
+        /* Contenido principal - Ocupa todo el ancho cuando barra está oculta */
+        .main-content {
+            transition: margin-left 0.3s ease;
+            width: 100%;
+        }
+
+        .main-content.sidebar-active {
+            margin-left: 250px;
+            width: calc(100% - 250px);
+        }
+
+        /* Overlay para cerrar barra al hacer clic fuera en móviles */
+        .sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            display: none;
+        }
+
+        .sidebar-overlay.active {
+            display: block;
+        }
+
+        .header {
+            background: var(--primary-color);
+            color: white;
+            padding: 20px;
+            border-radius: 10px 10px 0 0;
+            margin-bottom: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+
+        .header h2 {
+            margin: 0;
+            font-weight: 700;
+            font-size: 28px;
+            margin-left: 60px; /* Espacio para el botón */
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--secondary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        /* Contenedor del formulario */
         .form-container {
             background: white;
-            border-radius: 10px;
+            border-radius: 0 0 10px 10px;
             padding: 25px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
             margin-bottom: 20px;
         }
-        
+
+        /* Secciones del formulario */
         .form-section {
             background-color: #f8f9fa;
             padding: 20px;
             border-radius: 8px;
             margin-bottom: 25px;
-            border-left: 4px solid #3498db;
+            border-left: 4px solid var(--secondary-color);
         }
-        
+
         .form-section-title {
-            color: #2c3e50;
+            color: var(--primary-color);
             font-weight: 600;
             margin-bottom: 20px;
             padding-bottom: 10px;
             border-bottom: 1px solid #ddd;
         }
-        
+
+        /* Elementos del formulario */
+        .form-label {
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 8px;
+        }
+
+        .form-control, .form-select {
+            border-radius: 8px;
+            padding: 12px 15px;
+            margin-bottom: 15px;
+            border: 2px solid #ddd;
+            transition: all 0.3s;
+        }
+
+        .form-control:focus, .form-select:focus {
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+        }
+
+        /* Grupo de radio buttons */
         .radio-group {
             display: flex;
             flex-wrap: wrap;
             gap: 20px;
             margin-bottom: 15px;
         }
-        
+
         .radio-option {
             display: flex;
             align-items: center;
         }
-        
+
         .radio-option input[type="radio"] {
             margin-right: 8px;
         }
-        
+
+        /* Subida de archivos */
         .file-upload {
             border: 2px dashed #ddd;
             border-radius: 8px;
@@ -147,24 +272,25 @@ mysqli_close($conn);
             transition: all 0.3s;
             cursor: pointer;
         }
-        
+
         .file-upload:hover {
-            border-color: #3498db;
+            border-color: var(--secondary-color);
             background-color: #f8f9fa;
         }
-        
+
         .file-upload i {
             font-size: 40px;
-            color: #3498db;
+            color: var(--secondary-color);
             margin-bottom: 10px;
         }
-        
+
         .file-name {
             margin-top: 10px;
             font-style: italic;
             color: #777;
         }
-        
+
+        /* Botones de acción */
         .btn-action {
             padding: 12px 25px;
             border-radius: 8px;
@@ -177,26 +303,47 @@ mysqli_close($conn);
             border: none;
             color: white;
         }
-        
+
         .btn-register {
-            background: #27ae60;
+            background: var(--success-color);
         }
-        
+
         .btn-register:hover {
             background: #219653;
             transform: translateY(-2px);
         }
-        
+
         .btn-cancel {
-            background: #e74c3c;
+            background: var(--accent-color);
         }
-        
+
         .btn-cancel:hover {
             background: #c0392b;
             transform: translateY(-2px);
         }
-        
+
+        /* Responsive */
         @media (max-width: 768px) {
+            .sidebar {
+                width: 280px;
+            }
+            
+            .main-content.sidebar-active {
+                margin-left: 0;
+                width: 100%;
+            }
+            
+            .header {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+            
+            .header h2 {
+                margin-left: 0;
+                margin-top: 20px;
+            }
+            
             .radio-group {
                 flex-direction: column;
                 gap: 10px;
@@ -206,19 +353,38 @@ mysqli_close($conn);
                 width: 100%;
                 margin-bottom: 10px;
             }
+            
+            .sidebar-toggle {
+                top: 15px;
+                left: 15px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="sidebar">
+    <!-- Overlay para cerrar barra en móviles -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Botón para abrir/cerrar la barra lateral - SIEMPRE VISIBLE -->
+    <button id="sidebarToggle" class="btn btn-primary sidebar-toggle">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Barra lateral - INICIALMENTE OCULTA -->
+    <div class="sidebar" id="sidebar">
         <div class="sidebar-header">
-            <h3>SIS-OP</h3>
-            <p>Sistema de Oficialia de Partes</p>
+            <div class="sidebar-header-content">
+                <h3>SIS-OP</h3>
+                <p>Sistema de Oficialia de Partes</p>
+            </div>
+            <button class="close-sidebar" id="closeSidebar">
+                <i class="fas fa-times"></i>
+            </button>
         </div>
         
         <ul class="nav flex-column">
             <li class="nav-item">
-                <a class="nav-link active" href="index.php?action=casetadash">
+                <a class="nav-link active" href="index.php?action=registrar">
                     <i class="fas fa-file-alt"></i>
                     <span>Registrar</span>
                 </a>
@@ -240,26 +406,19 @@ mysqli_close($conn);
         </ul>
     </div>
 
-    <div class="main-content">
+    <!-- Contenido principal -->
+    <div class="main-content" id="mainContent">
         <div class="header">
             <h2 class="mb-0">Registrar Oficio</h2>
             <div class="user-info">
-                <div class="user-avatar"><?php echo isset($_SESSION['nombre']) ? substr($_SESSION['nombre'], 0, 2) : 'OP'; ?></div>
                 <div>
-                    <div class="fw-bold"><?php echo isset($_SESSION['nombre']) ? $_SESSION['nombre'] : 'Oficialía de Partes'; ?></div>
-                    <div class="small text-muted"><?php echo isset($_SESSION['tipo_usuario']) ? $_SESSION['tipo_usuario'] : 'Caseta'; ?></div>
+                    <div class="fw-bold">Oficialía de Partes</div>
+                    <div class="small text-muted">Caseta</div>
                 </div>
             </div>
         </div>
 
         <div class="form-container">
-            <?php if (!empty($mensaje)): ?>
-            <div class="alert alert-<?php echo $tipoMensaje == 'success' ? 'success' : 'danger'; ?> alert-dismissible fade show" role="alert">
-                <?php echo $mensaje; ?>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-            <?php endif; ?>
-            
             <form id="registerForm" method="POST" enctype="multipart/form-data">
                 <!-- Sección de Remitente -->
                 <div class="form-section">
@@ -393,6 +552,53 @@ mysqli_close($conn);
         document.getElementById('cancelButton').addEventListener('click', function() {
             if (confirm('¿Está seguro que desea cancelar? Se perderán todos los datos ingresados.')) {
                 window.location.href = 'index.php';
+            }
+        });
+        
+        // Control de la barra lateral - CÓDIGO CORREGIDO
+        const sidebar = document.getElementById('sidebar');
+        const mainContent = document.getElementById('mainContent');
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        const closeSidebar = document.getElementById('closeSidebar');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+        // Función para abrir la barra lateral
+        function openSidebar() {
+            sidebar.classList.add('active');
+            mainContent.classList.add('sidebar-active');
+            sidebarOverlay.classList.add('active');
+        }
+
+        // Función para cerrar la barra lateral
+        function closeSidebarFunc() {
+            sidebar.classList.remove('active');
+            mainContent.classList.remove('sidebar-active');
+            sidebarOverlay.classList.remove('active');
+        }
+
+        // Abrir barra lateral al hacer clic en el botón
+        sidebarToggle.addEventListener('click', function() {
+            if (sidebar.classList.contains('active')) {
+                closeSidebarFunc();
+            } else {
+                openSidebar();
+            }
+        });
+
+        // Cerrar barra lateral con el botón de cerrar
+        closeSidebar.addEventListener('click', closeSidebarFunc);
+
+        // Cerrar barra lateral al hacer clic fuera (solo en móviles)
+        sidebarOverlay.addEventListener('click', function() {
+            if (window.innerWidth <= 768) {
+                closeSidebarFunc();
+            }
+        });
+
+        // Cerrar barra lateral al redimensionar a pantalla grande
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768 && sidebar.classList.contains('active')) {
+                closeSidebarFunc();
             }
         });
     </script>

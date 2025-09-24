@@ -6,7 +6,7 @@ require_once __DIR__ . '/controllers/UsersAdminController.php';
 require_once __DIR__ . '/controllers/ExpedientesController.php';
 require_once __DIR__ . '/controllers/ConfigController.php'; 
 require_once __DIR__ . '/controllers/ResponderOficioController.php'; 
-require_once __DIR__ . '/controllers/CasetaDashController.php'; 
+require_once __DIR__ . '/controllers/RegistrarController.php'; 
 require_once __DIR__ . '/controllers/BuscarController.php'; 
 
 
@@ -37,8 +37,8 @@ switch ($action) {
     case 'responderoficio':
         (new ResponderOficioController())->index();
         break;
-    case 'casetadash':
-        (new CasetaDashController())->index();
+    case 'registrar':
+        (new RegistrarController())->index();
         break;
     case 'buscar':
         (new BuscarController())->index();

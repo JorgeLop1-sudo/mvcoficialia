@@ -28,7 +28,7 @@
                 </a>
             </li>
             
-            <?php if ($_SESSION['tipo_usuario'] === 'admin'): ?>
+            <?php if ($_SESSION['tipo_usuario'] === 'Administrador'): ?>
                 <li class="nav-item">
                     <a class="nav-link" href="index.php?action=areasadmin">
                         <i class="fas fa-layer-group"></i>
@@ -84,7 +84,7 @@
         <h3 class="dashboard-title">Resumen de Oficios</h3>
         <div class="stats-container">
 
-            <?php if ($_SESSION['tipo_usuario'] === 'admin'): ?>
+            <?php if ($_SESSION['tipo_usuario'] === 'Administrador'): ?>
             <div class="stat-card pending" onclick="filterOficios('pendiente')">
                 <div class="stat-icon">
                     <i class="fas fa-clock"></i>
@@ -174,9 +174,7 @@
         function filterOficios(estado) {
             const tipoUsuario = "<?php echo $_SESSION['tipo_usuario']; ?>";
 
-            if (tipoUsuario === 'admin') {
-                window.location.href = 'index.php?action=expedientes&estado=' + estado;
-            } else {
+            if (tipoUsuario === 'Administrador' || tipoUsuario === 'Usuario') {
                 window.location.href = 'index.php?action=expedientes&estado=' + estado;
             }
         }

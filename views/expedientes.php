@@ -9,6 +9,26 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.3.2/css/buttons.bootstrap5.min.css">
     <link rel="stylesheet" href="/mvc_oficialiapartes/css/dashboard/styledash.css">
+
+    <style>
+        .text-danger {
+            color: #dc3545;
+        }
+        
+        .form-label.required::after {
+            content: " *";
+            color: #dc3545;
+        }
+        
+        select:required:invalid {
+            border-color: #dc3545;
+        }
+        
+        select:required:valid {
+            border-color: #198754;
+        }
+    </style>
+
 </head>
 <body>
     
@@ -27,7 +47,7 @@
                 </a>
             </li>
             
-            <?php if ($_SESSION['tipo_usuario'] === 'admin'): ?>
+            <?php if ($_SESSION['tipo_usuario'] === 'Administrador'): ?>
                 <li class="nav-item">
                     <a class="nav-link" href="index.php?action=areasadmin">
                         <i class="fas fa-layer-group"></i>
@@ -113,14 +133,14 @@
                         <select id="estado" name="estado">
                             <option value="">Todos los estados</option>
 
-                            <?php if ($_SESSION['tipo_usuario'] === 'admin'): ?>
+                            <?php if ($_SESSION['tipo_usuario'] === 'Administrador'): ?>
                                 <option value="pendiente" <?php echo ($filtros['estado'] ?? '') == 'pendiente' ? 'selected' : ''; ?>>Pendiente</option>
                                 <option value="tramite" <?php echo ($filtros['estado'] ?? '') == 'tramite' ? 'selected' : ''; ?>>En tramite</option>
                                 <option value="completado" <?php echo ($filtros['estado'] ?? '') == 'completado' ? 'selected' : ''; ?>>Completado</option>
                                 <option value="denegado" <?php echo ($filtros['estado'] ?? '') == 'denegado' ? 'selected' : ''; ?>>Denegado</option>
                             <?php endif; ?>
 
-                            <?php if ($_SESSION['tipo_usuario'] === 'user'): ?>
+                            <?php if ($_SESSION['tipo_usuario'] === 'Usuario'): ?>
                                 <option value="tramite" <?php echo ($filtros['estado'] ?? '') == 'tramite' ? 'selected' : ''; ?>>En tramite</option>
                                 <option value="completado" <?php echo ($filtros['estado'] ?? '') == 'completado' ? 'selected' : ''; ?>>Completado</option>
                                 <option value="denegado" <?php echo ($filtros['estado'] ?? '') == 'denegado' ? 'selected' : ''; ?>>Denegado</option>
@@ -243,20 +263,20 @@
                                     <?php endif; ?>
                                     
                                     <!-- Solo mostrar derivar si es admin o si el oficio está asignado al usuario -->
-                                    <?php if ($tipo_usuario === 'admin' || $expediente['usuario_derivado_id'] == $_SESSION['id']): ?>
+                                    <?php if ($tipo_usuario === 'Administrador' || $expediente['usuario_derivado_id'] == $_SESSION['id']): ?>
                                         <button class="btn btn-sm btn-warning" title="Derivar documento" onclick="abrirModalDerivacion(<?php echo $expediente['id']; ?>, '<?php echo htmlspecialchars($expediente['respuesta'] ?? ''); ?>')">
                                             <i class="fas fa-share"></i>
                                         </button>
                                     <?php endif; ?>
                                     
                                     <!-- Solo mostrar responder si el oficio está asignado al usuario actual -->
-                                    <?php if ($expediente['usuario_derivado_id'] == $_SESSION['id'] || $tipo_usuario === 'admin'): ?>
+                                    <?php if ($expediente['usuario_derivado_id'] == $_SESSION['id'] || $tipo_usuario === 'Administrador'): ?>
                                         <a href="index.php?action=responderoficio&id=<?php echo $expediente['id']; ?>" class="btn btn-sm btn-success" title="Responder documento">
                                             <i class="fas fa-reply"></i>
                                         </a>
                                     <?php endif; ?>
 
-                                    <?php if ($tipo_usuario === 'admin'): ?>
+                                    <?php if ($tipo_usuario === 'Administrador'): ?>
                                         <button class="btn btn-sm btn-danger" title="Eliminar documento" onclick="confirmarEliminacion(<?php echo $expediente['id']; ?>)">
                                             <i class="fas fa-trash"></i>
                                         </button>
@@ -279,15 +299,14 @@
                     <h5 class="modal-title" id="modalDerivacionLabel">Derivar Oficio</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form method="POST" action="">
+                <form method="POST" action="" id="formDerivacion">
                     <input type="hidden" name="action" value="expedientes">
                     <div class="modal-body">
                         <input type="hidden" name="oficio_id" id="oficio_id">
                         <input type="hidden" name="derivar_oficio" value="1">
                         
                         <div class="mb-3">
-                            <label for="area_derivada" class="form-label">Área de Destino</label>
-                            <select class="form-select" id="area_derivada" name="area_derivada" required onchange="cargarUsuariosPorArea(this.value)">
+                                <label for="area_derivada" class="form-label required">Área de Destino</label>                            <select class="form-select" id="area_derivada" name="area_derivada" required onchange="cargarUsuariosPorArea(this.value)">
                                 <option value="">Seleccionar área</option>
                                 <?php foreach ($areas as $area): ?>
                                     <option value="<?php echo $area['id']; ?>"><?php echo htmlspecialchars($area['nombre']); ?></option>
@@ -296,10 +315,10 @@
                         </div>
                         
                         <div class="mb-3">
-                            <label for="usuario_derivado" class="form-label">Usuario de Destino (Opcional)</label>
-                            <select class="form-select" id="usuario_derivado" name="usuario_derivado">
-                                <option value="">Seleccionar usuario</option>
+                        <label for="usuario_derivado" class="form-label required">Usuario de Destino</label>                            <select class="form-select" id="usuario_derivado" name="usuario_derivado" required disabled>
+                                <option value="">Primero seleccione un área</option>
                             </select>
+                            <div class="form-text">Debe seleccionar un usuario para derivar el oficio</div>
                         </div>
                         
                         <div class="mb-3">
@@ -375,11 +394,35 @@
             }
         });
 
+        // Validación del formulario de derivación
+        document.getElementById('formDerivacion').addEventListener('submit', function(e) {
+            var areaSelect = document.getElementById('area_derivada');
+            var usuarioSelect = document.getElementById('usuario_derivado');
+            
+            if (!areaSelect.value) {
+                e.preventDefault();
+                alert('Debe seleccionar un área de destino');
+                areaSelect.focus();
+                return false;
+            }
+            
+            if (!usuarioSelect.value || usuarioSelect.disabled) {
+                e.preventDefault();
+                alert('Debe seleccionar un usuario de destino');
+                usuarioSelect.focus();
+                return false;
+            }
+            
+            return true;
+        });
+
         function abrirModalDerivacion(id, respuesta) {
             $('#oficio_id').val(id);
             $('#respuesta').val(respuesta);
             $('#area_derivada').val('');
             $('#usuario_derivado').html('<option value="">Seleccionar usuario</option>');
+            $('#usuario_derivado').prop('disabled', true);
+            $('#usuario_derivado').prop('required', true);
             $('#modalDerivacion').modal('show');
         }
 
@@ -390,8 +433,12 @@
         }
 
         function cargarUsuariosPorArea(areaId) {
+            var usuarioSelect = $('#usuario_derivado');
+            
             if (!areaId) {
-                $('#usuario_derivado').html('<option value="">Seleccionar usuario</option>');
+                usuarioSelect.html('<option value="">Primero seleccione un área</option>');
+                usuarioSelect.prop('disabled', true);
+                usuarioSelect.prop('required', true);
                 return;
             }
             
@@ -402,21 +449,28 @@
                 success: function(response) {
                     if (response.success) {
                         var options = '<option value="">Seleccionar usuario</option>';
-                        $.each(response.usuarios, function(index, usuario) {
-                            options += '<option value="' + usuario.id + '">' + 
-                                       usuario.nombre + ' (' + usuario.usuario + ')' + 
-                                       '</option>';
-                        });
-                        $('#usuario_derivado').html(options);
+                        if (response.usuarios.length > 0) {
+                            $.each(response.usuarios, function(index, usuario) {
+                                options += '<option value="' + usuario.id + '">' + 
+                                        usuario.nombre + ' (' + usuario.usuario + ')' + 
+                                        '</option>';
+                            });
+                            usuarioSelect.html(options);
+                            usuarioSelect.prop('disabled', false);
+                        } else {
+                            options = '<option value="">No hay usuarios en esta área</option>';
+                            usuarioSelect.html(options);
+                            usuarioSelect.prop('disabled', true);
+                        }
                     } else {
-                        alert('Error al cargar los usuarios');
-                        $('#usuario_derivado').html('<option value="">Seleccionar usuario</option>');
+                        usuarioSelect.html('<option value="">Error al cargar usuarios</option>');
+                        usuarioSelect.prop('disabled', true);
                     }
                 },
                 error: function(xhr, status, error) {
                     console.error('Error en la solicitud AJAX:', error);
-                    alert('Error al cargar los usuarios. Por favor, intente nuevamente.');
-                    $('#usuario_derivado').html('<option value="">Seleccionar usuario</option>');
+                    usuarioSelect.html('<option value="">Error al cargar usuarios</option>');
+                    usuarioSelect.prop('disabled', true);
                 }
             });
         }

@@ -193,7 +193,7 @@
                 </a>
             </li>
 
-            <?php if ($_SESSION['tipo_usuario'] === 'admin'): ?>
+            <?php if ($_SESSION['tipo_usuario'] === 'Administrador'): ?>
                 <li class="nav-item">
                     <a class="nav-link" href="index.php?action=areasadmin">
                         <i class="fas fa-layer-group"></i>
@@ -236,7 +236,7 @@
     <div class="main-content">
         <!-- Header -->
         <div class="header">
-            <h2 class="mb-0">Dashboard Administrador</h2>
+            <h2 class="mb-0">Dashboard</h2>
             <div class="user-info">
                 <div class="user-avatar"><?php echo substr($_SESSION['nombre'], 0, 2); ?></div>
                 <div>
@@ -529,13 +529,13 @@
                     <div class="action-buttons">
                         <div class="d-flex justify-content-between">
 
-                            <?php if ($_SESSION['tipo_usuario'] === 'admin'): ?>
+                            <?php if ($_SESSION['tipo_usuario'] === 'Administrador'): ?>
                             <a href="index.php?action=expedientes" class="btn btn-secondary">
                                 <i class="fas fa-arrow-left me-1"></i> Volver
                             </a>
                             <?php endif; ?>
 
-                            <?php if ($_SESSION['tipo_usuario'] === 'user'): ?>
+                            <?php if ($_SESSION['tipo_usuario'] === 'Usuario'): ?>
                             <a href="index.php?action=expedientes" class="btn btn-secondary">
                                 <i class="fas fa-arrow-left me-1"></i> Volver
                             </a>

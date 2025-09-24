@@ -1,5 +1,10 @@
 <?php
 class Database {
+    /*private $host = "sql303.infinityfree.com";
+    private $user = "if0_40017275";
+    private $pass = "j0rgel0pez123";
+    private $dbname = "if0_40017275_oficialiap"; */// <-- cambia si tu BD tiene otro nombre
+
     private $host = "localhost";
     private $user = "root";
     private $pass = "";

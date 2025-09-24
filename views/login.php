@@ -1,9 +1,8 @@
 <?php
-// Inicializar variables para evitar advertencias
-$identificador = "";
-$pass = "";
-$error = "";
-$login_type = "users";
+// Headers adicionales para evitar cache
+header("Cache-Control: no-cache, no-store, must-revalidate");
+header("Pragma: no-cache");
+header("Expires: 0");
 ?>
 
 <!DOCTYPE html>
@@ -15,6 +14,11 @@ $login_type = "users";
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="/mvc_oficialiapartes/css/caseta/styleindex.css">
+    
+    <!-- Meta tags para evitar cache -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
 </head>
 <body>
 <div>
@@ -33,7 +37,10 @@ $login_type = "users";
             <h3 class="text-center mb-4">Inicio de Sesión</h3>
             
             <?php if (!empty($error)): ?>
-                <div class="alert alert-danger"><?php echo $error; ?></div>
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <?php echo htmlspecialchars($error); ?>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
             <?php endif; ?>
             
             <!-- Selector de tipo de login -->
@@ -64,11 +71,6 @@ $login_type = "users";
                     <input type="password" class="form-control" id="password" name="password" placeholder="Ingrese su contraseña" required>
                 </div>
                 
-                <div class="mb-3 form-check">
-                    <input type="checkbox" class="form-check-input" id="remember" name="remember">
-                    <label class="form-check-label" for="remember">Recordar mis datos</label>
-                </div>
-                
                 <button type="submit" class="btn btn-login">Ingresar al Sistema</button>
                 
                 <div class="text-center mt-3">
@@ -79,6 +81,7 @@ $login_type = "users";
     </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 <script>
     // Cambio entre inicio de sesión con usuario o correo
     const optionUser = document.getElementById('option-user');
@@ -131,6 +134,28 @@ $login_type = "users";
             }
         }
     });
+
+    // Prevenir navegación hacia atrás/adelante de manera más robusta
+    window.history.pushState(null, null, window.location.href);
+    window.onpopstate = function(event) {
+        window.history.go(1);
+    };
+
+    // Prevenir que se use la tecla F5 o Ctrl+R
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'F5' || e.ctrlKey && e.key === 'r' || e.key === 'F11') {
+            e.preventDefault();
+            return false;
+        }
+    });
+
+    // Forzar recarga desde el servidor al cargar la página
+    window.onload = function() {
+        if (performance.navigation.type === 2) {
+            // La página fue cargada desde el cache (botón atrás)
+            window.location.reload(true); // true fuerza recarga desde servidor
+        }
+    };
 </script>
 </body>
 </html>

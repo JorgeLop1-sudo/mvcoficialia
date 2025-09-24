@@ -8,6 +8,20 @@ class BuscarController {
     }
 
     public function buscarOficio() {
+        // Verificar si el usuario está autenticado
+        if (!isset($_SESSION['id'])) {
+            header("Cache-Control: no-cache, no-store, must-revalidate");
+            header("Pragma: no-cache");
+            header("Expires: 0");
+            header("Location: index.php?action=login");
+            exit();
+        }
+
+        // Headers para evitar cache en páginas protegidas
+        header("Cache-Control: no-cache, no-store, must-revalidate");
+        header("Pragma: no-cache");
+        header("Expires: 0");
+        
         header('Content-Type: application/json');
         
         $database = new Database();

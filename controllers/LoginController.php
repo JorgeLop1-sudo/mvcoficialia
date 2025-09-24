@@ -12,7 +12,17 @@ class LoginController {
     }
 
     public function login() {
-        $error = '';
+        // Headers para evitar cache
+        header("Cache-Control: no-cache, no-store, must-revalidate");
+        header("Pragma: no-cache");
+        header("Expires: 0");
+        
+        // Inicializar variables para la vista
+        $identificador = "";
+        $pass = "";
+        $error = "";
+        $login_type = "users";
+        
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $identificador = $_POST['identificador'] ?? '';
             $password = $_POST['password'] ?? '';
@@ -26,30 +36,47 @@ class LoginController {
                 $_SESSION['usuario'] = $user['usuario'];
                 $_SESSION['nombre'] = $user['nombre'];
                 $_SESSION['tipo_usuario'] = $user['tipo_usuario'];
+                $_SESSION['usuario_id'] = $user['id']; // Para usar en otros controladores
 
                 // Redirigir según el tipo de usuario
-                if ($user['tipo_usuario'] === 'admin') {
-                    header("Location: index.php?action=homedash");
-                } else {
-                    header("Location: index.php?action=homedash");
-                }
-                exit;
+                $this->redirectByUserType($user['tipo_usuario']);
             } else {
-                $error = ($res['reason'] === 'not_found') ? (($login_type === 'email') ? "Correo no encontrado" : "Usuario no encontrado") : "Contraseña incorrecta";
+                $error = ($res['reason'] === 'not_found') ? 
+                    (($login_type === 'email') ? "Correo no encontrado" : "Usuario no encontrado") : 
+                    "Contraseña incorrecta";
             }
         }
+        
+        // Pasar las variables a la vista
         include __DIR__ . '/../views/login.php';
     }
 
+    private function redirectByUserType($tipo_usuario) {
+        switch ($tipo_usuario) {
+            case 'Administrador':
+                header("Location: index.php?action=homedash");
+                break;
+            case 'Guardia':
+                header("Location: index.php?action=registrar");
+                break;
+            case 'Usuario':
+            default:
+                header("Location: index.php?action=homedash");
+                break;
+        }
+        exit;
+    }
+
     public function dashboard() {
+        // Verificar si la sesión existe y es válida
         if (!isset($_SESSION['id'])) {
             header("Location: index.php?action=login");
             exit;
         }
         
         // Redirigir según el tipo de usuario
-        if ($_SESSION['tipo_usuario'] === 'admin') {
-            header("Location: index.php?action=homedash");
+        if (isset($_SESSION['tipo_usuario'])) {
+            $this->redirectByUserType($_SESSION['tipo_usuario']);
         } else {
             header("Location: index.php?action=homedash");
         }
@@ -57,16 +84,10 @@ class LoginController {
     }
 
     public function logout() {
-        // Iniciar sesión si no está iniciada
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
-        
         // Limpiar todas las variables de sesión
         $_SESSION = array();
         
-        // Si se desea destruir la cookie de sesión completamente,
-        // borra también la cookie de sesión.
+        // Destruir la cookie de sesión
         if (ini_get("session.use_cookies")) {
             $params = session_get_cookie_params();
             setcookie(session_name(), '', time() - 42000,
@@ -75,8 +96,12 @@ class LoginController {
             );
         }
         
-        // Destruir la sesión
         session_destroy();
+        
+        // Headers para evitar cache
+        header("Cache-Control: no-cache, no-store, must-revalidate");
+        header("Pragma: no-cache");
+        header("Expires: 0");
         
         // Redirigir al login
         header("Location: index.php?action=login");

@@ -7,6 +7,20 @@ class ExpedientesController {
     public function index() {
         if (session_status() === PHP_SESSION_NONE) session_start();
 
+        // Verificar si el usuario está autenticado
+        if (!isset($_SESSION['id'])) {
+            header("Cache-Control: no-cache, no-store, must-revalidate");
+            header("Pragma: no-cache");
+            header("Expires: 0");
+            header("Location: index.php?action=login");
+            exit();
+        }
+
+        // Headers para evitar cache en páginas protegidas
+        header("Cache-Control: no-cache, no-store, must-revalidate");
+        header("Pragma: no-cache");
+        header("Expires: 0");
+
         $database = new Database();
         $conn = $database->connect();
         $expedienteModel = new Expediente($conn);
@@ -19,7 +33,7 @@ class ExpedientesController {
 
         // Obtener información del usuario actual
         $usuario_id = $_SESSION['id'] ?? null;
-        $tipo_usuario = $_SESSION['tipo_usuario'] ?? 'user';
+        $tipo_usuario = $_SESSION['tipo_usuario'] ?? 'Usuario';
 
         // Manejar solicitud AJAX para usuarios por área
         if (isset($_GET['ajax']) && $_GET['ajax'] == 'usuarios_por_area' && isset($_GET['area_id'])) {
@@ -47,7 +61,7 @@ class ExpedientesController {
         $expedientes = $expedienteModel->obtenerTodos($filtros, $usuario_id, $tipo_usuario);
 
         // Procesar eliminación de oficio (solo admin)
-        if (isset($_GET['eliminar']) && $tipo_usuario === 'admin') {
+        if (isset($_GET['eliminar']) && $tipo_usuario === 'Administrador') {
             $mensaje = $expedienteModel->eliminar($_GET['eliminar']);
             header("Location: index.php?action=expedientes&mensaje=" . urlencode($mensaje));
             exit();
