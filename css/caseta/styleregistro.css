@@ -1,34 +1,7 @@
-        :root {
-            --primary-color: #151A2D;
-            --secondary-color: #3498db;
-            --accent-color: #e74c3c;
-            --light-color: #ecf0f1;
-            --success-color: #27ae60;
-        }
-     
-        .header {
-            background: var(--primary-color);
-            color: white;
-            padding: 20px;
-            border-radius: 10px 10px 0 0;
-            margin-bottom: 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: relative;
-        }
-
-        .header h2 {
-            margin: 0;
-            font-weight: 700;
-            font-size: 28px;
-            margin-left: 60px; /* Espacio para el botón */
-        }
-
         /* Contenedor del formulario */
         .form-container {
-            background: white;
-            border-radius: 0 0 10px 10px;
+            background: var(--primary-color);
+            border-radius: 10px;
             padding: 25px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
             margin-bottom: 20px;
