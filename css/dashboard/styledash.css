@@ -216,7 +216,7 @@
             }
 
             .sidebar.menu-active{
-                overflow-y: auto;
+                overflow-y: hidden;
             }
 
             .sidebar-header{

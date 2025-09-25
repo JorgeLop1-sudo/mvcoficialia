@@ -12,54 +12,65 @@ header("Expires: 0");
     <title>Oficialia de Partes - Registrar Oficio</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
+
+    <link rel="stylesheet" href="/mvc_oficialiapartes/css/dashboard/styledash.css">
     <link rel="stylesheet" href="/mvc_oficialiapartes/css/caseta/styleregistro.css">
     
 </head>
 
 <body>
-    <!-- Overlay para cerrar barra en móviles -->
-    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+    <!-- Sidebar header -->
+    <aside class="sidebar">
 
-    <!-- Botón para abrir/cerrar la barra lateral - SIEMPRE VISIBLE -->
-    <button id="sidebarToggle" class="btn btn-primary sidebar-toggle">
-        <i class="fas fa-bars"></i>
-    </button>
-
-    <!-- Barra lateral - INICIALMENTE OCULTA -->
-    <div class="sidebar" id="sidebar">
         <div class="sidebar-header">
-            <div class="sidebar-header-content">
-                <h3>SIS-OP</h3>
-                <p>Sistema de Oficialia de Partes</p>
-            </div>
-            <button class="close-sidebar" id="closeSidebar">
-                <i class="fas fa-times"></i>
+            <div class="user-avatar"><?php echo substr($_SESSION['nombre'], 0, 1); ?></div>
+            <button class="toggler sidebar-toggler">
+                <span class="material-symbols-rounded">chevron_left</span>
+            </button>
+            <button class="toggler menu-toggler">
+                <span class="material-symbols-rounded">menu</span>
             </button>
         </div>
         
-        <ul class="nav flex-column">
+        <nav class="sidebar-nav">
+        <ul class="nav-list primary-nav">
+
             <li class="nav-item">
-                <a class="nav-link active" href="index.php?action=registrar">
-                    <i class="fas fa-file-alt"></i>
-                    <span>Registrar</span>
+                <a class="nav-link" href="index.php?action=registrar">
+                    <span class="nav icon
+                    material-symbols-rounded">edit_document</span>
+                    <span class="nav-label">Registrar</span>
                 </a>
+                <span class="nav-tooltip">Registrar</span>
             </li>
 
+        </ul>
+
+        <ul class="nav-list secondary-nav">
             <li class="nav-item mt-4">
                 <a class="nav-link" href="index.php?action=config">
-                    <i class="fas fa-cog"></i>
-                    <span>Configuración</span>
+                    <span class="nav icon
+                        material-symbols-rounded">Settings</span>
+                    <span class="nav-label">Configuración</span>
                 </a>
+                <span class="nav-tooltip">Configuración</span>
             </li>
 
             <li class="nav-item">
                 <a class="nav-link" href="index.php?action=logout">
-                    <i class="fas fa-sign-out-alt"></i>
-                    <span>Cerrar Sesión</span>
+                    <span class="nav icon
+                        material-symbols-rounded">Logout</span>
+                    <span class="nav-label">Cerrar Sesión</span>
                 </a>
+                <span class="nav-tooltip">Cerrar Sesión</span>
             </li>
         </ul>
-    </div>
+        </nav>
+
+    </aside>
+
+
 
     <!-- Contenido principal -->
     <div class="main-content" id="mainContent">
@@ -210,51 +221,8 @@ header("Expires: 0");
             }
         });
         
-        // Control de la barra lateral - CÓDIGO MEJORADO
-        const sidebar = document.getElementById('sidebar');
-        const mainContent = document.getElementById('mainContent');
-        const sidebarToggle = document.getElementById('sidebarToggle');
-        const closeSidebar = document.getElementById('closeSidebar');
-        const sidebarOverlay = document.getElementById('sidebarOverlay');
-
-        // Función para abrir la barra lateral
-        function openSidebar() {
-            sidebar.classList.add('active');
-            mainContent.classList.add('sidebar-active');
-            sidebarOverlay.classList.add('active');
-            sidebarToggle.classList.add('hidden'); // Ocultar botón de abrir
-        }
-
-        // Función para cerrar la barra lateral
-        function closeSidebarFunc() {
-            sidebar.classList.remove('active');
-            mainContent.classList.remove('sidebar-active');
-            sidebarOverlay.classList.remove('active');
-            sidebarToggle.classList.remove('hidden'); // Mostrar botón de abrir
-        }
-
-        // Abrir barra lateral al hacer clic en el botón
-        sidebarToggle.addEventListener('click', function() {
-            openSidebar();
-        });
-
-        // Cerrar barra lateral con el botón de cerrar
-        closeSidebar.addEventListener('click', closeSidebarFunc);
-
-        // Cerrar barra lateral al hacer clic fuera (solo en móviles)
-        sidebarOverlay.addEventListener('click', function() {
-            if (window.innerWidth <= 768) {
-                closeSidebarFunc();
-            }
-        });
-
-        // Cerrar barra lateral al redimensionar a pantalla grande
-        window.addEventListener('resize', function() {
-            if (window.innerWidth > 768 && sidebar.classList.contains('active')) {
-                closeSidebarFunc();
-            }
-        });
     </script>
+    <script src="../mvc_oficialiapartes/scripts/script.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>

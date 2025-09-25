@@ -33,7 +33,7 @@
         <ul class="nav-list primary-nav">
 
             <li class="nav-item">
-                <a class="nav-link active" href="index.php?action=homedash">
+                <a class="nav-link" href="index.php?action=homedash">
                     <span class="nav icon
                     material-symbols-rounded">Home</span>
                     <span class="nav-label">Inicio</span>
