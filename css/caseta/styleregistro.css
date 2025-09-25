@@ -123,26 +123,6 @@
 
         /* Responsive */
         @media (max-width: 768px) {
-            .sidebar {
-                width: 280px;
-            }
-            
-            .main-content.sidebar-active {
-                margin-left: 0;
-                width: 100%;
-            }
-            
-            .header {
-                flex-direction: column;
-                gap: 15px;
-                text-align: center;
-            }
-            
-            .header h2 {
-                margin-left: 0;
-                margin-top: 20px;
-            }
-            
             .radio-group {
                 flex-direction: column;
                 gap: 10px;
@@ -153,8 +133,4 @@
                 margin-bottom: 10px;
             }
             
-            .sidebar-toggle {
-                top: 15px;
-                left: 15px;
-            }
         }
