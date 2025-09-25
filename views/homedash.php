@@ -6,19 +6,26 @@
     <title>SIS-MPV - Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="/mvc_oficialiapartes/css/dashboard/styledashprueba.css">
+    <!-- Link a google fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
+    
+    <link rel="stylesheet" href="/mvc_oficialiapartes/css/dashboard/styledash.css">
     <link rel="stylesheet" href="/mvc_oficialiapartes/css/dashboard/stylehome.css">
     <style>
         
     </style>
 </head>
 <body>
-    
+    <!-- Overlay para cerrar barra en móviles -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
    
-    <div class="sidebar">
+    <div class="sidebar" id="sidebar">
         <div class="sidebar-header">
-            <h3>SIS-OP</h3>
-            <p>Sistema de Oficialia de Partes</p>
+            <div class="user-avatar"><?php echo substr($_SESSION['nombre'], 0, 1); ?></div>
+            <button class="toggler">
+                <span class="material-symbols-rounded">chevron_left</span>
+            </button>
+
         </div>
         
         <ul class="nav flex-column">
@@ -72,12 +79,14 @@
     <div class="main-content">
         
         <div class="header">
-            <h2 class="mb-0">Dashboard</h2>
-            <div class="user-info">
-                <div class="user-avatar"><?php echo substr($_SESSION['nombre'], 0, 2); ?></div>
-                <div>
-                    <div class="fw-bold"><?php echo $_SESSION['nombre']; ?></div>
-                    <div class="small text-muted"><?php echo $_SESSION['tipo_usuario']; ?></div>
+            
+            <div>
+                <h2 class="mb-0">Dashboard</h2>
+                <div class="user-info">
+                    <div>
+                        <div class="fw-bold"><?php echo $_SESSION['nombre']; ?></div>
+                        <div class="small text-muted"><?php echo $_SESSION['tipo_usuario']; ?></div>
+                    </div>
                 </div>
             </div>
         </div>

@@ -69,50 +69,7 @@
 
 
 <script>
-    // Control de la barra lateral - CÓDIGO MEJORADO
-    const sidebar = document.getElementById('sidebar');
-        const mainContent = document.getElementById('mainContent');
-        const sidebarToggle = document.getElementById('sidebarToggle');
-        const closeSidebar = document.getElementById('closeSidebar');
-        const sidebarOverlay = document.getElementById('sidebarOverlay');
-
-        // Función para abrir la barra lateral
-        function openSidebar() {
-            sidebar.classList.add('active');
-            mainContent.classList.add('sidebar-active');
-            sidebarOverlay.classList.add('active');
-            sidebarToggle.classList.add('hidden'); // Ocultar botón de abrir
-        }
-
-        // Función para cerrar la barra lateral
-        function closeSidebarFunc() {
-            sidebar.classList.remove('active');
-            mainContent.classList.remove('sidebar-active');
-            sidebarOverlay.classList.remove('active');
-            sidebarToggle.classList.remove('hidden'); // Mostrar botón de abrir
-        }
-
-        // Abrir barra lateral al hacer clic en el botón
-        sidebarToggle.addEventListener('click', function() {
-            openSidebar();
-        });
-
-        // Cerrar barra lateral con el botón de cerrar
-        closeSidebar.addEventListener('click', closeSidebarFunc);
-
-        // Cerrar barra lateral al hacer clic fuera (solo en móviles)
-        sidebarOverlay.addEventListener('click', function() {
-            if (window.innerWidth <= 768) {
-                closeSidebarFunc();
-            }
-        });
-
-        // Cerrar barra lateral al redimensionar a pantalla grande
-        window.addEventListener('resize', function() {
-            if (window.innerWidth > 768 && sidebar.classList.contains('active')) {
-                closeSidebarFunc();
-            }
-        });
+    
 </script>
 
 </body>
