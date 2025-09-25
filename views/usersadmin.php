@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.3.2/css/buttons.bootstrap5.min.css">
     <link rel="stylesheet" href="/mvc_oficialiapartes/css/dashboard/styledash.css">
+    <link rel="stylesheet" href="/mvc_oficialiapartes/css/dashboard/styleareasusers.css">
     <style>
         .btn-action {
             margin: 0 3px;
@@ -274,7 +275,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="editarUsuarioModalLabel">Editar Usuario</h5>
-                    <a href="users.php" class="btn-close" aria-label="Close"></a>
+                    <a href="index.php?action=usersadmin" class="btn-close" aria-label="Close"></a>
                 </div>
                 <form method="POST" action="" id="editarUsuarioForm">
                     <input type="hidden" name="id" value="<?php echo $usuario_editar['id']; ?>">
@@ -425,7 +426,7 @@
         document.addEventListener('click', function(event) {
             const modal = document.getElementById('editarUsuarioModal');
             if (event.target === modal) {
-                window.location.href = 'users.php';
+                window.location.href = 'index.php?action=usersadmin';
             }
         });
 

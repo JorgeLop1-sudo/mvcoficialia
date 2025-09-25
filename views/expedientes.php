@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.3.2/css/buttons.bootstrap5.min.css">
     <link rel="stylesheet" href="/mvc_oficialiapartes/css/dashboard/styledash.css">
+    <link rel="stylesheet" href="/mvc_oficialiapartes/css/dashboard/styleexpedientes.css">
 
     <style>
         .text-danger {

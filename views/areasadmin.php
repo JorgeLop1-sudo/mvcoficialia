@@ -7,6 +7,9 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="/mvc_oficialiapartes/css/dashboard/styledash.css">
+    <link rel="stylesheet" href="/mvc_oficialiapartes/css/dashboard/styleareasusers.css">
+    <link rel="stylesheet" href="/mvc_oficialiapartes/css/dashboard/styleareasexpedientes.css">
+
     <style>
         .btn-action {
             margin: 0 3px;
@@ -260,7 +263,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="editarAreaModalLabel">Editar Área</h5>
-                    <a href="areas.php" class="btn-close" aria-label="Close"></a>
+                    <a href="index.php?action=areasadmin" class="btn-close" aria-label="Close"></a>
                 </div>
                 <form method="POST" action="">
                     <input type="hidden" name="id" value="<?php echo $area_editar['id']; ?>">
@@ -278,7 +281,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <a href="areas.php" class="btn btn-secondary">Cancelar</a>
+                        <a href="index.php?action=areasadmin" class="btn btn-secondary">Cancelar</a>
                         <button type="submit" name="editar_area" class="btn btn-success">Guardar Cambios</button>
                     </div>
                 </form>

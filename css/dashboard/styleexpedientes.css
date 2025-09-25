@@ -1,0 +1,101 @@
+/****areas y expedientes****/
+
+.badge-estado {
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.badge-pendiente {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+.badge-proceso {
+    background-color: #cce5ff;
+    color: #004085;
+}
+
+.badge-completado {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.badge-denegado {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.search-section {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    margin-bottom: 20px;
+}
+
+.search-title {
+    color: var(--primary-color);
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.search-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.search-field {
+    margin-bottom: 10px;
+}
+
+.search-field label {
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-bottom: 5px;
+    display: block;
+}
+
+.search-field input, .search-field select {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.search-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.no-expedientes-message {
+    text-align: center;
+    padding: 40px 20px;
+    color: #6c757d;
+}
+
+.no-expedientes-message i {
+    font-size: 48px;
+    margin-bottom: 15px;
+    display: block;
+    color: #adb5bd;
+}
+
+.no-expedientes-message h4 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #495057;
+}
+
+.no-expedientes-message p {
+    font-size: 14px;
+    margin: 0;
+}
+
+.dataTables_paginate {
+    margin-top: 20px;
+}
