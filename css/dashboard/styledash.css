@@ -12,7 +12,12 @@
             background: linear-gradient(135deg, #82adec 0%, #c3cfe2 100%);
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             min-height: 100vh;
+            padding: 20px;
+            margin: 0;
+            transition: all 0.3s;
         }
+
+        
         
         .sidebar {
             background: var(--primary-color);
