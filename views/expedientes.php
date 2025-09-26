@@ -411,10 +411,24 @@
                     language: {
                         url: '//cdn.datatables.net/plug-ins/1.13.1/i18n/es-ES.json'
                     },
-                    responsive: true,
+                    responsive: true,  // Esta línea activa el plugin responsivo
                     pageLength: 10,
                     lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "Todos"]],
-                    order: [[0, 'desc']]
+                    order: [[0, 'desc']],
+                    // Configuración adicional para responsivo
+                    responsive: {
+                        details: {
+                            display: $.fn.dataTable.Responsive.display.modal({
+                                header: function (row) {
+                                    var data = row.data();
+                                    return 'Detalles del Expediente #' + data[0];
+                                }
+                            }),
+                            renderer: $.fn.dataTable.Responsive.renderer.tableAll({
+                                tableClass: 'table'
+                            })
+                        }
+                    }
                 });
                 
                 $('.dt-buttons').appendTo('.export-buttons');
