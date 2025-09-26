@@ -399,6 +399,6 @@
         });
 
     </script>
-    <script src="../mvc_oficialiapartes/scripts/script.js"></script>
+    <script src="../mvc_oficialiapartes/scripts/navbar.js"></script>
 </body>
 </html>

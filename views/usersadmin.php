@@ -115,7 +115,6 @@
         <div class="header">
             <h2 class="mb-0">Gestión de Usuarios</h2>
             <div class="user-info">
-                <div class="user-avatar"><?php echo substr($_SESSION['nombre'], 0, 2); ?></div>
                 <div>
                     <div class="fw-bold"><?php echo $_SESSION['nombre']; ?></div>
                     <div class="small text-muted"><?php echo $_SESSION['tipo_usuario']; ?></div>
@@ -472,6 +471,6 @@
             });
         <?php endif; ?>
     </script>
-    <script src="../mvc_oficialiapartes/scripts/script.js"></script>
+    <script src="../mvc_oficialiapartes/scripts/navbar.js"></script>
 </body>
 </html>

@@ -98,7 +98,6 @@
     <div class="main-content">
         
         <div class="header">
-            
             <div>
                 <h2 class="mb-0">Dashboard</h2>
                 <div class="user-info">
@@ -214,6 +213,6 @@
         });
     </script>
 
-    <script src="../mvc_oficialiapartes/scripts/script.js"></script>
+    <script src="../mvc_oficialiapartes/scripts/navbar.js"></script>
 </body>
 </html>
