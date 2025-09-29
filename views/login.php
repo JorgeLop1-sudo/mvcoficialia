@@ -1,10 +1,3 @@
-<?php
-// Headers adicionales para evitar cache
-header("Cache-Control: no-cache, no-store, must-revalidate");
-header("Pragma: no-cache");
-header("Expires: 0");
-?>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -13,203 +6,25 @@ header("Expires: 0");
     <title>Oficialía de Partes - Login</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <!--link rel="stylesheet" href="/mvc_oficialiapartes/css/caseta/styleindex.css"-->
-    <style>
-        :root {
-            --primary-color: #151A2D;
-            --secondary-color: #3498db;
-            --accent-color: #e74c3c;
-            --light-color: #ecf0f1;
-        }
 
-        body {
-            background: 
-    radial-gradient(circle at 20% 80%, rgba(25, 24, 60, 0.2) 0%, transparent 65%),
-    radial-gradient(circle at 80% 20%, rgba(70, 29, 60, 0.2) 0%, transparent 65%),
-    linear-gradient(135deg, #0f1a35 0%, #160b25 100%);
-    /*background: 
-    radial-gradient(circle at 20% 80%, rgba(20, 19, 45, 0.15) 0%, transparent 70%),
-    radial-gradient(circle at 80% 20%, rgba(50, 19, 45, 0.15) 0%, transparent 70%),
-    linear-gradient(135deg, #0d152d 0%, #120820 100%);*/
-            background-size: cover;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            position: relative;
-            margin: 0;
-            padding: 20px;
-        }
 
-        /* Capa semitransparente para mejorar legibilidad */
-        /*body::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(255, 255, 255, 0.85);
-            z-index: -1;
-        }*/
+    <link rel="stylesheet" href="/mvc_oficialiapartes/css/caseta/styleindex.css" id="theme-style">
+    <!--link rel="stylesheet" href="/mvc_oficialiapartes/css/caseta/styleindex.css">
+    <link rel="stylesheet" href="/mvc_oficialiapartes/css/globals/style-light.css"-->
 
-        .main-container {
-            width: 100%;
-            max-width: 400px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .header {
-            background: var(--primary-color);
-            color: white;
-            padding: 20px;
-            text-align: center;
-            border-radius: 10px 0px 10px 0px;
-            width: 100%;
-            box-sizing: border-box;
-        }
-
-        .header h1 {
-            margin: 0;
-            font-weight: 700;
-            font-size: 28px;
-        }
-
-        .header p {
-            margin: 10px 0 0;
-            opacity: 0.8;
-        }
-
-        .nav-links {
-            display: flex;
-            justify-content: center;
-            width: 100%;
-            padding: 10px 0;
-            border-radius: 0 0 10px 10px;
-            margin-bottom: 20px;
-        }
-
-        .nav-link {
-            margin: 0 15px;
-            color: white;
-            text-decoration: none;
-            font-weight: 600;
-            padding: 8px 15px;
-            border-radius: 5px;
-            transition: all 0.3s;
-        }
-
-        .nav-link:hover {
-            background: var(--light-color);
-            color: var(--secondary-color);
-        }
-
-        .login-container {
-            background-color: var(--primary-color);
-            color: white;
-            border-radius: 15px 0px 15px 0px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-            overflow: hidden;
-            width: 100%;
-        }
-
-        .login-form {
-            padding: 30px;
-        }
-
-        .form-control {
-            border-radius: 8px;
-            padding: 12px 15px;
-            margin-bottom: 20px;
-            border: 2px solid #ddd;
-            transition: all 0.3s;
-        }
-
-        .form-control:focus {
-            border-color: var(--secondary-color);
-            box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
-        }
-
-        .btn-login {
-            background: var(--secondary-color);
-            border: none;
-            color: white;
-            padding: 12px;
-            border-radius: 8px;
-            font-weight: 600;
-            width: 100%;
-            margin-top: 10px;
-            transition: all 0.3s;
-        }
-
-        .btn-login:hover {
-            background: #2980b9;
-            transform: translateY(-2px);
-        }
-
-        /* Estilos para el selector de tipo de login */
-        .login-type {
-            display: flex;
-            background: var(--light-color);
-            border-radius: 8px;
-            margin-bottom: 20px;
-            overflow: hidden;
-        }
-
-        .login-option {
-            flex: 1;
-            text-align: center;
-            padding: 12px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .login-option.active {
-            background: var(--secondary-color);
-            color: white;
-        }
-
-        .login-option i {
-            margin-right: 5px;
-        }
-
-        .alert {
-            padding: 12px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            font-size: 14px;
-        }
-
-        .alert-danger {
-            background-color: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-        }
-
-        @media (max-width: 768px) {
-            .nav-links {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .nav-link {
-                margin: 5px 0;
-            }
-
-            .login-type {
-                flex-direction: column;
-            }
-        }
-    </style>
     <!-- Meta tags para evitar cache -->
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
 </head>
 <body>
+
+<body>
+<!-- Botón para cambiar tema -->
+<button class="theme-toggle" id="themeToggle" title="Cambiar tema">
+    <i class="fas fa-moon"></i>
+</button>
+
 <div class="main-container">
     <div class="header">
         <h1>Oficialía de Partes</h1>
@@ -257,7 +72,12 @@ header("Expires: 0");
                 
                 <div class="mb-3">
                     <label for="password" class="form-label">Contraseña</label>
-                    <input type="password" class="form-control" id="password" name="password" placeholder="Ingrese su contraseña" required>
+                    <div class="password-container">
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Ingrese su contraseña" required>
+                        <button type="button" class="toggle-password" id="togglePassword">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
                 </div>
                 
                 <button type="submit" class="btn btn-login">Ingresar al Sistema</button>
@@ -295,6 +115,26 @@ header("Expires: 0");
         hiddenLoginType.value = 'email';
     });
     
+    // Funcionalidad para mostrar/ocultar contraseña
+    const togglePassword = document.getElementById('togglePassword');
+    const passwordInput = document.getElementById('password');
+    
+    togglePassword.addEventListener('click', function() {
+        // Cambiar el tipo de input
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+        
+        // Cambiar el icono
+        const icon = this.querySelector('i');
+        if (type === 'password') {
+            icon.classList.remove('fa-eye-slash');
+            icon.classList.add('fa-eye');
+        } else {
+            icon.classList.remove('fa-eye');
+            icon.classList.add('fa-eye-slash');
+        }
+    });
+    
     // Validación básica del formulario
     document.getElementById('loginForm').addEventListener('submit', function(e) {
         const identificador = document.getElementById('identificador').value;
@@ -330,14 +170,6 @@ header("Expires: 0");
         window.history.go(1);
     };
 
-    // Prevenir que se use la tecla F5 o Ctrl+R
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'F5' || e.ctrlKey && e.key === 'r' || e.key === 'F11') {
-            e.preventDefault();
-            return false;
-        }
-    });
-
     // Forzar recarga desde el servidor al cargar la página
     window.onload = function() {
         if (performance.navigation.type === 2) {
@@ -345,6 +177,10 @@ header("Expires: 0");
             window.location.reload(true); // true fuerza recarga desde servidor
         }
     };
+
 </script>
+
+<script src="../mvc_oficialiapartes/scripts/dark_theme_inicio.js"></script>
+
 </body>
 </html>

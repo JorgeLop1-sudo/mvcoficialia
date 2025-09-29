@@ -14,7 +14,8 @@ header("Expires: 0");
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
 
-    <link rel="stylesheet" href="/mvc_oficialiapartes/css/dashboard/styledash.css">
+    <link rel="stylesheet" href="/mvc_oficialiapartes/css/globals/style-body.css">
+    <link rel="stylesheet" href="/mvc_oficialiapartes/css/globals/style-sidebar.css">
     <link rel="stylesheet" href="/mvc_oficialiapartes/css/caseta/styleregistro.css">
     <!-- -->
 
