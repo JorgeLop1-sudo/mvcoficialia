@@ -12,142 +12,42 @@
     <link rel="stylesheet" href="/mvc_oficialiapartes/css/globals/style-sidebar.css">
     <link rel="stylesheet" href="/mvc_oficialiapartes/css/dashboard/styleconfig.css">
     <style>
-        .config-section {
-            margin-bottom: 2rem;
-            padding: 1.5rem;
-            background: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        
-        .password-feedback, .user-feedback {
-            display: none;
-            margin-top: 10px;
-            padding: 10px;
-            border-radius: 5px;
-        }
-        
+        /* Estilos para el campo de contraseña con botón de mostrar/ocultar */
         .form-group {
-            margin-bottom: 1.2rem;
+            position: relative;
         }
-        
-        .required-field::after {
-            content: " *";
-            color: red;
+
+        .toggle-password {
+            position: absolute;
+            right: 15px;
+            top: 70%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: #6c757d;
+            cursor: pointer;
+            padding: 0;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .toggle-password:hover {
+            color: var(--secondary-color);
         }
     </style>
 </head>
 <body>
-
-        <!-- Sidebar header -->
-    <aside class="sidebar">
-
-        <div class="sidebar-header">
-            <div class="user-avatar"><?php echo substr($_SESSION['nombre'], 0, 1); ?></div>
-            <button class="toggler sidebar-toggler">
-                <span class="material-symbols-rounded">chevron_left</span>
-            </button>
-            <button class="toggler menu-toggler">
-                <span class="material-symbols-rounded">menu</span>
-            </button>
-        </div>
-
-        <nav class="sidebar-nav">
-        <ul class="nav-list primary-nav">
-
-        <?php if ($_SESSION['tipo_usuario'] === 'Administrador' || $_SESSION['tipo_usuario'] === 'Usuario'): ?>
-
-            <li class="nav-item">
-                <a class="nav-link" href="index.php?action=homedash">
-                    <span class="nav icon
-                    material-symbols-rounded">Home</span>
-                    <span class="nav-label">Inicio</span>
-                </a>
-                <span class="nav-tooltip">Inicio</span>
-            </li>
-            <?php endif; ?>
-
-            <?php if ($_SESSION['tipo_usuario'] === 'Administrador'): ?>
-                <li class="nav-item">
-                    <a class="nav-link" href="index.php?action=areasadmin">
-                        <span class="nav icon
-                        material-symbols-rounded">Apartment</span>
-                        <span class="nav-label">Áreas</span>
-                    </a>
-                    <span class="nav-tooltip">Áreas</span>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="index.php?action=usersadmin">
-                        <span class="nav icon
-                        material-symbols-rounded">Group</span>
-                        <span class="nav-label">Usuarios</span>
-                    </a>
-                    <span class="nav-tooltip">Usuarios</span>
-                </li>
-            <?php endif; ?>
-
-            <?php if ($_SESSION['tipo_usuario'] === 'Administrador' || $_SESSION['tipo_usuario'] === 'Usuario'): ?>
-
-            <li class="nav-item">
-                <a class="nav-link" href="index.php?action=expedientes">
-                    <span class="nav icon
-                        material-symbols-rounded">Folder</span>
-                    <span class="nav-label">Expedientes</span>
-                </a>
-                <span class="nav-tooltip">Expedientes</span>
-            </li>
-
-            <?php endif; ?>
-
-            <?php if ($_SESSION['tipo_usuario'] === 'Guardia'): ?>
-                <li class="nav-item">
-                <a class="nav-link" href="index.php?action=registrar">
-                    <span class="nav icon
-                    material-symbols-rounded">edit_document</span>
-                    <span class="nav-label">Registrar</span>
-                </a>
-                <span class="nav-tooltip">Registrar</span>
-            </li>
-            <?php endif; ?>
-
-        </ul>
-
-        <ul class="nav-list secondary-nav">
-            <li class="nav-item mt-4">
-                <a class="nav-link" href="index.php?action=config">
-                    <span class="nav icon
-                        material-symbols-rounded">Settings</span>
-                    <span class="nav-label">Configuración</span>
-                </a>
-                <span class="nav-tooltip">Configuración</span>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link" href="index.php?action=logout">
-                    <span class="nav icon
-                        material-symbols-rounded">Logout</span>
-                    <span class="nav-label">Cerrar Sesión</span>
-                </a>
-                <span class="nav-tooltip">Cerrar Sesión</span>
-            </li>
-        </ul>
-        </nav>
-
-    </aside>
+    <!-- Incluir el sidebar -->
+    <?php include 'partials/sidebar.php'; ?>
     
     
     <!-- Main Content -->
     <div class="main-content">
         <!-- Header -->
-        <div class="header">
-            <h2 class="mb-0">Configuración</h2>
-            <div class="user-info">
-                <div>
-                    <div class="fw-bold"><?php echo $_SESSION['nombre']; ?></div>
-                    <div class="small text-muted"><?php echo $_SESSION['tipo_usuario']; ?></div>
-                </div>
-            </div>
-        </div>
+        <?php include 'partials/header.php'; ?>
 
         <!-- Page Title -->
         <h3 class="page-title">Configuración del Sistema</h3>
@@ -221,7 +121,11 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="currentPassword" class="required-field">Contraseña actual</label>
-                            <input type="password" class="form-control" id="currentPassword" name="currentPassword" required>
+                            <input type="password" class="form-control" id="currentPassword" data-toggle="currentPassword" name="currentPassword" required>
+                            <button type="button" class="toggle-password" data-target="currentPassword" id="togglePassword1">
+                            <i class="fas fa-eye"></i>
+                        
+                        </button>
                         </div>
                     </div>
                 </div>
@@ -230,14 +134,21 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="newPassword" class="required-field">Nueva contraseña</label>
-                            <input type="password" class="form-control" id="newPassword" name="newPassword" required>
-                            <small class="form-text text-muted">Mínimo 8 caracteres, incluir mayúsculas, minúsculas y números</small>
+                            <input type="password" class="form-control" id="newPassword" data-toggle="newPassword" name="newPassword" required>
+                            <button type="button" class="toggle-password" data-target="newPassword" id="togglePassword2">
+                                <i class="fas fa-eye"></i>
+                            </button>
                         </div>
+                        <small class="form-text text-muted">Mínimo 8 caracteres, incluir mayúsculas, minúsculas y números</small>
+
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="confirmPassword" class="required-field">Confirmar nueva contraseña</label>
-                            <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required>
+                            <input type="password" class="form-control" id="confirmPassword" data-toggle="confirmPassword" name="confirmPassword" required>
+                            <button type="button" class="toggle-password" data-target="confirmPassword" id="togglePassword3">
+                            <i class="fas fa-eye"></i>
+                        </button>
                         </div>
                     </div>
                 </div>
@@ -400,5 +311,6 @@
 
     </script>
     <script src="../mvc_oficialiapartes/scripts/navbar.js"></script>
+    <script src="../mvc_oficialiapartes/scripts/vercontra.js"></script>
 </body>
 </html>

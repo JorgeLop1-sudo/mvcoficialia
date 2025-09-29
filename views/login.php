@@ -6,11 +6,8 @@
     <title>Oficialía de Partes - Login</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-
-
-    <link rel="stylesheet" href="/mvc_oficialiapartes/css/caseta/styleindex.css" id="theme-style">
-    <!--link rel="stylesheet" href="/mvc_oficialiapartes/css/caseta/styleindex.css">
-    <link rel="stylesheet" href="/mvc_oficialiapartes/css/globals/style-light.css"-->
+    
+    <link rel="stylesheet" href="/mvc_oficialiapartes/css/globals/style-dark.css" id="theme-style">
 
     <!-- Meta tags para evitar cache -->
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
@@ -26,18 +23,11 @@
 </button>
 
 <div class="main-container">
-    <div class="header">
-        <h1>Oficialía de Partes</h1>
-        <p>Sistema de Gestión de Trámites y Oficios</p>
-    </div>
-    
-    <div class="nav-links">
-        <a href="index.php?action=login" class="nav-link"><i class="fas fa-user"></i> Iniciar Sesion</a>
-        <a href="index.php?action=buscar" class="nav-link"><i class="fas fa-search"></i> Buscar Oficio</a>
-    </div>
 
-    <div class="login-container">
-        <div class="login-form">
+    <?php include 'partials/titulo.php'; ?>
+
+    <div class="content">
+        <div class="form">
             <h3 class="text-center mb-4">Inicio de Sesión</h3>
             
             <?php if (!empty($error)): ?>
@@ -73,8 +63,8 @@
                 <div class="mb-3">
                     <label for="password" class="form-label">Contraseña</label>
                     <div class="password-container">
-                        <input type="password" class="form-control" id="password" name="password" placeholder="Ingrese su contraseña" required>
-                        <button type="button" class="toggle-password" id="togglePassword">
+                        <input type="password" class="form-control" id="password" data-toggle="password" name="password" placeholder="Ingrese su contraseña" required>
+                        <button type="button" class="toggle-password" data-target="password" id="togglePassword">
                             <i class="fas fa-eye"></i>
                         </button>
                     </div>
@@ -115,25 +105,6 @@
         hiddenLoginType.value = 'email';
     });
     
-    // Funcionalidad para mostrar/ocultar contraseña
-    const togglePassword = document.getElementById('togglePassword');
-    const passwordInput = document.getElementById('password');
-    
-    togglePassword.addEventListener('click', function() {
-        // Cambiar el tipo de input
-        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-        passwordInput.setAttribute('type', type);
-        
-        // Cambiar el icono
-        const icon = this.querySelector('i');
-        if (type === 'password') {
-            icon.classList.remove('fa-eye-slash');
-            icon.classList.add('fa-eye');
-        } else {
-            icon.classList.remove('fa-eye');
-            icon.classList.add('fa-eye-slash');
-        }
-    });
     
     // Validación básica del formulario
     document.getElementById('loginForm').addEventListener('submit', function(e) {
@@ -181,6 +152,7 @@
 </script>
 
 <script src="../mvc_oficialiapartes/scripts/dark_theme_inicio.js"></script>
+<script src="../mvc_oficialiapartes/scripts/vercontra.js"></script>
 
 </body>
 </html>

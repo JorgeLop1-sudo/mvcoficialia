@@ -6,82 +6,27 @@
     <title>Oficialia de partes - Buscar Trámite</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="/mvc_oficialiapartes/css/caseta/stylebuscar.css" id="theme-style">
+    <link rel="stylesheet" href="/mvc_oficialiapartes/css/caseta/styleindex.css" id="theme-style">
     
-    
-    <style>
-        .security-code {
-            background-color: #f8f9fa;
-            padding: 15px;
-            border-radius: 5px;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-        #codigoSeguridad {
-            font-size: 24px;
-            font-weight: bold;
-            letter-spacing: 5px;
-            color: #0d6efd;
-            background-color: #fff;
-            padding: 10px 15px;
-            border-radius: 5px;
-            border: 1px dashed #ccc;
-        }
-        .btn-search {
-            background-color: #0d6efd;
-            color: white;
-            padding: 10px;
-            font-weight: bold;
-        }
-        .modal-content {
-            border-radius: 10px;
-        }
-        .modal-header {
-            background-color: #0d6efd;
-            color: white;
-            border-top-left-radius: 10px;
-            border-top-right-radius: 10px;
-        }
-        .status-badge {
-            padding: 5px 10px;
-            border-radius: 20px;
-            font-weight: bold;
-        }
-        .status-pendiente {
-            background-color: #fff3cd;
-            color: #856404;
-        }
-        .status-tramite {
-            background-color: #cce5ff;
-            color: #004085;
-        }
-        .status-completado {
-            background-color: #d4edda;
-            color: #155724;
-        }
-        .status-denegado {
-            background-color: #f8d7da;
-            color: #721c24;
-        }
-    </style>
+    <!-- Meta tags para evitar cache -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
 </head>
 <body>
-    <div class="header">
-        <h1>Oficialia de partes</h1>
-        <p>Sistema de gestión de Oficios</p>
-    </div>
-    
-    <div class="nav-links">
-        <a href="index.php?action=login" class="nav-link"><i class="fas fa-user"></i> Iniciar Sesion</a>
-        <a href="index.php?action=buscar" class="nav-link"><i class="fas fa-search"></i> Buscar Oficio</a>
 
-    </div>
-    
-    <div class="container">
-        <div class="content">
-            <h2 class="page-title"><i class="fas fa-search me-2"></i>Buscar Trámite</h2>
+<!-- Botón para cambiar tema -->
+<button class="theme-toggle" id="themeToggle" title="Cambiar tema">
+    <i class="fas fa-moon"></i>
+</button>
+
+<div class="main-container">
+
+    <?php include 'partials/titulo.php'; ?>
+
+    <div class="content">
+        <div class="form">
+            <h3 class="text-center mb-4">Buscar Trámite</h3>
             
             <form id="searchForm" method="POST">
                 <div class="mb-3">
@@ -102,18 +47,13 @@
                     </div>
                 </div>
                 
-                <div class="d-grid">
-                    <button type="submit" class="btn btn-search">
-                        <i class="fas fa-search"></i> Buscar
-                    </button>
-                </div>
+                <button type="submit" class="btn btn-search">
+                    <i class="fas fa-search"></i> Buscar
+                </button>
             </form>
         </div>
-        
-        <div class="footer">
-            <p>Oficialia de partes - Busqueda de oficio</p>
-        </div>
     </div>
+</div>
 
     <!-- Modal para mostrar resultados -->
     <div class="modal fade" id="resultadoModal" tabindex="-1" aria-labelledby="resultadoModalLabel" aria-hidden="true">

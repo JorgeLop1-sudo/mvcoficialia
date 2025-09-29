@@ -1,42 +1,3 @@
-.table-container {
-    padding: 20px;
-}
-
-table {
-    width: 100%;
-}
-
-.table th {
-    background-color: #f8f9fa;
-    color: var(--primary-color);
-    font-weight: 600;
-    border-top: none;
-}
-
-.action-buttons .btn {
-    padding: 5px 10px;
-    margin-right: 5px;
-}
-
- .btn-new {
-    background: var(--success-color);         
-    border: none;
-    color: white;
-    padding: 8px 15px;
-    border-radius: 5px;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-}
-
-.btn-new:hover {
-    background: #219653;
-}
-
-.btn-new i {
-    margin-right: 5px;
-}
-
 .users-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -105,6 +66,33 @@ table {
 .user-actions .btn {
     padding: 5px 10px;
     margin-left: 5px;
+}
+
+.user-list {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #f8f9fa;
+    border-radius: 5px;
+    border-left: 4px solid #3498db;
+}
+.user-item {
+    padding: 5px 0;
+    border-bottom: 1px solid #eee;
+}
+.user-item:last-child {
+    border-bottom: none;
+}
+.user-count {
+    display: inline-block;
+    background-color: #3498db;
+    color: white;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    text-align: center;
+    line-height: 25px;
+    font-size: 0.8rem;
+    margin-right: 5px;
 }
 
 .pagination-container {

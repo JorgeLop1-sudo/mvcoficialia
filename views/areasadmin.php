@@ -10,138 +10,18 @@
 
     <link rel="stylesheet" href="/mvc_oficialiapartes/css/globals/style-body.css">
     <link rel="stylesheet" href="/mvc_oficialiapartes/css/globals/style-sidebar.css">
-    <link rel="stylesheet" href="/mvc_oficialiapartes/css/dashboard/styleareasusers.css">
+    <link rel="stylesheet" href="/mvc_oficialiapartes/css/globals/buttonnew.css">
+    <link rel="stylesheet" href="/mvc_oficialiapartes/css/globals/style-container.css">
 
-    <style>
-        .btn-action {
-            margin: 0 3px;
-        }
-        .area-card {
-            transition: transform 0.2s;
-        }
-        .area-card:hover {
-            transform: translateY(-2px);
-        }
-        .user-list {
-            margin-top: 10px;
-            padding: 10px;
-            background-color: #f8f9fa;
-            border-radius: 5px;
-            border-left: 4px solid #3498db;
-        }
-        .user-item {
-            padding: 5px 0;
-            border-bottom: 1px solid #eee;
-        }
-        .user-item:last-child {
-            border-bottom: none;
-        }
-        .user-count {
-            display: inline-block;
-            background-color: #3498db;
-            color: white;
-            border-radius: 50%;
-            width: 25px;
-            height: 25px;
-            text-align: center;
-            line-height: 25px;
-            font-size: 0.8rem;
-            margin-right: 5px;
-        }
-    </style>
 </head>
 <body>
-    
-    <!-- Sidebar header -->
-    <aside class="sidebar">
-
-        <div class="sidebar-header">
-            <div class="user-avatar"><?php echo substr($_SESSION['nombre'], 0, 1); ?></div>
-            <button class="toggler sidebar-toggler">
-                <span class="material-symbols-rounded">chevron_left</span>
-            </button>
-            <button class="toggler menu-toggler">
-                <span class="material-symbols-rounded">menu</span>
-            </button>
-        </div>
-        
-        <nav class="sidebar-nav">
-        <ul class="nav-list primary-nav">
-
-            <li class="nav-item">
-                <a class="nav-link" href="index.php?action=homedash">
-                    <span class="nav icon
-                    material-symbols-rounded">Home</span>
-                    <span class="nav-label">Inicio</span>
-                </a>
-                <span class="nav-tooltip">Inicio</span>
-            </li>
-
-            <?php if ($_SESSION['tipo_usuario'] === 'Administrador'): ?>
-                <li class="nav-item">
-                    <a class="nav-link" href="index.php?action=areasadmin">
-                        <span class="nav icon
-                        material-symbols-rounded">Apartment</span>
-                        <span class="nav-label">Áreas</span>
-                    </a>
-                    <span class="nav-tooltip">Áreas</span>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="index.php?action=usersadmin">
-                        <span class="nav icon
-                        material-symbols-rounded">Group</span>
-                        <span class="nav-label">Usuarios</span>
-                    </a>
-                    <span class="nav-tooltip">Usuarios</span>
-                </li>
-            <?php endif; ?>
-
-            <li class="nav-item">
-                <a class="nav-link" href="index.php?action=expedientes">
-                    <span class="nav icon
-                        material-symbols-rounded">Folder</span>
-                    <span class="nav-label">Expedientes</span>
-                </a>
-                <span class="nav-tooltip">Expedientes</span>
-            </li>
-
-        </ul>
-
-        <ul class="nav-list secondary-nav">
-            <li class="nav-item mt-4">
-                <a class="nav-link" href="index.php?action=config">
-                    <span class="nav icon
-                        material-symbols-rounded">Settings</span>
-                    <span class="nav-label">Configuración</span>
-                </a>
-                <span class="nav-tooltip">Configuración</span>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link" href="index.php?action=logout">
-                    <span class="nav icon
-                        material-symbols-rounded">Logout</span>
-                    <span class="nav-label">Cerrar Sesión</span>
-                </a>
-                <span class="nav-tooltip">Cerrar Sesión</span>
-            </li>
-        </ul>
-        </nav>
-
-    </aside>
+ 
+    <?php include 'partials/sidebar.php'; ?>
 
     
     <div class="main-content">
         
-        <div class="header">
-            <h2 class="mb-0">Dashboard Administrador</h2>
-            <div class="user-info">
-                <div>
-                    <div class="fw-bold"><?php echo $_SESSION['nombre']; ?></div>
-                    <div class="small text-muted"><?php echo $_SESSION['tipo_usuario']; ?></div>
-                </div>
-            </div>
-        </div>
+    <?php include 'partials/header.php'; ?>
 
         <!-- Mostrar mensajes -->
         <?php if (isset($_GET['mensaje'])): ?>

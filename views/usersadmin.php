@@ -12,14 +12,10 @@
 
     <link rel="stylesheet" href="/mvc_oficialiapartes/css/globals/style-body.css">
     <link rel="stylesheet" href="/mvc_oficialiapartes/css/globals/style-sidebar.css">
-    <link rel="stylesheet" href="/mvc_oficialiapartes/css/dashboard/styleareasusers.css">
+    <link rel="stylesheet" href="/mvc_oficialiapartes/css/globals/buttonnew.css">
+    <link rel="stylesheet" href="/mvc_oficialiapartes/css/globals/style-container.css">
+    
     <style>
-        .btn-action {
-            margin: 0 3px;
-        }
-        .modal-content {
-            border-radius: 10px;
-        }
         .password-toggle {
             cursor: pointer;
         }
@@ -32,95 +28,12 @@
     </style>
 </head>
 <body>
-    <!-- Sidebar header -->
-    <aside class="sidebar">
-
-        <div class="sidebar-header">
-            <div class="user-avatar"><?php echo substr($_SESSION['nombre'], 0, 1); ?></div>
-            <button class="toggler sidebar-toggler">
-                <span class="material-symbols-rounded">chevron_left</span>
-            </button>
-            <button class="toggler menu-toggler">
-                <span class="material-symbols-rounded">menu</span>
-            </button>
-        </div>
-        
-        <nav class="sidebar-nav">
-        <ul class="nav-list primary-nav">
-
-            <li class="nav-item">
-                <a class="nav-link" href="index.php?action=homedash">
-                    <span class="nav icon
-                    material-symbols-rounded">Home</span>
-                    <span class="nav-label">Inicio</span>
-                </a>
-                <span class="nav-tooltip">Inicio</span>
-            </li>
-
-            <?php if ($_SESSION['tipo_usuario'] === 'Administrador'): ?>
-                <li class="nav-item">
-                    <a class="nav-link" href="index.php?action=areasadmin">
-                        <span class="nav icon
-                        material-symbols-rounded">Apartment</span>
-                        <span class="nav-label">Áreas</span>
-                    </a>
-                    <span class="nav-tooltip">Áreas</span>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="index.php?action=usersadmin">
-                        <span class="nav icon
-                        material-symbols-rounded">Group</span>
-                        <span class="nav-label">Usuarios</span>
-                    </a>
-                    <span class="nav-tooltip">Usuarios</span>
-                </li>
-            <?php endif; ?>
-
-            <li class="nav-item">
-                <a class="nav-link" href="index.php?action=expedientes">
-                    <span class="nav icon
-                        material-symbols-rounded">Folder</span>
-                    <span class="nav-label">Expedientes</span>
-                </a>
-                <span class="nav-tooltip">Expedientes</span>
-            </li>
-
-        </ul>
-
-        <ul class="nav-list secondary-nav">
-            <li class="nav-item mt-4">
-                <a class="nav-link" href="index.php?action=config">
-                    <span class="nav icon
-                        material-symbols-rounded">Settings</span>
-                    <span class="nav-label">Configuración</span>
-                </a>
-                <span class="nav-tooltip">Configuración</span>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link" href="index.php?action=logout">
-                    <span class="nav icon
-                        material-symbols-rounded">Logout</span>
-                    <span class="nav-label">Cerrar Sesión</span>
-                </a>
-                <span class="nav-tooltip">Cerrar Sesión</span>
-            </li>
-        </ul>
-        </nav>
-
-    </aside>
+    <!-- Incluir el sidebar -->
+    <?php include 'partials/sidebar.php'; ?>
     
     <div class="main-content">
         
-        <div class="header">
-            <h2 class="mb-0">Gestión de Usuarios</h2>
-            <div class="user-info">
-                <div>
-                    <div class="fw-bold"><?php echo $_SESSION['nombre']; ?></div>
-                    <div class="small text-muted"><?php echo $_SESSION['tipo_usuario']; ?></div>
-                </div>
-            </div>
-        </div>
+    <?php include 'partials/header.php'; ?>
 
         <!-- Mostrar mensajes de éxito -->
         <?php if (isset($_GET['mensaje'])): ?>

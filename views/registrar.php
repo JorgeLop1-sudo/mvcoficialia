@@ -17,72 +17,18 @@ header("Expires: 0");
     <link rel="stylesheet" href="/mvc_oficialiapartes/css/globals/style-body.css">
     <link rel="stylesheet" href="/mvc_oficialiapartes/css/globals/style-sidebar.css">
     <link rel="stylesheet" href="/mvc_oficialiapartes/css/caseta/styleregistro.css">
-    <!-- -->
+
 
 </head>
 
 <body>
-    <!-- Sidebar header -->
-    <aside class="sidebar">
-
-        <div class="sidebar-header">
-            <div class="user-avatar"><?php echo substr($_SESSION['nombre'], 0, 1); ?></div>
-            <button class="toggler sidebar-toggler">
-                <span class="material-symbols-rounded">chevron_left</span>
-            </button>
-            <button class="toggler menu-toggler">
-                <span class="material-symbols-rounded">menu</span>
-            </button>
-        </div>
-        
-        <nav class="sidebar-nav">
-        <ul class="nav-list primary-nav">
-
-            <li class="nav-item">
-                <a class="nav-link" href="index.php?action=registrar">
-                    <span class="nav icon
-                    material-symbols-rounded">edit_document</span>
-                    <span class="nav-label">Registrar</span>
-                </a>
-                <span class="nav-tooltip">Registrar</span>
-            </li>
-
-        </ul>
-
-        <ul class="nav-list secondary-nav">
-            <li class="nav-item mt-4">
-                <a class="nav-link" href="index.php?action=config">
-                    <span class="nav icon
-                        material-symbols-rounded">Settings</span>
-                    <span class="nav-label">Configuración</span>
-                </a>
-                <span class="nav-tooltip">Configuración</span>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link" href="index.php?action=logout">
-                    <span class="nav icon
-                        material-symbols-rounded">Logout</span>
-                    <span class="nav-label">Cerrar Sesión</span>
-                </a>
-                <span class="nav-tooltip">Cerrar Sesión</span>
-            </li>
-        </ul>
-        </nav>
-
-    </aside>
+    <!-- Incluir el sidebar -->
+    <?php include 'partials/sidebar.php'; ?>
 
     <!-- Contenido principal -->
     <div class="main-content" id="mainContent">
-        <div class="header">
-            <h2 class="mb-0">Registrar Oficio</h2>
-            <div class="user-info">
-                <div>
-                    <div class="fw-bold">Oficialía de Partes</div>
-                    <div class="small text-muted">Caseta</div>
-                </div>
-            </div>
-        </div>
+        
+    <?php include 'partials/header.php'; ?>
 
         <div class="form-container">
             <form id="registerForm" method="POST" enctype="multipart/form-data">
