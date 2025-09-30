@@ -606,11 +606,12 @@ body {
 
 .sectionbutton{
     display: flex;
+    justify-content: right; /* Centra horizontalmente */
 }
 
 .btn-config{
-    
-    padding: 12px 42%;
+    padding: 12px 20%;
+
     border: none;
     outline: none;
     color: #FFF;
@@ -619,6 +620,12 @@ body {
     z-index: 0;
     border-radius: 12px;
     margin-top: 10px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px; /* Espacio entre icono y texto */
+    min-width: 100px;
 }
 .btn-config::after{
     content: "";

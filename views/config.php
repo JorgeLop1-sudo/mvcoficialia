@@ -83,28 +83,29 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="email" class="required-field">Correo electrónico</label>
-                            <input type="email" class="form-control" id="email" name="email" 
-                                   value="<?php echo htmlspecialchars($usuario_actual['email']); ?>" required>
+                            <label for="area">Área asignada</label>
+                                <select class="form-control" id="area" name="area" disabled>
+                                    <option value="<?php echo $usuario_actual['area_id']; ?>" selected>
+                                        <?php echo htmlspecialchars($usuario_actual['area_nombre'] ?? 'Sin área asignada'); ?>
+                                    </option>
+                                </select>
+                            <small class="form-text">El área no puede ser modificada desde aquí</small>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="area">Área asignada</label>
-                            <select class="form-control" id="area" name="area" disabled>
-                                <option value="<?php echo $usuario_actual['area_id']; ?>" selected>
-                                    <?php echo htmlspecialchars($usuario_actual['area_nombre'] ?? 'Sin área asignada'); ?>
-                                </option>
-                            </select>
-                            <small class="form-text">El área no puede ser modificada desde aquí</small>
+                            <label for="email" class="required-field">Correo electrónico</label>
+                            <input type="email" class="form-control" id="email" name="email" 
+                                   value="<?php echo htmlspecialchars($usuario_actual['email']); ?>" required>
                         </div>
-                    </div>
+                        <div class="sectionbutton">
+                            <button type="submit" class="btn-config">
+                                <i class="fas fa-save me-1"></i> Guardar cambios
+                            </button>
+                        </div>
+                    </div>     
                 </div>
-                <div class="sectionbutton">
-                    <button type="submit" class="btn-config">
-                        <i class="fas fa-save me-1"></i> Guardar cambios
-                    </button>
-                </div>
+                
             </form>
         </div>
 
@@ -141,7 +142,6 @@
                             </button>
                         </div>
                         <small class="form-text">Mínimo 8 caracteres, incluir mayúsculas, minúsculas y números</small>
-
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
@@ -151,13 +151,14 @@
                             <i class="fas fa-eye"></i>
                         </button>
                         </div>
+                        <div class="sectionbutton">
+                            <button type="submit" class="btn-config">
+                                <i class="fas fa-key me-1"></i> Cambiar contraseña
+                            </button>
+                        </div>
                     </div>
                 </div>
-                <div class="sectionbutton">
-                    <button type="submit" class="btn-config">
-                        <i class="fas fa-key me-1"></i> Cambiar contraseña
-                    </button>
-                </div>
+                
             </form>
         </div>
     </div>
