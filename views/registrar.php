@@ -14,7 +14,7 @@ header("Expires: 0");
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
 
-    <link rel="stylesheet" href="/mvc_oficialiapartes/css/globals/style-body.css">
+    <link rel="stylesheet" href="/mvc_oficialiapartes/css/globals/style-body.css" >
     <link rel="stylesheet" href="/mvc_oficialiapartes/css/globals/style-sidebar.css">
     <link rel="stylesheet" href="/mvc_oficialiapartes/css/caseta/styleregistro.css">
 
@@ -169,6 +169,7 @@ header("Expires: 0");
         
     </script>
     <script src="../mvc_oficialiapartes/scripts/navbar.js"></script>
+    <script src="../mvc_oficialiapartes/scripts/dark_theme_dash.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>

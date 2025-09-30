@@ -1,3 +1,61 @@
+:root {
+    --primary-color: #151A2D;
+    --secondary-color: #3498db;
+    --accent-color: #e74c3c;
+    --success-color: #27ae60;
+    --warning-color: #f39c12;
+    --light-color: #ecf0f1;
+    --dark-color: #2c3e50;
+}
+
+
+
+body {
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(25, 24, 60, 0.2) 0%, transparent 65%),
+        radial-gradient(circle at 80% 20%, rgba(70, 29, 60, 0.2) 0%, transparent 65%),
+        linear-gradient(135deg, #0f1a35 0%, #160b25 100%);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    min-height: 100vh;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    transition: all 0.3s;
+}
+
+.main-content {
+    margin-left: 302px;
+    padding: 20px;
+    transition: margin-left 0.4s ease;
+    width: calc(100% - 302px);
+    min-height: calc(100vh - 40px);
+}
+
+.header {
+    background: white;
+    padding: 15px 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+}
+
+.page-title {
+    color: var(--primary-color);
+    margin-bottom: 25px;
+    font-weight: 600;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .sidebar {
     width: 270px;
     position: fixed;
@@ -6,6 +64,7 @@
     background: var(--primary-color);
     height: calc(100vh - 32px);
     transition: 0.4s ease;
+    box-shadow: 0 5px 15px white;
 }
 
 .sidebar.collapsed{

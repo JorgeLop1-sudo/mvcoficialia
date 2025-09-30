@@ -14,7 +14,7 @@
     <meta http-equiv="Expires" content="0">
 </head>
 <body>
-
+<div id="themeLoading" class="theme-loading"></div>
 <!-- Botón para cambiar tema -->
 <button class="theme-toggle" id="themeToggle" title="Cambiar tema">
     <i class="fas fa-moon"></i>

@@ -1,4 +1,3 @@
-<!-- partials/sidebar.php -->
 <!-- Sidebar -->
 <aside class="sidebar">
 
@@ -75,11 +74,11 @@
         </li>
 
         <li class="nav-item">
-            <a class="nav-link" href="index.php?action=config">
+            <a class="nav-link" id="themeToggle">
                 <span class="nav icon material-symbols-rounded">dark_mode</span>
-                <span class="nav-label">Tema</span>
+                <span class="nav-label">Cambiar tema</span>
             </a>
-            <span class="nav-tooltip">Tema</span>
+            <span class="nav-tooltip">Cambiar tema</span>
         </li>
 
         <li class="nav-item">

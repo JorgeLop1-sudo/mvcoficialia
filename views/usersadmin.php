@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.3.2/css/buttons.bootstrap5.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
 
-    <link rel="stylesheet" href="/mvc_oficialiapartes/css/globals/style-body.css">
+    <link rel="stylesheet" href="/mvc_oficialiapartes/css/globals/style-body.css" >
     <link rel="stylesheet" href="/mvc_oficialiapartes/css/globals/style-sidebar.css">
     <link rel="stylesheet" href="/mvc_oficialiapartes/css/globals/buttonnew.css">
     <link rel="stylesheet" href="/mvc_oficialiapartes/css/globals/style-container.css">
@@ -385,5 +385,6 @@
         <?php endif; ?>
     </script>
     <script src="../mvc_oficialiapartes/scripts/navbar.js"></script>
+    <script src="../mvc_oficialiapartes/scripts/dark_theme_dash.js"></script>
 </body>
 </html>

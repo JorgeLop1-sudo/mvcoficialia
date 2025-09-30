@@ -8,8 +8,12 @@
     --dark-color: #2c3e50;
 }
 
+
 body {
-    background: linear-gradient(135deg, #bcd0f0 0%, #c3cfe2 100%);
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(154, 154, 240, 0.4) 0%, transparent 65%),
+        radial-gradient(circle at 80% 20%, rgba(56, 72, 95, 0.4) 0%, transparent 65%),
+        linear-gradient(135deg, #dce9fa 0%, #82a8f5 100%);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     min-height: 100vh;
     padding: 0;
