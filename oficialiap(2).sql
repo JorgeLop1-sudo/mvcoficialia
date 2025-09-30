@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 25-09-2025 a las 23:57:38
+-- Tiempo de generación: 01-10-2025 a las 00:00:32
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -68,16 +68,7 @@ CREATE TABLE `historial_derivaciones` (
 --
 
 INSERT INTO `historial_derivaciones` (`id`, `oficio_id`, `area_origen_id`, `usuario_origen_id`, `area_destino_id`, `usuario_destino_id`, `respuesta`, `estado`, `fecha_derivacion`, `observaciones`) VALUES
-(1, 15, 1, 1, 7, 18, 'ya quedo', 'completado', '2025-09-22 18:26:55', NULL),
-(2, 25, 1, 1, 7, 20, 'este tambien', 'tramite', '2025-09-23 15:51:36', NULL),
-(3, 26, 1, 1, 7, 18, 'ya esta', 'completado', '2025-09-23 15:58:31', NULL),
-(4, 25, 1, 1, 7, 18, 'pasalo', 'tramite', '2025-09-23 16:29:15', NULL),
-(5, 26, 1, 1, NULL, NULL, 'no', 'denegado', '2025-09-24 17:14:13', 'RESPUESTA FINAL'),
-(7, 26, 1, 1, 7, 20, 'no', 'denegado', '2025-09-24 19:06:14', NULL),
-(8, 25, 1, 1, 1, 1, 'pasalo', 'tramite', '2025-09-24 19:06:45', NULL),
-(9, 26, 1, 1, 7, 20, 'no', 'tramite', '2025-09-24 19:19:19', NULL),
-(10, 15, 1, 1, 7, 20, 'ya quedo', 'completado', '2025-09-24 19:19:28', NULL),
-(11, 15, 1, 1, NULL, NULL, 'no se puede', 'denegado', '2025-09-25 16:29:32', 'RESPUESTA FINAL');
+(12, 27, 1, 23, 1, 1, 'hola', 'pendiente', '2025-09-29 18:27:08', NULL);
 
 -- --------------------------------------------------------
 
@@ -100,7 +91,7 @@ CREATE TABLE `login` (
 --
 
 INSERT INTO `login` (`id`, `usuario`, `password`, `nombre`, `tipo_usuario`, `area_id`, `email`) VALUES
-(1, 'admin', '$2y$10$.c/NDeZxiIj4b64rIRqePu4fIwDE4FbbAYiZU9xaLvUfqHIK1evbq', 'Administrador', 'Administrador', 1, 'admin@gmail.com'),
+(1, 'admin', '$2y$10$leoiQsy7CpYfEIB.TpPbAOo00GT0Gx.Pngy5s9jSk4jQfy6jgG7zy', 'Administrador', 'Administrador', 1, 'admin@gmail.com'),
 (18, 'jorge', '$2y$10$V1hqiU7F1YQ.JGMI9jYhV.YCD.WIcSWvrJlONgzZMFFHAidZxxSbW', 'Jorge Julian Rodriguez Lopez', 'Usuario', 7, 'jorge@gmail.com'),
 (20, 'julian', '$2y$10$gOVDij6o2eyPAhvZXbitPOOeE.dSS4Su5WKCU2Wq3hrrBwzmVNVLW', 'Jorge Julian Rodriguez Lopez', 'Usuario', 7, 'julian@gmail.com'),
 (23, 'juan', '$2y$10$IsUoQDY8JxMaJgc6XDHOuuWkhEeVEblNzKcoWAov1Uu/41YAgfJCG', 'Juan Perez', 'Guardia', 13, 'juan@gmail.com');
@@ -140,9 +131,8 @@ CREATE TABLE `oficios` (
 --
 
 INSERT INTO `oficios` (`id`, `remitente`, `tipo_persona`, `tipo_documento`, `numero_documento`, `folios`, `correo`, `telefono`, `asunto`, `archivo_nombre`, `archivo_ruta`, `respuesta`, `area_derivada_id`, `usuario_derivado_id`, `fecha_derivacion`, `fecha_respuesta`, `area_id`, `usuario_id`, `fecha_registro`, `estado`, `activo`) VALUES
-(15, 'Cristiano', 'natural', 'carta', '123456', 5, 'jorge@gmail.com', '4622457138', 'delito armado', NULL, NULL, 'no se puede', 7, 20, '2025-09-24 19:19:29', '2025-09-25 16:29:32', 1, 1, '2025-09-22 18:23:03', 'denegado', 1),
-(25, 'jorge', 'juridica', 'carta', '1379', 6, 'jorge@jorge.com', '4623465798', 'camaras accidente', NULL, NULL, 'pasalo', 1, 1, '2025-09-24 19:06:45', NULL, 1, 1, '2025-09-22 22:08:37', 'tramite', 1),
-(26, 'jorge', 'juridica', 'carta', '1379', 2, 'jorge@gmail.com', '4622457138', 'videos', NULL, NULL, 'no', 7, 20, '2025-09-24 19:19:19', '2025-09-24 17:14:13', 1, 1, '2025-09-22 22:08:37', 'tramite', 1);
+(27, 'messi', 'natural', 'ruc_dni', '987654321', 5, 'jorge@gmail.com', '4622457138', 'camaras', 'oficialiap(1).sql', '../../../uploads/1758911321_oficialiap(1).sql', 'hola', 1, 1, '2025-09-29 18:27:08', NULL, 1, 23, '2025-09-26 18:28:41', 'tramite', 1),
+(28, 'messi', 'natural', 'carta', '', 4, 'jorge@gmail.com', '4622457138', 'camaras buenas', '05-01-24 TBN.pdf', '../../../uploads/1759259536_05-01-24 TBN.pdf', NULL, NULL, NULL, NULL, NULL, 1, 23, '2025-09-30 19:12:16', 'pendiente', 1);
 
 --
 -- Índices para tablas volcadas
@@ -198,7 +188,7 @@ ALTER TABLE `areas`
 -- AUTO_INCREMENT de la tabla `historial_derivaciones`
 --
 ALTER TABLE `historial_derivaciones`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de la tabla `login`
@@ -210,7 +200,7 @@ ALTER TABLE `login`
 -- AUTO_INCREMENT de la tabla `oficios`
 --
 ALTER TABLE `oficios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- Restricciones para tablas volcadas
