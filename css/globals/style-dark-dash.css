@@ -8,8 +8,6 @@
     --dark-color: #2c3e50;
 }
 
-
-
 body {
     background: 
         radial-gradient(circle at 20% 80%, rgba(25, 24, 60, 0.2) 0%, transparent 65%),
@@ -32,10 +30,11 @@ body {
 }
 
 .header {
-    background: white;
+    background: var(--primary-color);
+    color: var(--light-color);
     padding: 15px 20px;
     border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 6px var(--light-color);
     margin-bottom: 20px;
     display: flex;
     justify-content: space-between;
@@ -45,10 +44,11 @@ body {
 .user-info {
     display: flex;
     align-items: center;
+    color: var(--light-color);
 }
 
 .page-title {
-    color: var(--primary-color);
+    color: var(--light-color);
     margin-bottom: 25px;
     font-weight: 600;
     display: flex;
@@ -321,5 +321,6 @@ body {
     
     .user-info {
         margin-top: 10px;
+        color: var(--light-color);
     }
 }

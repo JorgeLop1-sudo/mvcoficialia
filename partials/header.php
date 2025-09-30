@@ -3,7 +3,7 @@
     <div class="user-info">
         <div>
             <div class="fw-bold"><?php echo $_SESSION['nombre']; ?></div>
-            <div class="small text-muted"><?php echo $_SESSION['tipo_usuario']; ?></div>
+            <div class="small"><?php echo $_SESSION['tipo_usuario']; ?></div>
         </div>
     </div>
 </div>

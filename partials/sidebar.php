@@ -1,3 +1,5 @@
+<!-- partials/sidebar.php -->
+<div id="themeLoading" class="theme-loading"></div>
 <!-- Sidebar -->
 <aside class="sidebar">
 
