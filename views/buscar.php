@@ -47,8 +47,8 @@
                     </div>
                 </div>
                 
-                <button type="submit" class="btn btn-search">
-                    <i class="fas fa-search"></i> Buscar
+                <button type="submit" class="btn">
+                     Buscar
                 </button>
             </form>
         </div>

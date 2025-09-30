@@ -14,7 +14,7 @@ En areas, que salga cuantos oficios hay en cada area que estan
 en tramite con color azul, completado con color verde y denegado
 con color rojo
 
-Buscar no sirve
+Buscar no sirve     ✅
 
 Agregar usuario: cuando es un usuario igual, muestra un mensaje de 
 que el usuario ya existe, esta bien pero quisiera que se mostrar en
@@ -25,10 +25,10 @@ Emails reales
 En agregar usuario, al agregar un usuario con nombre de usuario
 "' or 1=1 --" no me deja eliminarlo por que?
 
-En expedientes no deja ver el documento, dice que tiene un ruta incorrecta
+En expedientes no deja ver el documento, dice que tiene un ruta incorrecta 
 
 En congfiguracion, me deje ver las contrase�as con el boton que es 
-muy concurrente en paginas web
+muy concurrente en paginas web            ✅
 
 En login se ve chueco el contenido       ✅
 
