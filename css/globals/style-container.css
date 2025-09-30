@@ -7,7 +7,7 @@
 
 .user-card {
     background: white;
-    border-radius: 10px;
+    border-radius: 10px 1px 10px 1px;
     padding: 20px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
     transition: transform 0.3s;

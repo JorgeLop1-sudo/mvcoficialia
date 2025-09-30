@@ -11,10 +11,12 @@
     font-weight: 600;
     display: flex;
     align-items: center;
+    transition: transform 0.3s;
 }
 
 .btn-new:hover {
     background: #219653;
+    transform: translateY(-2px);
 }
 
 .btn-new i {

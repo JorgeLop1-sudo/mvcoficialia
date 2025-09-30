@@ -3,12 +3,12 @@ const themeToggle = document.getElementById('themeToggle');
 const themeIcon = themeToggle.querySelector('i');
 
 // Referencia al elemento link del CSS
-let themeStyle = document.getElementById('theme-style1');
+let themeStyle = document.getElementById('theme-style');
 
 // Si no existe el elemento link, lo creamos
 if (!themeStyle) {
     themeStyle = document.createElement('link');
-    themeStyle.id = 'theme-style1';
+    themeStyle.id = 'theme-style';
     themeStyle.rel = 'stylesheet';
     document.head.appendChild(themeStyle);
 }

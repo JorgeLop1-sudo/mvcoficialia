@@ -79,7 +79,7 @@
                                 </div>
                                 <div class="user-detail-text">
                                     <strong>Tipo:</strong> 
-                                    <span class="badge bg-<?php echo $user['tipo_usuario'] == 'Administrador' ? 'warning' : 'info'; ?>">
+                                    <span class="badge bg-<?php echo $user['tipo_usuario'] == 'Administrador' ? 'warning' : ($user['tipo_usuario'] == 'Usuario' ? 'info' : 'success'); ?>">
                                         <?php echo htmlspecialchars($user['tipo_usuario']); ?>
                                     </span>
                                 </div>
