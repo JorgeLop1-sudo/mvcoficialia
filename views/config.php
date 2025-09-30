@@ -75,7 +75,7 @@
                             <label for="usuario" class="required-field">Nombre de usuario</label>
                             <input type="text" class="form-control" id="usuario" name="usuario" 
                                    value="<?php echo htmlspecialchars($usuario_actual['usuario']); ?>" required>
-                            <small class="form-text text-muted">Este nombre será usado para iniciar sesión</small>
+                            <small class="form-text">Este nombre será usado para iniciar sesión</small>
                         </div>
                     </div>
                 </div>
@@ -96,14 +96,15 @@
                                     <?php echo htmlspecialchars($usuario_actual['area_nombre'] ?? 'Sin área asignada'); ?>
                                 </option>
                             </select>
-                            <small class="form-text text-muted">El área no puede ser modificada desde aquí</small>
+                            <small class="form-text">El área no puede ser modificada desde aquí</small>
                         </div>
                     </div>
                 </div>
-                
-                <button type="submit" class="btn btn-primary">
-                    <i class="fas fa-save me-1"></i> Guardar cambios
-                </button>
+                <div class="sectionbutton">
+                    <button type="submit" class="btn-config">
+                        <i class="fas fa-save me-1"></i> Guardar cambios
+                    </button>
+                </div>
             </form>
         </div>
 
@@ -139,7 +140,7 @@
                                 <i class="fas fa-eye"></i>
                             </button>
                         </div>
-                        <small class="form-text text-muted">Mínimo 8 caracteres, incluir mayúsculas, minúsculas y números</small>
+                        <small class="form-text">Mínimo 8 caracteres, incluir mayúsculas, minúsculas y números</small>
 
                     </div>
                     <div class="col-md-6">
@@ -152,10 +153,11 @@
                         </div>
                     </div>
                 </div>
-                
-                <button type="submit" class="btn btn-primary">
-                    <i class="fas fa-key me-1"></i> Cambiar contraseña
-                </button>
+                <div class="sectionbutton">
+                    <button type="submit" class="btn-config">
+                        <i class="fas fa-key me-1"></i> Cambiar contraseña
+                    </button>
+                </div>
             </form>
         </div>
     </div>

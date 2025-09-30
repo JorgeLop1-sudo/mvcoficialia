@@ -169,22 +169,6 @@ body {
     font-weight: bold;
 }
 
-/*.btn-login, .btn-search {
-    background: var(--secondary-color);
-    border: none;
-    color: white;
-    padding: 12px;
-    border-radius: 10px 0 10px 0;
-    font-weight: 600;
-    width: 100%;
-    margin-top: 10px;
-    transition: all 0.3s;
-}
-
-.btn-login:hover {
-    background: #2980b9;
-    transform: translateY(-2px);
-}*/
 
 /* Estilos para el selector de tipo de login */
 .login-type {
