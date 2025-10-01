@@ -14,60 +14,29 @@ body {
         radial-gradient(circle at 80% 20%, rgba(70, 29, 60, 0.2) 0%, transparent 65%),
         linear-gradient(135deg, #0f1a35 0%, #160b25 100%);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    min-height: 100vh;
-    padding: 0;
-    margin: 0;
     box-sizing: border-box;
-    transition: all 0.3s;
 }
 
-.main-content {
-    margin-left: 302px;
-    padding: 20px;
-    transition: margin-left 0.4s ease;
-    width: calc(100% - 302px);
-    min-height: calc(100vh - 40px);
-}
+
 
 .header {
     background: var(--primary-color);
     color: var(--light-color);
-    padding: 15px 20px;
-    border-radius: 10px 0px 10px 0px;
     box-shadow: 0 4px 6px var(--light-color);
-    margin-bottom: 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
 }
 
 .user-info {
-    display: flex;
-    align-items: center;
     color: var(--light-color);
 }
 
 .page-title {
     color: var(--light-color);
-    margin-bottom: 25px;
-    font-weight: 600;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
 }
 
 .sidebar {
-    width: 270px;
-    position: fixed;
-    margin: 16px;
-    border-radius: 16px;
     background: var(--primary-color);
-    height: calc(100vh - 32px);
-    transition: 0.4s ease;
-    box-shadow: 0 5px 15px white;
+    box-shadow: 0 5px 15px var(--light-color);
 }
-
-/*Sidebar*/
 
 .sidebar-header .user-avatar{
     background: #226ea1;
@@ -76,99 +45,25 @@ body {
     color: var(--primary-color);
     background: #fff;
 }
-
-.sidebar.collapsed .sidebar-header .sidebar-toggler{
-    transform: translate(-4px, 65px);
-}
 .sidebar-header .toggler:hover{
-    background: #dde4fb;
+    background: #2c3e50;
 }
-.sidebar-header .menu-toggler{
-    display: none;
-}
-.sidebar-header .sidebar-toggler span{
-    font-size: 1.75rem;
-    transition: 0.4s ease;
-}
-.sidebar.collapsed .sidebar-header .sidebar-toggler span{
-    transform: rotate(180deg)
-}
-.sidebar-nav .nav-list{
-    list-style: none;
-    display: flex;
-    gap: 4px;
-    padding: 0 15px;
-    flex-direction: column;
-    transform: translateY(15px);
-    transition: 0.4s ease;
-}
-.sidebar.collapsed .sidebar-nav .primary-nav{
-    transform: translateY(65px);
-}
+
 .sidebar-nav .nav-link{
-    color: #fff;
-    display: flex;
-    gap: 12px;
-    white-space: nowrap;
-    border-radius: 8px;
-    align-items: center;
-    padding: 12px;
-    text-decoration: none;
-    transition: 0.4s ease;
-    cursor: pointer;
+    color: var(--light-color);
+    
 }
+
 .sidebar-nav .nav-link:hover{
-    color: #151A2D;
-    background: #fff;
+    box-shadow: 0 5px 10px var(--light-color);
 }
-.sidebar-nav .nav-link .nav-label{
-    transition: opacity 0.4s ease;
-}
-.sidebar.collapsed .sidebar-nav .nav-link .nav-label{
-    opacity: 0;
-    pointer-events: none;
-}
-.sidebar-nav .nav-item{
-    position: relative;
-}
+
 .sidebar-nav .nav-tooltip{
-    position: absolute;
-    top: -10px;
-    opacity: 0;
-    display: none;
-    pointer-events: none;
-    left: calc(100% + 25px);
     color: var(--primary-color);
-    padding: 6px 12px;
-    border-radius: 8px;
-    background: #fff;
-    white-space: nowrap;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-    transition: 0s;
+    background: var(--light-color);
+    box-shadow: 0 5px 10px var(--light-color);
 }
-.sidebar.collapsed .sidebar-nav .nav-tooltip{
-    display: block;
-}
-.sidebar-nav .nav-item:hover .nav-tooltip{
-    opacity: 1;
-    pointer-events: auto;
-    transform: translateY(50%);
-    transition: 0.4s ease;
-}
-.sidebar-nav .secondary-nav{
-    position: absolute;
-    bottom: 30px;
-    width: 100%;
-}
-/* Cuando la barra está colapsada */
-.sidebar.collapsed ~ .main-content {
-    margin-left: 117px; /* 85px (sidebar collapsed) + 32px (margenes) */
-    width: calc(100% - 117px);
-}
-/* Cuando el menú está activo en móvil */
-.sidebar.menu-active ~ .main-content {
-    margin-top: 10px; /* Ajusta según necesites */
-}
+
 /* Para tablets y móviles */
 @media (max-width: 1024px) {
     .sidebar {

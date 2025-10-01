@@ -103,8 +103,8 @@
 }
 
 .sidebar-nav .nav-link:hover{
-    color: #151A2D;
-    background: #fff;
+    color: var(--primary-color);
+    background: var(--light-color);
 }
 
 .sidebar-nav .nav-link .nav-label{
