@@ -25,5 +25,22 @@
         .form-control {
             border-radius: 10px 0 10px 0;
         }
-        
+
+        .btn-config {
+    background: var(--secondary-color);
+    border: none;
+    color: white;
+    padding: 12px;
+    border-radius: 10px 0 10px 0;
+    font-weight: 600;
+    width: 100%;
+    margin-top: 10px;
+    transition: all 0.3s;
+}
+
+.btn-config:hover {
+    background: #2980b9;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px var(--shadow-color);
+}
         

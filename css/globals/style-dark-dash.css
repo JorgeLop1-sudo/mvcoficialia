@@ -304,27 +304,6 @@ body {
 /*Sidebar */
 
 /*Home*/
-/*.card {
-    border: none;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-    margin-bottom: 20px;
-}
-
-.card-header {
-    background: white;
-    border-bottom: 1px solid #eee;
-    padding: 15px 20px;
-    border-radius: 10px 10px 0 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.card-header h5 {
-    margin: 0;
-    color: var(--primary-color);
-}*/
       
 .recent-activity {
     background: var(--primary-color);
