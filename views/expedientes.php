@@ -52,11 +52,11 @@
                 <div class="search-grid">
                     <div class="search-field">
                         <label for="numero">Número de Documento</label>
-                        <input type="text" id="numero" name="numero" placeholder="Ingrese número de documento" value="<?php echo htmlspecialchars($filtros['numero'] ?? ''); ?>">
+                        <input class="form-control" type="text" id="numero" name="numero" placeholder="Ingrese número de documento" value="<?php echo htmlspecialchars($filtros['numero'] ?? ''); ?>">
                     </div>
                     <div class="search-field">
                         <label for="estado">Estado</label>
-                        <select id="estado" name="estado">
+                        <select class="form-select" id="estado" name="estado">
                             <option value="">Todos los estados</option>
 
                             <?php if ($_SESSION['tipo_usuario'] === 'Administrador'): ?>
@@ -75,8 +75,8 @@
                     </div>
                 </div>
                 <div class="search-actions">
-                    <a href="index.php?action=expedientes" class="btn btn-secondary">Limpiar</a>
-                    <button type="submit" class="btn btn-primary">Buscar</button>
+                    <a href="index.php?action=expedientes" class="btn-action">Limpiar</a>
+                    <button type="submit" class="btn-action">Buscar</button>
                 </div>
             </form>
         </div>

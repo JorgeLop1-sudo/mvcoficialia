@@ -15,8 +15,6 @@ select:required:valid {
     border-color: #198754;
 }
 
-
-
 .search-section {
     background: white;
     border-radius: 10px 0 10px 0;
@@ -60,6 +58,31 @@ select:required:valid {
     display: flex;
     justify-content: flex-end;
     gap: 10px;
+}
+
+.btn-action {
+    background: var(--secondary-color);
+    border: none;
+    color: white;
+    padding: 12px;
+    border-radius: 10px 0 10px 0;
+    font-weight: 600;
+    width: 100px;
+    margin-top: 10px;
+    transition: all 0.3s;
+}
+
+.btn-action:hover {
+    background: #2980b9;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px var(--shadow-color);
+}
+
+.search-actions a{
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .no-expedientes-message {
@@ -155,11 +178,13 @@ select:required:valid {
     }
     
     .search-actions {
-        flex-direction: column;
+        
+        justify-content: center;
+        align-items: center;
     }
     
-    .search-actions .btn {
-        width: 100%;
+    .btn-action {
+        width: 50%;
         margin-bottom: 5px;
     }
 }

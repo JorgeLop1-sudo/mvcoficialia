@@ -152,18 +152,18 @@
                             <label for="password" class="form-label">Contraseña *</label>
                             <div class="input-group">
                                 <input type="password" class="form-control" id="password" name="password" required>
-                                <span class="input-group-text password-toggle" onclick="togglePassword('password')">
+                                <button class="input-group-text" onclick="togglePassword('password')">
                                     <i class="fas fa-eye"></i>
-                                </span>
+                                </button>
                             </div>
                         </div>
                         <div class="mb-3">
                             <label for="confirm_password" class="form-label">Confirmar Contraseña *</label>
                             <div class="input-group">
                                 <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
-                                <span class="input-group-text password-toggle" onclick="togglePassword('confirm_password')">
+                                <button class="input-group-text password-toggle" onclick="togglePassword('confirm_password')">
                                     <i class="fas fa-eye"></i>
-                                </span>
+                                </button>
                             </div>
                             <div id="passwordMatchError" class="password-match-error">
                                 Las contraseñas no coinciden

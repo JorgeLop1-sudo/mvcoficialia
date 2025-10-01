@@ -84,11 +84,8 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="area">Área asignada</label>
-                                <select class="form-control" id="area" name="area" disabled>
-                                    <option value="<?php echo $usuario_actual['area_id']; ?>" selected>
-                                        <?php echo htmlspecialchars($usuario_actual['area_nombre'] ?? 'Sin área asignada'); ?>
-                                    </option>
-                                </select>
+                                <input type="text" class="form-control" id="area" name="area" disabled
+                                    value="<?php echo htmlspecialchars($usuario_actual['area_nombre'] ?? 'Sin área asignada'); ?>">
                             <small class="form-text">El área no puede ser modificada desde aquí</small>
                         </div>
                     </div>
@@ -99,7 +96,7 @@
                                    value="<?php echo htmlspecialchars($usuario_actual['email']); ?>" required>
                         </div>
                         <div class="sectionbutton">
-                            <button type="submit" class="btn-config">
+                            <button type="submit" class="btn-action">
                                 <i class="fas fa-save me-1"></i> Guardar cambios
                             </button>
                         </div>
@@ -152,7 +149,7 @@
                         </button>
                         </div>
                         <div class="sectionbutton">
-                            <button type="submit" class="btn-config">
+                            <button type="submit" class="btn-action">
                                 <i class="fas fa-key me-1"></i> Cambiar contraseña
                             </button>
                         </div>

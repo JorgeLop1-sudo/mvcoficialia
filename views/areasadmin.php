@@ -116,7 +116,7 @@
                                         foreach ($usuarios as $usuario): 
                                         ?>
                                             <div class="user-item">
-                                                <i class="fas fa-user-circle me-2 text-muted"></i>
+                                                <i class="fas fa-user-circle me-2 "></i>
                                                 <?php echo htmlspecialchars($usuario); ?>
                                             </div>
                                         <?php endforeach; ?>
