@@ -72,10 +72,7 @@
                 </div>
                 
                 <button type="submit" class="btn">Ingresar</button>
-                
-                <div class="text-center mt-3">
-                    <a href="recovery/forgot-password.php" class="text-decoration-none">¿Olvidaste tu contraseña?</a>
-                </div>
+
             </form>
         </div>
     </div>

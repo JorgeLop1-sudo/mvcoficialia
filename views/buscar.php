@@ -67,7 +67,7 @@
                     <!-- Aquí se cargará la información del oficio -->
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn" data-bs-dismiss="modal">Cerrar</button>
                 </div>
             </div>
         </div>
@@ -206,7 +206,9 @@
                     <div class="col-12">
                         <h6>Archivo Adjunto</h6>
                         <p><strong>Nombre:</strong> ${oficio.archivo_nombre}</p>
-                        <a href="${oficio.archivo_ruta}" class="btn btn-sm btn-outline-primary" target="_blank">Descargar</a>
+                        <div class="btndescargar">
+                            <a href="${oficio.archivo_ruta}" class="btn" target="_blank">Descargar</a>
+                        </div>
                     </div>
                 </div>
                 ` : ''}

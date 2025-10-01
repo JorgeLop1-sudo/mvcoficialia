@@ -105,3 +105,18 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     document.documentElement.setAttribute('data-theme', initialTheme);
 })();
+
+function hideThemeLoading() {
+    const loadingElement = document.getElementById('themeLoading');
+    if (loadingElement) {
+        setTimeout(() => {
+            loadingElement.classList.add('hidden');
+            setTimeout(() => {
+                loadingElement.remove();
+            }, 300);
+        }, 100);
+    }
+}
+
+// Llamar esta función cuando el tema esté aplicado
+document.addEventListener('DOMContentLoaded', hideThemeLoading);

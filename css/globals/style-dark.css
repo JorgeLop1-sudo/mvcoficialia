@@ -21,6 +21,24 @@ body {
     padding: 20px;
 }
 
+/* Prevenir FOUC con overlay de carga */
+.theme-loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #0f1a35; /* Color del tema oscuro por defecto */
+    z-index: 9999;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+.theme-loading.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
 .main-container {
     width: 100%;
     max-width: 400px;
@@ -107,7 +125,7 @@ body {
 
 
 .btn{
-    padding: 12px 42%;
+    padding: 12px 43.5%;
     border: none;
     outline: none;
     color: #FFF;
@@ -174,7 +192,7 @@ body {
 .login-type {
     display: flex;
     background: var(--light-color);
-    border-radius: 10px 0 10px 0;
+    border-radius: 3px 3px 3px 3px;
     margin-bottom: 20px;
     overflow: hidden;
     color: gray;
@@ -190,7 +208,7 @@ body {
 }
 
 .login-option.active {
-    background: var(--secondary-color);
+    background: #1b2031;
     color: white;
 }
 
@@ -285,6 +303,28 @@ body {
     border: 1px dashed #ccc;
 }
 
+.modal-footer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btndescargar{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content{
+    background-color: var(--primary-color);
+    color: var(--light-color);
+    border-radius: 10px 0px 10px 0;
+    box-shadow: 0px 5px 20px var(--light-color);
+}
+
+.btn-close{
+    background-color: var(--light-color);
+}
 
 @media (max-width: 768px) {
     .nav-links {
