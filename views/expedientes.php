@@ -6,15 +6,12 @@
     <title>SIS-OP - Gestión de Expedientes</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.3.2/css/buttons.bootstrap5.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
 
     <link rel="stylesheet" href="/mvc_oficialiapartes/css/globals/style-body.css">
     <link rel="stylesheet" href="/mvc_oficialiapartes/css/globals/style-sidebar.css">
     <link rel="stylesheet" href="/mvc_oficialiapartes/css/globals/style-badge.css">
     <link rel="stylesheet" href="/mvc_oficialiapartes/css/dashboard/styleexpedientes.css">
-
 
 </head>
 <body>
@@ -82,22 +79,20 @@
         </div>
 
         <!-- Table Card -->
-        <div class="card">
-            <div class="card-header">
+        <div class="expedientes-container">
+            <div class="expedientes-header">
                 <h5>Listado de Expedientes</h5>
-                <div class="export-buttons">
-                    <!-- Los botones se generarán automáticamente con DataTables -->
-                </div>
             </div>
-            <div class="table-container">
-                <?php if (empty($expedientes)): ?>
-                    <div class="no-expedientes-message">
-                        <i class="fas fa-folder-open"></i>
-                        <h4>No se encontraron expedientes en ese estado</h4>
-                        <p>No hay expedientes que coincidan con los criterios de búsqueda.</p>
-                    </div>
-                    
-                    <table id="expedientesTable" class="table table-striped table-hover" style="width:100%; display:none;">
+            
+            <?php if (empty($expedientes)): ?>
+                <div class="no-expedientes-message">
+                    <i class="fas fa-folder-open"></i>
+                    <h4>No se encontraron expedientes en ese estado</h4>
+                    <p>No hay expedientes que coincidan con los criterios de búsqueda.</p>
+                </div>
+            <?php else: ?>
+                <div class="table-container">
+                    <table class="expedientes-table">
                         <thead>
                             <tr>
                                 <th>ID</th>
@@ -105,24 +100,7 @@
                                 <th>Remitente</th>
                                 <th>Asunto</th>
                                 <th>Nro. Documento</th>
-                                <th>Estado</th>
-                                <th>Derivado a</th>
-                                <th>Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-                <?php else: ?>
-                    <table id="expedientesTable" class="table table-striped table-hover" style="width:100%">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Fecha/Hora</th>
-                                <th>Remitente</th>
-                                <th>Asunto</th>
-                                <th>Nro. Documento</th>
-                                <th>Estado</th>
+                                <th>Estado de oficio</th>
                                 <th>Derivado a</th>
                                 <th>Acciones</th>
                             </tr>
@@ -212,8 +190,20 @@
                             <?php endforeach; ?>
                         </tbody>
                     </table>
-                <?php endif; ?>
-            </div>
+                </div>
+                
+                <!-- Paginación -->
+                <div class="pagination-container">
+                    <div class="pagination-info">
+                        Mostrando <?php echo count($expedientes); ?> de <?php echo count($expedientes); ?> registros
+                    </div>
+                    <div class="pagination-controls">
+                        <button class="pagination-btn" disabled>Anterior</button>
+                        <button class="pagination-btn active">1</button>
+                        <button class="pagination-btn" disabled>Siguiente</button>
+                    </div>
+                </div>
+            <?php endif; ?>
         </div>
     </div>
 
@@ -264,76 +254,8 @@
     <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.3.2/js/dataTables.buttons.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.3.2/js/buttons.bootstrap5.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.3.2/js/buttons.html5.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.3.2/js/buttons.print.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.3.2/js/buttons.colVis.min.js"></script>
 
     <script>
-        $(document).ready(function() {
-            if ($('#expedientesTable:visible').length) {
-                $('#expedientesTable').DataTable({
-                    dom: 'Bfrtip',
-                    buttons: [
-                        {
-                            extend: 'copy',
-                            text: '<i class="fas fa-copy"></i> Copiar',
-                            className: 'btn btn-sm btn-secondary'
-                        },
-                        {
-                            extend: 'csv',
-                            text: '<i class="fas fa-file-csv"></i> CSV',
-                            className: 'btn btn-sm btn-secondary'
-                        },
-                        {
-                            extend: 'excel',
-                            text: '<i class="fas fa-file-excel"></i> Excel',
-                            className: 'btn btn-sm btn-secondary'
-                        },
-                        {
-                            extend: 'pdf',
-                            text: '<i class="fas fa-file-pdf"></i> PDF',
-                            className: 'btn btn-sm btn-secondary'
-                        },
-                        {
-                            extend: 'print',
-                            text: '<i class="fas fa-print"></i> Imprimir',
-                            className: 'btn btn-sm btn-secondary'
-                        }
-                    ],
-                    language: {
-                        url: '//cdn.datatables.net/plug-ins/1.13.1/i18n/es-ES.json'
-                    },
-                    responsive: true,  // Esta línea activa el plugin responsivo
-                    pageLength: 10,
-                    lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "Todos"]],
-                    order: [[0, 'desc']],
-                    // Configuración adicional para responsivo
-                    responsive: {
-                        details: {
-                            display: $.fn.dataTable.Responsive.display.modal({
-                                header: function (row) {
-                                    var data = row.data();
-                                    return 'Detalles del Expediente #' + data[0];
-                                }
-                            }),
-                            renderer: $.fn.dataTable.Responsive.renderer.tableAll({
-                                tableClass: 'table'
-                            })
-                        }
-                    }
-                });
-                
-                $('.dt-buttons').appendTo('.export-buttons');
-            }
-        });
-
         // Validación del formulario de derivación
         document.getElementById('formDerivacion').addEventListener('submit', function(e) {
             var areaSelect = document.getElementById('area_derivada');

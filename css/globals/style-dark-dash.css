@@ -69,47 +69,14 @@ body {
 
 /*Sidebar*/
 
-.sidebar.collapsed{
-    width: 85px;
-}
-.sidebar-header {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 25px 20px;
-}
 .sidebar-header .user-avatar{
-    width: 46px;
-    height: 46px;
-    display: block;
-    object-fit: contain;
-    border-radius: 50%;
-    background: var(--secondary-color);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-weight: bold;
-    margin-right: 0px;
+    background: #226ea1;
 }
 .sidebar-header .toggler {
-    height: 35px;
-    width: 35px;
-    border: none;
     color: var(--primary-color);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    border-radius: 8px;
     background: #fff;
-    transition: 0.4s ease;
 }
-.sidebar-header .sidebar-toggler{
-    position: absolute;
-    right: 20px;
-}
+
 .sidebar.collapsed .sidebar-header .sidebar-toggler{
     transform: translate(-4px, 65px);
 }
@@ -643,6 +610,78 @@ body {
     color: var(--light-color);
 }
 
+.expedientes-container {
+    background-color: var(--primary-color);
+    box-shadow: 0 4px 6px var(--light-color);
+}
+
+.expedientes-header {
+    background: var(--primary-color);
+    color: var(--light-color);
+    border-bottom: 2px solid #dee2e6;
+}
+
+.expedientes-table thead {
+    background-color: var(--primary-color);
+}
+
+.expedientes-table th {
+    color: var(--light-color);
+}
+
+.expedientes-table tbody tr {
+    transition: background-color 0.2s;
+    color: var(--light-color);
+}
+
+.expedientes-table tbody tr:hover {
+    background-color: var(--dark-color);
+}
+
+.pagination-container {
+    background-color: var(--primary-color);
+    justify-content: space-between;
+    
+}
+
+.pagination-btn {
+    border: 1px solid #dee2e6;
+    background-color: var(--primary-color);
+    color: var(--light-color);
+    box-shadow: 0 0 3px var(--light-color);
+}
+
+.pagination-info {
+    color: var(--light-color);
+}
+
+.badge-estado {
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+.badge-pendiente {
+    background-color: #fff3cd;
+    color: #856404;
+    box-shadow: 0 3px 3px #856404;
+}
+.badge-proceso {
+    background-color: #cce5ff;
+    color: #004085;
+    box-shadow: 0 3px 3px #004085;
+}
+.badge-completado {
+    background-color: #d4edda;
+    color: #155724;
+    box-shadow: 0 3px 3px #155724;
+}
+.badge-denegado {
+    background-color: #f8d7da;
+    color: #721c24;
+    box-shadow: 0 3px 3px #721c24;
+}
+
 .btn-action{
     border: none;
     outline: none;
@@ -704,5 +743,6 @@ body {
     color: #000;
     font-weight: bold;
 }
+
 
 
