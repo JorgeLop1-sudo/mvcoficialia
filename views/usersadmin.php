@@ -141,41 +141,33 @@
 
     <!-- Modal para Nuevo Usuario -->
     <div class="modal fade" id="nuevoUsuarioModal" tabindex="-1" aria-labelledby="nuevoUsuarioModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="nuevoUsuarioModalLabel">Nuevo Usuario</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                 <!-- Mostrar mensajes de éxito -->
-        <?php if (isset($_GET['mensaje'])): ?>
-            <div class="alert alert-info alert-dismissible fade show" role="alert">
-                <?php echo htmlspecialchars($_GET['mensaje']); ?>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="nuevoUsuarioModalLabel">Nuevo Usuario</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-        <?php endif; ?>
-
-        <!-- Mostrar mensajes de error -->
-        <?php if (!empty($error)): ?>
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <?php echo htmlspecialchars($error); ?>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        <?php endif; ?>
-        
-                <form method="POST" action="" id="nuevoUsuarioForm">
-                    <div class="modal-body">
-                        <div class="mb-3">
-                            <label for="usuario" class="form-label">Usuario *</label>
-                            <input type="text" class="form-control" id="usuario" name="usuario" 
-                                value="<?php echo isset($form_data['usuario']) ? htmlspecialchars($form_data['usuario']) : ''; ?>" 
-                                pattern="[a-zA-Z0-9]{6,}" 
-                                title="El usuario debe tener al menos 6 caracteres y solo puede contener letras y números" 
-                                required>
-                            <div id="usernameError" class="username-error">
-                                    El usuario debe tener al menos 6 caracteres y solo puede contener letras y números
-                            </div>
+            <form method="POST" action="" id="nuevoUsuarioForm">
+                <div class="modal-body">
+                    <!-- Mostrar mensajes de error solo para este modal -->
+                    <?php if (!empty($error_modal_nuevo)): ?>
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <?php echo htmlspecialchars($error_modal_nuevo); ?>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
+                    <?php endif; ?>
+                    
+                    <div class="mb-3">
+                        <label for="usuario" class="form-label">Usuario *</label>
+                        <input type="text" class="form-control" id="usuario" name="usuario" 
+                            value="<?php echo isset($form_data['usuario']) ? htmlspecialchars($form_data['usuario']) : ''; ?>" 
+                            pattern="[a-zA-Z0-9]{6,}" 
+                            title="El usuario debe tener al menos 6 caracteres y solo puede contener letras y números" 
+                            required>
+                        <div id="usernameError" class="username-error">
+                            El usuario debe tener al menos 6 caracteres y solo puede contener letras y números
+                        </div>
+                    </div>
                         <div class="mb-3">
                             <label for="password" class="form-label">Contraseña *</label>
                             <div class="input-group">
@@ -234,58 +226,47 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="submit" name="crear_usuario" class="btn btn-success" id="submitButton">Guardar</button>
-                    </div>
-                </form>
-            </div>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" name="crear_usuario" class="btn btn-success" id="submitButton">Guardar</button>
+                </div>
+            </form>
         </div>
     </div>
+</div>
 
-    <!--Siento que el problema esta en el modal de editar y nuevo usuario,
-      quiero que si el mensaje es de error al agregar o editar usuario solo
-    se muestre dentro del modal, pero solo dentro del modal, y si el problema
-    es de eliminar usuario evidentemente con el boton de eliminar este mensaje
-    si se muestre en la pantalla principal osea no en el modal, otro problema
-    que tengo es que los botones de los modales el de close y el de cancelar hagan
-    bien su funcion, por que cuando tengo un error, cierro el modal, recargo la
-    pagina se vuelve abrir el modal y muestra otra vez el error, aparte esos mismo botones
-    del modal de editar no funcionan, tal cual quiero que cuando recargue la pagina
-    no se vuelva abrir el modal-->
+    
 
     <!-- Modal para Editar Usuario -->
     <?php if ($usuario_editar): ?>
-    <div class="modal fade show" id="editarUsuarioModal" tabindex="-1" aria-labelledby="editarUsuarioModalLabel" aria-hidden="false" style="display: block; background: rgba(0,0,0,0.5);">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="editarUsuarioModalLabel">Editar Usuario</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    <!--a href="index.php?action=usersadmin" class="btn-close" aria-label="Close"></a-->
-                </div>
-                <!-- Mostrar mensajes de éxito -->
-        <?php if (isset($_GET['mensaje'])): ?>
-            <div class="alert alert-info alert-dismissible fade show" role="alert">
-                <?php echo htmlspecialchars($_GET['mensaje']); ?>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        <div class="modal fade" id="editarUsuarioModal" tabindex="-1" aria-labelledby="editarUsuarioModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editarUsuarioModalLabel">Editar Usuario</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-        <?php endif; ?>
-
-        <!-- Mostrar mensajes de error -->
-        <?php if (!empty($error)): ?>
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <?php echo htmlspecialchars($error); ?>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        <?php endif; ?>
-                <form method="POST" action="" id="editarUsuarioForm">
-                    <input type="hidden" name="id" value="<?php echo $usuario_editar['id']; ?>">
-                    <div class="modal-body">
-                        <div class="mb-3">
-                            <label for="usuario_edit" class="form-label">Usuario *</label>
-                            <input type="text" class="form-control" id="usuario_edit" name="usuario" 
-                                   value="<?php echo htmlspecialchars($usuario_editar['usuario']); ?>" required>
+            <form method="POST" action="" id="editarUsuarioForm">
+                <input type="hidden" name="id" value="<?php echo $usuario_editar['id']; ?>">
+                <div class="modal-body">
+                    <!-- Mostrar mensajes de error solo para este modal -->
+                    <?php if (!empty($error_modal_editar)): ?>
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <?php echo htmlspecialchars($error_modal_editar); ?>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
+                    <?php endif; ?>
+                    
+                    <div class="mb-3">
+                        <label for="usuario_edit" class="form-label">Usuario *</label>
+                               <input type="text" class="form-control" id="usuario_edit" name="usuario" 
+                            value="<?php echo htmlspecialchars($usuario_editar['usuario']); ?>" 
+                            pattern="[a-zA-Z0-9]{6,}" 
+                            title="El usuario debe tener al menos 6 caracteres y solo puede contener letras y números" 
+                            required>
+                        <div id="usernameError" class="username-error">
+                            El usuario debe tener al menos 6 caracteres y solo puede contener letras y números
+                        </div>
+                            </div>
                         <div class="mb-3">
                             <label for="password_edit" class="form-label">Nueva Contraseña (dejar vacío para no cambiar)</label>
                             <div class="input-group">
@@ -343,53 +324,43 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <!--a href="index.php?action=usersadmin" class="btn btn-secondary">Cancelar</a-->
-                        <button type="submit" name="editar_usuario" class="btn btn-success" id="submitButtonEdit">Guardar Cambios</button>
-                    </div>
-                </form>
-            </div>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" name="editar_usuario" class="btn btn-success" id="submitButtonEdit">Guardar Cambios</button>
+                </div>
+            </form>
         </div>
     </div>
+</div>
     <?php endif; ?>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-
-        // Función para validar formato de usuario
-function validateUsername(inputId, formType = 'nuevo') {
-    const usernameField = document.getElementById(inputId);
-    const username = usernameField.value;
-    const errorElement = formType === 'nuevo' ? 'usernameError' : 'usernameErrorEdit';
-    const errorEl = document.getElementById(errorElement);
     
-    // Validar longitud mínima y caracteres permitidos
-    if (username.length > 0 && (username.length < 6 || !/^[a-zA-Z0-9]+$/.test(username))) {
-        errorEl.style.display = 'block';
-        usernameField.classList.add('is-invalid');
-        return false;
-    } else {
-        errorEl.style.display = 'none';
-        usernameField.classList.remove('is-invalid');
-        return true;
-    }
-}
-
-// Agregar event listeners para validación de usuario
-document.getElementById('usuario')?.addEventListener('input', () => validateUsername('usuario', 'nuevo'));
-document.getElementById('usuario_edit')?.addEventListener('input', () => validateUsername('usuario_edit', 'editar'));
-
-
-
-
+    <script>
+        // Función para validar formato de usuario
+        function validateUsername(inputId, formType = 'nuevo') {
+            const usernameField = document.getElementById(inputId);
+            const username = usernameField.value;
+            const errorElement = formType === 'nuevo' ? 'usernameError' : 'usernameErrorEdit';
+            const errorEl = document.getElementById(errorElement);
+            
+            if (username.length > 0 && (username.length < 6 || !/^[a-zA-Z0-9]+$/.test(username))) {
+                errorEl.style.display = 'block';
+                usernameField.classList.add('is-invalid');
+                return false;
+            } else {
+                errorEl.style.display = 'none';
+                usernameField.classList.remove('is-invalid');
+                return true;
+            }
+        }
 
         function confirmarEliminacion(id, usuario) {
             if (confirm(`¿Estás seguro de eliminar al usuario "${usuario}"? Los oficios relacionados se mantendrán en el sistema.`)) {
                 window.location.href = `index.php?action=usersadmin&eliminar=${id}`;
             }
         }
-        
+
         function togglePassword(inputId) {
             const input = document.getElementById(inputId);
             const icon = input.parentElement.querySelector('i');
@@ -403,7 +374,7 @@ document.getElementById('usuario_edit')?.addEventListener('input', () => validat
                 icon.classList.add('fa-eye');
             }
         }
-        
+
         // Función para validar que las contraseñas coincidan
         function validatePasswords(formType = 'nuevo') {
             const passwordField = formType === 'nuevo' ? 'password' : 'password_edit';
@@ -416,7 +387,6 @@ document.getElementById('usuario_edit')?.addEventListener('input', () => validat
             const errorEl = document.getElementById(errorElement);
             const submitBtn = document.getElementById(submitButton);
             
-            // Solo validar si ambos campos tienen valor
             if (password && confirmPassword && password !== confirmPassword) {
                 errorEl.style.display = 'block';
                 submitBtn.disabled = true;
@@ -427,62 +397,71 @@ document.getElementById('usuario_edit')?.addEventListener('input', () => validat
                 return true;
             }
         }
-        
-        // Agregar event listeners a los campos de contraseña para nuevo usuario
-        document.getElementById('password')?.addEventListener('input', () => validatePasswords('nuevo'));
-        document.getElementById('confirm_password')?.addEventListener('input', () => validatePasswords('nuevo'));
-        
-        // Agregar event listeners a los campos de contraseña para editar usuario
-        document.getElementById('password_edit')?.addEventListener('input', () => validatePasswords('editar'));
-        document.getElementById('confirm_password_edit')?.addEventListener('input', () => validatePasswords('editar'));
-        
-        // Validar formulario antes de enviar (nuevo usuario)
-        document.getElementById('nuevoUsuarioForm')?.addEventListener('submit', function(e) {
-            if (!validatePasswords('nuevo')) {
-                e.preventDefault();
-                alert('Por favor, asegúrate de que las contraseñas coincidan.');
-            }
-        });
-        
-        // Validar formulario antes de enviar (editar usuario)
-        document.getElementById('editarUsuarioForm')?.addEventListener('submit', function(e) {
-            if (!validatePasswords('editar')) {
-                e.preventDefault();
-                alert('Por favor, asegúrate de que las contraseñas coincidan.');
-            }
-        });
-        
-        // Cerrar modal de edición al hacer clic fuera
-        document.addEventListener('click', function(event) {
-            const modal = document.getElementById('editarUsuarioModal');
-            if (event.target === modal) {
-                window.location.href = 'index.php?action=usersadmin';
-            }
-        });
 
-        // Validar formulario antes de enviar (nuevo usuario)
-document.getElementById('nuevoUsuarioForm')?.addEventListener('submit', function(e) {
-    if (!validatePasswords('nuevo') || !validateUsername('usuario', 'nuevo')) {
-        e.preventDefault();
-        alert('Por favor, corrige los errores en el formulario.');
-    }
-});
-
-// Validar formulario antes de enviar (editar usuario)
-document.getElementById('editarUsuarioForm')?.addEventListener('submit', function(e) {
-    if (!validatePasswords('editar') || !validateUsername('usuario_edit', 'editar')) {
-        e.preventDefault();
-        alert('Por favor, corrige los errores en el formulario.');
-    }
-});
-
-        // Mostrar automáticamente el modal si hay un error
-        <?php if (!empty($error) && isset($_POST['crear_usuario'])): ?>
-            document.addEventListener('DOMContentLoaded', function() {
-                var myModal = new bootstrap.Modal(document.getElementById('nuevoUsuarioModal'));
-                myModal.show();
+        // Agregar event listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            // Event listeners para validación
+            document.getElementById('usuario')?.addEventListener('input', () => validateUsername('usuario', 'nuevo'));
+            document.getElementById('usuario_edit')?.addEventListener('input', () => validateUsername('usuario_edit', 'editar'));
+            
+            document.getElementById('password')?.addEventListener('input', () => validatePasswords('nuevo'));
+            document.getElementById('confirm_password')?.addEventListener('input', () => validatePasswords('nuevo'));
+            document.getElementById('password_edit')?.addEventListener('input', () => validatePasswords('editar'));
+            document.getElementById('confirm_password_edit')?.addEventListener('input', () => validatePasswords('editar'));
+            
+            // Validar formularios antes de enviar
+            document.getElementById('nuevoUsuarioForm')?.addEventListener('submit', function(e) {
+                if (!validatePasswords('nuevo') || !validateUsername('usuario', 'nuevo')) {
+                    e.preventDefault();
+                    alert('Por favor, corrige los errores en el formulario.');
+                }
             });
-        <?php endif; ?>
+            
+            document.getElementById('editarUsuarioForm')?.addEventListener('submit', function(e) {
+                if (!validatePasswords('editar') || !validateUsername('usuario_edit', 'editar')) {
+                    e.preventDefault();
+                    alert('Por favor, corrige los errores en el formulario.');
+                }
+            });
+            
+            // Mostrar modales automáticamente si es necesario
+            <?php if ($mostrar_modal_nuevo): ?>
+                var modalNuevo = new bootstrap.Modal(document.getElementById('nuevoUsuarioModal'));
+                modalNuevo.show();
+            <?php endif; ?>
+            
+            <?php if ($mostrar_modal_editar): ?>
+                var modalEditar = new bootstrap.Modal(document.getElementById('editarUsuarioModal'));
+                modalEditar.show();
+            <?php endif; ?>
+            
+            // Limpiar parámetros de URL cuando se cierren los modales
+            const modals = ['nuevoUsuarioModal', 'editarUsuarioModal'];
+            modals.forEach(modalId => {
+                const modal = document.getElementById(modalId);
+                if (modal) {
+                    modal.addEventListener('hidden.bs.modal', function () {
+                        // Remover parámetros de edición/error de la URL sin recargar
+                        const url = new URL(window.location);
+                        url.searchParams.delete('editar');
+                        window.history.replaceState({}, '', url);
+                    });
+                }
+            });
+        });
+
+        // Función para cerrar modal y limpiar URL
+        function cerrarModal() {
+            const url = new URL(window.location);
+            url.searchParams.delete('editar');
+            window.history.replaceState({}, '', url);
+            
+            // Ocultar modal manualmente
+            const modal = bootstrap.Modal.getInstance(document.getElementById('editarUsuarioModal'));
+            if (modal) {
+                modal.hide();
+            }
+        }
     </script>
 
     <script src="../mvc_oficialiapartes/scripts/limpiarmsg.js"></script>

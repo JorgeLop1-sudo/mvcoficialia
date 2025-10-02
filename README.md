@@ -17,15 +17,15 @@ con color rojo
 Buscar no sirve     ✅
 
 Agregar usuario: cuando es un usuario igual, muestra un mensaje de 
-que el usuario ya existe, esta bien pero quisiera que se mostrar en
+que el usuario ya existe, esta bien pero quisiera que se mostrar en  ✅
 el mismo modal de agregar, lo mismo al editar el usuario
 
 Emails reales
 
-En agregar usuario, al agregar un usuario con nombre de usuario
+En agregar usuario, al agregar un usuario con nombre de usuario  ✅
 "' or 1=1 --" no me deja eliminarlo por que?
 
-En expedientes no deja ver el documento, dice que tiene un ruta incorrecta 
+En expedientes no deja ver el documento, dice que tiene un ruta incorrecta   
 
 En congfiguracion, me deje ver las contrase�as con el boton que es 
 muy concurrente en paginas web            ✅

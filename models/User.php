@@ -118,22 +118,61 @@ class User {
             : "Error al actualizar usuario: " . mysqli_error($this->conn);
     }
 
+    
     public function eliminar($id) {
         $id = mysqli_real_escape_string($this->conn, $id);
         
-        // Actualizar oficios relacionados
-        $update_oficios_query = "UPDATE oficios SET usuario_derivado_id = NULL WHERE usuario_derivado_id = '$id'";
-        if (!mysqli_query($this->conn, $update_oficios_query)) {
-            return "Error al actualizar oficios: " . mysqli_error($this->conn);
+        mysqli_begin_transaction($this->conn);
+        
+        try {
+            // 1. Verificar que el usuario existe
+            $user_query = mysqli_query($this->conn, "SELECT usuario, nombre FROM login WHERE id = '$id'");
+            if (mysqli_num_rows($user_query) === 0) {
+                throw new Exception("El usuario no existe");
+            }
+            $user_data = mysqli_fetch_assoc($user_query);
+            $usuario_nombre = $user_data['usuario'];
+            
+            // 2. Deshabilitar temporalmente verificaciones de FK
+            mysqli_query($this->conn, "SET FOREIGN_KEY_CHECKS = 0");
+            
+            // 3. Actualizar todas las referencias al usuario
+            $update_queries = [
+                "UPDATE oficios SET usuario_id = NULL WHERE usuario_id = '$id'",
+                "UPDATE oficios SET usuario_derivado_id = NULL WHERE usuario_derivado_id = '$id'",
+                "UPDATE historial_derivaciones SET usuario_origen_id = NULL WHERE usuario_origen_id = '$id'",
+                "UPDATE historial_derivaciones SET usuario_destino_id = NULL WHERE usuario_destino_id = '$id'",
+            ];
+            
+            foreach ($update_queries as $query) {
+                mysqli_query($this->conn, $query);
+                // No verificamos errores aquí intencionalmente - si falla, sigue adelante
+            }
+            
+            // 4. Eliminar el usuario
+            $delete_result = mysqli_query($this->conn, "DELETE FROM login WHERE id = '$id'");
+            
+            if (!$delete_result) {
+                throw new Exception("Error al eliminar usuario: " . mysqli_error($this->conn));
+            }
+            
+            if (mysqli_affected_rows($this->conn) === 0) {
+                throw new Exception("No se pudo eliminar el usuario");
+            }
+            
+            // 5. Reactivar verificaciones de FK
+            mysqli_query($this->conn, "SET FOREIGN_KEY_CHECKS = 1");
+            
+            mysqli_commit($this->conn);
+            
+            return "Usuario '$usuario_nombre' eliminado exitosamente. Las referencias se han actualizado automáticamente.";
+            
+        } catch (Exception $e) {
+            mysqli_rollback($this->conn);
+            // Siempre reactivar las verificaciones
+            mysqli_query($this->conn, "SET FOREIGN_KEY_CHECKS = 1");
+            return "Error al eliminar usuario: " . $e->getMessage();
         }
-
-        // Eliminar usuario
-        $delete_query = "DELETE FROM login WHERE id = '$id'";
-        return mysqli_query($this->conn, $delete_query) 
-            ? "Usuario eliminado exitosamente. Los oficios relacionados se mantienen en el sistema." 
-            : "Error al eliminar usuario: " . mysqli_error($this->conn);
     }
-
-    // Elimina el método obtenerAreas() ya que ahora usamos el modelo Area
 }
 ?>

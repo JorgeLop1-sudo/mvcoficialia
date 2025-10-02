@@ -29,12 +29,14 @@ class UsersAdminController {
         $form_data = [];
         $mostrar_modal_nuevo = false;
         $mostrar_modal_editar = false;
+        $error_modal_nuevo = "";
+        $error_modal_editar = "";
 
         // Procesar formularios
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (isset($_POST['crear_usuario'])) {
                 if ($_POST['password'] !== $_POST['confirm_password']) {
-                    $error = "Error: Las contraseñas no coinciden";
+                    $error_modal_nuevo = "Error: Las contraseñas no coinciden";
                     $form_data = $_POST;
                     $mostrar_modal_nuevo = true;
                 } else {
@@ -48,7 +50,7 @@ class UsersAdminController {
                     );
                     
                     if (strpos($resultado, 'Error:') === 0) {
-                        $error = $resultado;
+                        $error_modal_nuevo = $resultado;
                         $form_data = $_POST;
                         $mostrar_modal_nuevo = true;
                     } else {
@@ -61,7 +63,7 @@ class UsersAdminController {
             if (isset($_POST['editar_usuario'])) {
                 $password = !empty($_POST['password']) ? $_POST['password'] : null;
                 if ($password && $_POST['password'] !== $_POST['confirm_password']) {
-                    $error = "Error: Las contraseñas no coinciden";
+                    $error_modal_editar = "Error: Las contraseñas no coinciden";
                     $mostrar_modal_editar = true;
                 } else {
                     $resultado = $userModel->actualizar(
@@ -75,7 +77,7 @@ class UsersAdminController {
                     );
                     
                     if (strpos($resultado, 'Error:') === 0) {
-                        $error = $resultado;
+                        $error_modal_editar = $resultado;
                         $mostrar_modal_editar = true;
                     } else {
                         header("Location: index.php?action=usersadmin&mensaje=" . urlencode($resultado));
@@ -87,18 +89,25 @@ class UsersAdminController {
 
         // Procesar eliminación
         if (isset($_GET['eliminar'])) {
-            if ($_GET['eliminar'] != $_SESSION['id_usuario']) {
-                $mensaje = $userModel->eliminar($_GET['eliminar']);
-                header("Location: index.php?action=usersadmin&mensaje=" . urlencode($mensaje));
-                exit();
+            // Obtener el ID del usuario actual de diferentes formas posibles
+            $usuario_actual_id = $_SESSION['id_usuario'] ?? $_SESSION['id'] ?? $_SESSION['user_id'] ?? null;
+            
+            if ($_GET['eliminar'] != $usuario_actual_id) {
+                $resultado = $userModel->eliminar($_GET['eliminar']);
+                if (strpos($resultado, 'Error:') === 0) {
+                    $error = $resultado;
+                } else {
+                    header("Location: index.php?action=usersadmin&mensaje=" . urlencode($resultado));
+                    exit();
+                }
             } else {
                 $error = "No puedes eliminarte a ti mismo";
             }
         }
 
-        // Obtener usuario para editar
+        // Obtener usuario para editar (solo si viene por GET y no hay error de POST)
         $usuario_editar = null;
-        if (isset($_GET['editar'])) {
+        if (isset($_GET['editar']) && !$mostrar_modal_editar) {
             $usuario_editar = $userModel->obtenerPorId($_GET['editar']);
             $mostrar_modal_editar = true;
         }
@@ -108,7 +117,9 @@ class UsersAdminController {
         $areas_disponibles = $areaModel->obtenerTodasActivas();
 
         // Pasar variables a la vista
-        $view_data = compact('usuarios', 'areas_disponibles', 'mensaje', 'error', 'form_data', 'usuario_editar', 'mostrar_modal_nuevo', 'mostrar_modal_editar');
+        $view_data = compact('usuarios', 'areas_disponibles', 'mensaje', 'error', 
+                           'form_data', 'usuario_editar', 'mostrar_modal_nuevo', 
+                           'mostrar_modal_editar', 'error_modal_nuevo', 'error_modal_editar');
         
         extract($view_data);
         mysqli_close($conn);
