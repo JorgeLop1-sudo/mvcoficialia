@@ -101,3 +101,10 @@
     margin-top: 20px;
 }
 
+.form-control{
+    border-radius: 0px 5px 0 5px;
+}
+
+.btn{
+    border-radius: 0px 5px 0 5px;
+}

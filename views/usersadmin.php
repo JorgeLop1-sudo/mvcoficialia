@@ -25,6 +25,12 @@
             font-size: 0.875em;
             margin-top: 0.25rem;
         }
+        .username-error {
+            display: none;
+            color: #dc3545;
+            font-size: 0.875em;
+            margin-top: 0.25rem;
+        }
     </style>
 </head>
 <body>

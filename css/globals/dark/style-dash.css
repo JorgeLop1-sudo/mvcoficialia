@@ -263,11 +263,12 @@ body {
 
 /*Home*/
 
-
+.btn-new{
+    box-shadow: 4px 4px 5px #38e081;
+}
 
 .btn-new:hover {
     background: #219653;
-    box-shadow: 4px 4px 3px #38e081;
     transform: translateY(-2px);
 }
 

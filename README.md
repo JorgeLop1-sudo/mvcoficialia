@@ -5,13 +5,13 @@ config se afecta si hay nombres largos en el header     ✅
 
 Al crear una area y recargo la pagina, esta vuelve aparecer
 el mensajen de "area creada exitosamente" igualmente al momento      
-de actualizar aparece el mensaje de nuevo, tambien al momento
-de eliminar lo mismo pasa con la de usuarios, y quiero que ese mensaje de exito solo aparezca por unos y ya se quite, tal como pasa en la de config
+de actualizar aparece el mensaje de nuevo, tambien al momento     ✅
+de eliminar lo mismo pasa con la de usuarios, y quiero que ese mensaje de exito solo aparezca por unos y ya se quite, tal como pasa en la de config  
 
-Al editar o agregar un area, el modal hacerlo mejor
+Al editar o agregar un area, el modal hacerlo mejor     ✅
 
 En areas, que salga cuantos oficios hay en cada area que estan
-en tramite con color azul, completado con color verde y denegado
+en tramite con color azul, completado con color verde y denegado     
 con color rojo
 
 Buscar no sirve     ✅
