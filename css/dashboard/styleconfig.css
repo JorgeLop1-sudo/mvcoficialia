@@ -33,7 +33,7 @@
         }
 
         .btn-action {
-            background: var(--secondary-color);
+            background: rgb(74, 175, 202);
             border: none;
             color: white;
             padding: 12px;

@@ -1,6 +1,6 @@
 :root {
     --primary-color: #151A2D;
-    --secondary-color: #3498db;
+    --secondary-color: rgb(74, 175, 202);
     --accent-color: #e74c3c;
     --success-color: #27ae60;
     --warning-color: #f39c12;
@@ -33,6 +33,7 @@ body {
     color: var(--light-color);
 }
 
+
 .sidebar {
     background: var(--primary-color);
     box-shadow: 0 5px 15px var(--light-color);
@@ -56,6 +57,7 @@ body {
 
 .sidebar-nav .nav-link:hover{
     box-shadow: 0 5px 10px var(--light-color);
+    background-color: var(--light-color);
 }
 
 .sidebar-nav .nav-tooltip{
@@ -67,10 +69,10 @@ body {
 /* Para tablets y móviles */
 @media (max-width: 1024px) {
     .sidebar {
-        height: 56px;
-        margin: 13px;
+        height: 61px;
+        margin: 0px;
         overflow: hidden;
-        width: calc(100% - 26px);
+        width: calc(100%);
         position: fixed;
         top: 0;
         left: 0;
@@ -192,6 +194,10 @@ body {
     color: var(--light-color);
 }
 
+.no-activity p, i{
+    color: rgb(163, 163, 163);
+}
+
 
 .stat-card {
     background: var(--primary-color);
@@ -232,22 +238,33 @@ body {
 .stat-title {
     color: var(--light-color);
 }
+.pending .stat-icon i{
+    color: var(--warning-color);
+    text-shadow: 0px 2px 3px var(--warning-color);
+}
+
+.in-process .stat-icon i{
+    color: var(--secondary-color);
+    text-shadow: 0px 2px 3px var(--secondary-color);
+}
+
+.completed .stat-icon i{
+    color: var(--success-color);
+    text-shadow: 0px 2px 3px var(--success-color);
+}
+
+.denied .stat-icon i{
+    color: var(--accent-color);
+    text-shadow: 0px 2px 3px var(--accent-color);
+
+}
+
+
 
 /*Home*/
 
 
-.btn-new {
-    background: var(--success-color);         
-    border: none;
-    color: white;
-    padding: 8px 15px;
-    border-radius: 5px;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    box-shadow: 3px 4px 2.5px #38e081;
-    transition: transform 0.3s;
-}
+
 .btn-new:hover {
     background: #219653;
     box-shadow: 4px 4px 3px #38e081;
@@ -299,10 +316,7 @@ body {
 
 
 .config-section {
-    margin-bottom: 2rem;
-    padding: 1.5rem;
     background: var(--primary-color);
-    border-radius: 10px 0 10px 0;
     box-shadow: 0 5px 5px var(--light-color);
     color: var(--light-color);
 }
@@ -313,26 +327,12 @@ body {
     padding: 10px;
 }
 
-.form-group {
-    margin-bottom: 10px;
-}
-
-.required-field::after {
-    content: " *";
-    color: red;
-}
-
 .form-control, .form-select {
     background-color: var(--primary-color);
     color: var(--light-color);
-    border-radius: 10px 0 10px 0;
-    padding: 10px 10px;
-    margin-bottom: 5px;
     border: 2px solid #ddd;
-    transition: all 0.3s;
     box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
 }
-
 
 .form-control::placeholder{
     color: var(--light-color);
@@ -367,11 +367,6 @@ body {
 
 .form-text{
     color: var(--light-color);
-}
-
-.sectionbutton{
-    display: flex;
-    justify-content: right; /* Centra horizontalmente */
 }
 
 
@@ -427,8 +422,7 @@ body {
 
 .pagination-container {
     background-color: var(--primary-color);
-    justify-content: space-between;
-    
+
 }
 
 .pagination-btn {

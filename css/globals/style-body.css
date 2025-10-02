@@ -1,6 +1,6 @@
 :root {
     --primary-color: #151A2D;
-    --secondary-color: #3498db;
+    --secondary-color: rgb(74, 175, 202);
     --accent-color: #e74c3c;
     --success-color: #27ae60;
     --warning-color: #f39c12;
@@ -30,7 +30,7 @@ body {
     background: 
         radial-gradient(circle at 20% 80%, rgba(154, 154, 240, 0.4) 0%, transparent 65%),
         radial-gradient(circle at 80% 20%, rgba(56, 72, 95, 0.4) 0%, transparent 65%),
-        linear-gradient(135deg, #dce9fa 0%, #82a8f5 100%);
+        linear-gradient(135deg, #bcd1ee 0%, #466cb8 100%);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     min-height: 100vh;
     padding: 0;
@@ -40,7 +40,7 @@ body {
 }
 
 .main-content {
-    margin-left: 302px;
+    margin-left: 100px;
     padding: 20px;
     transition: margin-left 0.4s ease;
     width: calc(100% - 302px);
@@ -48,7 +48,7 @@ body {
 }
 
 .header {
-    background: white;
+    background: rgb(236, 236, 236);
     padding: 15px 20px;
     border-radius: 10px 2px 10px 2px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);

@@ -12,7 +12,7 @@
 
     <link rel="stylesheet" href="/mvc_oficialiapartes/css/globals/style-body.css">
     <link rel="stylesheet" href="/mvc_oficialiapartes/css/globals/style-sidebar.css">
-    <link rel="stylesheet" href="/mvc_oficialiapartes/css/globals/buttonnew.css">
+    <link rel="stylesheet" href="/mvc_oficialiapartes/css/globals/light/buttonnew.css">
     <link rel="stylesheet" href="/mvc_oficialiapartes/css/globals/style-container.css">
     
     <style>
@@ -384,6 +384,8 @@
             });
         <?php endif; ?>
     </script>
+
+    <script src="../mvc_oficialiapartes/scripts/limpiarmsg.js"></script>
     <script src="../mvc_oficialiapartes/scripts/navbar.js"></script>
     <script src="../mvc_oficialiapartes/scripts/dark_theme_dash.js"></script>
 </body>

@@ -1,10 +1,10 @@
 .sidebar {
     width: 270px;
     position: fixed;
-    margin: 16px;
-    border-radius: 16px;
-    background: var(--primary-color);
-    height: calc(100vh - 32px);
+    margin: 0px;
+    border-radius: 0px 10px 10px 0;
+    background: rgb(236, 236, 236);
+    height: calc(100vh - 0px);
     transition: 0.4s ease;
 }
 
@@ -17,7 +17,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 25px 20px;
+    padding: 25px 19px;
 }
 
 .sidebar-header .user-avatar{
@@ -26,7 +26,7 @@
     display: block;
     object-fit: contain;
     border-radius: 50%;
-    background: var(--secondary-color);
+    background: var(--primary-color);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -39,13 +39,13 @@
     height: 35px;
     width: 35px;
     border: none;
-    color: var(--primary-color);
+    color: var(--light-color);
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     border-radius: 8px;
-    background: #fff;
+    background: var(--primary-color);
     transition: 0.4s ease;
 }
 
@@ -90,7 +90,7 @@
 }
 
 .sidebar-nav .nav-link{
-    color: #fff;
+    color: var(--primary-color);
     display: flex;
     gap: 12px;
     white-space: nowrap;
@@ -104,7 +104,7 @@
 
 .sidebar-nav .nav-link:hover{
     color: var(--primary-color);
-    background: var(--light-color);
+    background: rgb(163, 163, 163);
 }
 
 .sidebar-nav .nav-link .nav-label{
@@ -168,15 +168,16 @@
 /* Para tablets y móviles */
 @media (max-width: 1024px) {
     .sidebar {
-        height: 56px;
-        margin: 13px;
+        height: 61px;
+        margin-top: 0px;
         overflow: hidden;
-        width: calc(100% - 26px);
+        width: calc(100%);
         position: fixed;
         top: 0;
         left: 0;
         z-index: 1000;
         transition: height 0.3s ease;
+        border-radius: 0 0 3px 3px;
     }
 
     .sidebar.menu-active {
@@ -190,7 +191,7 @@
         position: sticky;
         top: 0;
         z-index: 20;
-        background: var(--primary-color);
+        background: rgb(236, 236, 236);
         padding: 8px 10px;
         border-radius: 16px;
     }

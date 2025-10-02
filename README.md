@@ -1,12 +1,12 @@
 http://localhost/mvc_oficialiapartes/index.php?action=login
 
-homedash-Header se queda en un solo lado
-config se afecta si hay nombres largos en el header
+homedash-Header se queda en un solo lado     ✅
+config se afecta si hay nombres largos en el header     ✅
 
 Al crear una area y recargo la pagina, esta vuelve aparecer
-el mensajen de "area creada exitosamente" igualmente al momento
+el mensajen de "area creada exitosamente" igualmente al momento      
 de actualizar aparece el mensaje de nuevo, tambien al momento
-de eliminar
+de eliminar lo mismo pasa con la de usuarios, y quiero que ese mensaje de exito solo aparezca por unos y ya se quite, tal como pasa en la de config
 
 Al editar o agregar un area, el modal hacerlo mejor
 

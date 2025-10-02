@@ -1,6 +1,6 @@
 :root {
     --primary-color: #ffffff;
-    --secondary-color: #3498db;
+    --secondary-color: rgb(74, 175, 202);
     --accent-color: #e74c3c;
     --light-color: #f8f9fa;
     --text-color: #333333;
@@ -129,8 +129,8 @@ body {
     box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
 }
 
-.btn {
-    background: var(--secondary-color);
+.btn-action {
+    background: rgb(74, 175, 202);
     border: none;
     color: white;
     padding: 12px;
@@ -141,7 +141,7 @@ body {
     transition: all 0.3s;
 }
 
-.btn:hover {
+.btn-action:hover {
     background: #2980b9;
     transform: translateY(-2px);
     box-shadow: 0 5px 15px var(--shadow-color);

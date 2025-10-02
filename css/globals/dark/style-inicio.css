@@ -124,7 +124,7 @@ body {
 }
 
 
-.btn{
+.btn-action{
     padding: 12px 42%;
     border: none;
     outline: none;
@@ -135,7 +135,7 @@ body {
     border-radius: 12px;
     margin-top: 10px;
 }
-.btn::after{
+.btn-action::after{
     content: "";
     z-index: -1; 
     position: absolute;
@@ -147,7 +147,7 @@ body {
     border-radius: 10px 0 10px 0;
 }
 
-.btn::before{
+.btn-action::before{
     content: "";
     background: linear-gradient(
         45deg,
@@ -174,15 +174,15 @@ body {
     100% {background-position: 0 0;}
 }
 
-.btn:hover::before{
+.btn-action:hover::before{
     opacity: 1;
 }
 
-.btn:active:after{
+.btn-action:active:after{
     background: transparent;
 }
 
-.btn:active{
+.btn-action:active{
     color: #000;
     font-weight: bold;
 }

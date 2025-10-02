@@ -17,7 +17,7 @@ select:required:valid {
 }
 
 .search-section {
-    background: white;
+    background: rgb(236, 236, 236);
     border-radius: 10px 0 10px 0;
     padding: 20px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
@@ -62,13 +62,13 @@ select:required:valid {
 }
 
 .btn-action {
-    background: var(--secondary-color);
+    background: rgb(74, 175, 202);
     border: none;
     color: white;
     padding: 12px;
     border-radius: 10px 0 10px 0;
     font-weight: 600;
-    width: 100px;
+    width: 150px;
     margin-top: 10px;
     transition: all 0.3s;
 }
@@ -220,6 +220,10 @@ select:required:valid {
     border-color: var(--primary-color);
 }
 
+.btn i{
+    color: white;
+}
+
 /* Estilos responsivos */
 @media (max-width: 992px) {
     .expedientes-table {
@@ -250,11 +254,13 @@ select:required:valid {
     }
     
     .search-actions {
-        flex-direction: column;
+        flex-direction: row;
+
     }
     
     .btn-action {
-        width: 100%;
+        width: 80%;
+
     }
     
     .pagination-container {

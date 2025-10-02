@@ -7,7 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
-    <link rel="stylesheet" href="/mvc_oficialiapartes/css/globals/style-dark.css" id="theme-style">
+    <link rel="stylesheet" href="/mvc_oficialiapartes/css/globals/dark/style-inicio.css" id="theme-style">
 
     <!-- Meta tags para evitar cache -->
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
@@ -71,7 +71,7 @@
                     </div>
                 </div>
                 
-                <button type="submit" class="btn">Ingresar</button>
+                <button type="submit" class="btn-action">Ingresar</button>
 
             </form>
         </div>
