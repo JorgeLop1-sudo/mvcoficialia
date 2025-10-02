@@ -250,7 +250,8 @@
     que tengo es que los botones de los modales el de close y el de cancelar hagan
     bien su funcion, por que cuando tengo un error, cierro el modal, recargo la
     pagina se vuelve abrir el modal y muestra otra vez el error, aparte esos mismo botones
-    del modal de editar no funcionan -->
+    del modal de editar no funcionan, tal cual quiero que cuando recargue la pagina
+    no se vuelva abrir el modal-->
 
     <!-- Modal para Editar Usuario -->
     <?php if ($usuario_editar): ?>
