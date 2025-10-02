@@ -25,8 +25,6 @@ Emails reales
 En agregar usuario, al agregar un usuario con nombre de usuario  ✅
 "' or 1=1 --" no me deja eliminarlo por que?
 
-En expedientes no deja ver el documento, dice que tiene un ruta incorrecta   
-
 En congfiguracion, me deje ver las contrase�as con el boton que es 
 muy concurrente en paginas web            ✅
 

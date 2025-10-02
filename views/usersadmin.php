@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="/mvc_oficialiapartes/css/globals/style-sidebar.css">
     <link rel="stylesheet" href="/mvc_oficialiapartes/css/globals/light/buttonnew.css">
     <link rel="stylesheet" href="/mvc_oficialiapartes/css/globals/style-container.css">
-    
+    <link rel="stylesheet" href="/mvc_oficialiapartes/css/globals/light/buttonaction.css">
     <style>
         .password-toggle {
             cursor: pointer;
@@ -124,11 +124,11 @@
                             </div>
                             <?php endif; ?>
                         </div>
-                        <div class="user-actions">
+                        <div class="sectionbutton">
                             <a href="index.php?action=usersadmin&editar=<?php echo $user['id']; ?>" class="btn btn-sm btn-primary btn-action">
                                 <i class="fas fa-edit"></i> Editar
                             </a>
-                            <button class="btn btn-sm btn-danger btn-action" 
+                            <button class="btn btn-sm btn-danger btn-actione" 
                                     onclick="confirmarEliminacion(<?php echo $user['id']; ?>, '<?php echo htmlspecialchars($user['usuario']); ?>')">
                                 <i class="fas fa-trash"></i> Eliminar
                             </button>

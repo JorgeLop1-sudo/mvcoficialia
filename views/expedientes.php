@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="/mvc_oficialiapartes/css/globals/style-sidebar.css">
     <link rel="stylesheet" href="/mvc_oficialiapartes/css/globals/style-badge.css">
     <link rel="stylesheet" href="/mvc_oficialiapartes/css/dashboard/styleexpedientes.css">
-
+    <link rel="stylesheet" href="/mvc_oficialiapartes/css/globals/light/buttonaction.css">
 </head>
 <body>
     <!-- Incluir el sidebar -->
@@ -71,7 +71,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="search-actions">
+                <div class="sectionbutton">
                     <a href="index.php?action=expedientes" class="btn-action">Limpiar</a>
                     <button type="submit" class="btn-action">Buscar</button>
                 </div>

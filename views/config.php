@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="/mvc_oficialiapartes/css/globals/style-body.css" >
     <link rel="stylesheet" href="/mvc_oficialiapartes/css/globals/style-sidebar.css">
     <link rel="stylesheet" href="/mvc_oficialiapartes/css/dashboard/styleconfig.css">
+    <link rel="stylesheet" href="/mvc_oficialiapartes/css/globals/light/buttonaction.css">
+    
     <style>
         /* Estilos para el campo de contraseña con botón de mostrar/ocultar */
         .form-group {

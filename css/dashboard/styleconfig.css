@@ -26,34 +26,5 @@
             border-radius: 10px 0 10px 0;
         }
 
-        .sectionbutton{
-            display: flex;
-            justify-content: right;
-            align-items: right;
-        }
-
-        .btn-action {
-            background: rgb(74, 175, 202);
-            border: none;
-            color: white;
-            padding: 12px;
-            border-radius: 10px 0 10px 0;
-            font-weight: 600;
-            width: 200px;
-            margin-top: 10px;
-            transition: all 0.3s;
-        }
-
-        .btn-action:hover {
-            background: #2980b9;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px var(--shadow-color);
-        }
-
-        @media (max-width: 576px) {
-            .btn-action {
-                width: 100%;
-                margin-bottom: 5px;
-            }
-        }
+        
         
