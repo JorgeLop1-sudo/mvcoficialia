@@ -147,12 +147,34 @@
                     <h5 class="modal-title" id="nuevoUsuarioModalLabel">Nuevo Usuario</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
+                 <!-- Mostrar mensajes de éxito -->
+        <?php if (isset($_GET['mensaje'])): ?>
+            <div class="alert alert-info alert-dismissible fade show" role="alert">
+                <?php echo htmlspecialchars($_GET['mensaje']); ?>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        <?php endif; ?>
+
+        <!-- Mostrar mensajes de error -->
+        <?php if (!empty($error)): ?>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <?php echo htmlspecialchars($error); ?>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        <?php endif; ?>
+        
                 <form method="POST" action="" id="nuevoUsuarioForm">
                     <div class="modal-body">
                         <div class="mb-3">
                             <label for="usuario" class="form-label">Usuario *</label>
                             <input type="text" class="form-control" id="usuario" name="usuario" 
-                                   value="<?php echo isset($form_data['usuario']) ? htmlspecialchars($form_data['usuario']) : ''; ?>" required>
+                                value="<?php echo isset($form_data['usuario']) ? htmlspecialchars($form_data['usuario']) : ''; ?>" 
+                                pattern="[a-zA-Z0-9]{6,}" 
+                                title="El usuario debe tener al menos 6 caracteres y solo puede contener letras y números" 
+                                required>
+                            <div id="usernameError" class="username-error">
+                                    El usuario debe tener al menos 6 caracteres y solo puede contener letras y números
+                            </div>
                         </div>
                         <div class="mb-3">
                             <label for="password" class="form-label">Contraseña *</label>
@@ -220,6 +242,16 @@
         </div>
     </div>
 
+    <!--Siento que el problema esta en el modal de editar y nuevo usuario,
+      quiero que si el mensaje es de error al agregar o editar usuario solo
+    se muestre dentro del modal, pero solo dentro del modal, y si el problema
+    es de eliminar usuario evidentemente con el boton de eliminar este mensaje
+    si se muestre en la pantalla principal osea no en el modal, otro problema
+    que tengo es que los botones de los modales el de close y el de cancelar hagan
+    bien su funcion, por que cuando tengo un error, cierro el modal, recargo la
+    pagina se vuelve abrir el modal y muestra otra vez el error, aparte esos mismo botones
+    del modal de editar no funcionan -->
+
     <!-- Modal para Editar Usuario -->
     <?php if ($usuario_editar): ?>
     <div class="modal fade show" id="editarUsuarioModal" tabindex="-1" aria-labelledby="editarUsuarioModalLabel" aria-hidden="false" style="display: block; background: rgba(0,0,0,0.5);">
@@ -227,8 +259,24 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="editarUsuarioModalLabel">Editar Usuario</h5>
-                    <a href="index.php?action=usersadmin" class="btn-close" aria-label="Close"></a>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <!--a href="index.php?action=usersadmin" class="btn-close" aria-label="Close"></a-->
                 </div>
+                <!-- Mostrar mensajes de éxito -->
+        <?php if (isset($_GET['mensaje'])): ?>
+            <div class="alert alert-info alert-dismissible fade show" role="alert">
+                <?php echo htmlspecialchars($_GET['mensaje']); ?>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        <?php endif; ?>
+
+        <!-- Mostrar mensajes de error -->
+        <?php if (!empty($error)): ?>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <?php echo htmlspecialchars($error); ?>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        <?php endif; ?>
                 <form method="POST" action="" id="editarUsuarioForm">
                     <input type="hidden" name="id" value="<?php echo $usuario_editar['id']; ?>">
                     <div class="modal-body">
@@ -294,7 +342,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <a href="index.php?action=usersadmin" class="btn btn-secondary">Cancelar</a>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <!--a href="index.php?action=usersadmin" class="btn btn-secondary">Cancelar</a-->
                         <button type="submit" name="editar_usuario" class="btn btn-success" id="submitButtonEdit">Guardar Cambios</button>
                     </div>
                 </form>
@@ -306,6 +355,34 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+
+        // Función para validar formato de usuario
+function validateUsername(inputId, formType = 'nuevo') {
+    const usernameField = document.getElementById(inputId);
+    const username = usernameField.value;
+    const errorElement = formType === 'nuevo' ? 'usernameError' : 'usernameErrorEdit';
+    const errorEl = document.getElementById(errorElement);
+    
+    // Validar longitud mínima y caracteres permitidos
+    if (username.length > 0 && (username.length < 6 || !/^[a-zA-Z0-9]+$/.test(username))) {
+        errorEl.style.display = 'block';
+        usernameField.classList.add('is-invalid');
+        return false;
+    } else {
+        errorEl.style.display = 'none';
+        usernameField.classList.remove('is-invalid');
+        return true;
+    }
+}
+
+// Agregar event listeners para validación de usuario
+document.getElementById('usuario')?.addEventListener('input', () => validateUsername('usuario', 'nuevo'));
+document.getElementById('usuario_edit')?.addEventListener('input', () => validateUsername('usuario_edit', 'editar'));
+
+
+
+
+
         function confirmarEliminacion(id, usuario) {
             if (confirm(`¿Estás seguro de eliminar al usuario "${usuario}"? Los oficios relacionados se mantendrán en el sistema.`)) {
                 window.location.href = `index.php?action=usersadmin&eliminar=${id}`;
@@ -381,6 +458,22 @@
                 window.location.href = 'index.php?action=usersadmin';
             }
         });
+
+        // Validar formulario antes de enviar (nuevo usuario)
+document.getElementById('nuevoUsuarioForm')?.addEventListener('submit', function(e) {
+    if (!validatePasswords('nuevo') || !validateUsername('usuario', 'nuevo')) {
+        e.preventDefault();
+        alert('Por favor, corrige los errores en el formulario.');
+    }
+});
+
+// Validar formulario antes de enviar (editar usuario)
+document.getElementById('editarUsuarioForm')?.addEventListener('submit', function(e) {
+    if (!validatePasswords('editar') || !validateUsername('usuario_edit', 'editar')) {
+        e.preventDefault();
+        alert('Por favor, corrige los errores en el formulario.');
+    }
+});
 
         // Mostrar automáticamente el modal si hay un error
         <?php if (!empty($error) && isset($_POST['crear_usuario'])): ?>

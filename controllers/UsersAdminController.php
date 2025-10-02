@@ -8,7 +8,6 @@ class UsersAdminController {
         if (session_status() === PHP_SESSION_NONE) session_start();
 
         if (!isset($_SESSION['usuario']) || $_SESSION['tipo_usuario'] !== 'Administrador') {
-            // Headers para evitar cache en páginas protegidas
             header("Cache-Control: no-cache, no-store, must-revalidate");
             header("Pragma: no-cache");
             header("Expires: 0");
@@ -16,11 +15,9 @@ class UsersAdminController {
             exit();
         }
 
-        // Headers para evitar cache en páginas protegidas
         header("Cache-Control: no-cache, no-store, must-revalidate");
         header("Pragma: no-cache");
         header("Expires: 0");
-
 
         $database = new Database();
         $conn = $database->connect();
@@ -30,6 +27,8 @@ class UsersAdminController {
         $mensaje = "";
         $error = "";
         $form_data = [];
+        $mostrar_modal_nuevo = false;
+        $mostrar_modal_editar = false;
 
         // Procesar formularios
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -37,8 +36,9 @@ class UsersAdminController {
                 if ($_POST['password'] !== $_POST['confirm_password']) {
                     $error = "Error: Las contraseñas no coinciden";
                     $form_data = $_POST;
+                    $mostrar_modal_nuevo = true;
                 } else {
-                    $mensaje = $userModel->crear(
+                    $resultado = $userModel->crear(
                         $_POST['usuario'],
                         $_POST['password'],
                         $_POST['nombre'],
@@ -46,8 +46,15 @@ class UsersAdminController {
                         $_POST['area'],
                         $_POST['email']
                     );
-                    header("Location: index.php?action=usersadmin&mensaje=" . urlencode($mensaje));
-                    exit();
+                    
+                    if (strpos($resultado, 'Error:') === 0) {
+                        $error = $resultado;
+                        $form_data = $_POST;
+                        $mostrar_modal_nuevo = true;
+                    } else {
+                        header("Location: index.php?action=usersadmin&mensaje=" . urlencode($resultado));
+                        exit();
+                    }
                 }
             }
 
@@ -55,8 +62,9 @@ class UsersAdminController {
                 $password = !empty($_POST['password']) ? $_POST['password'] : null;
                 if ($password && $_POST['password'] !== $_POST['confirm_password']) {
                     $error = "Error: Las contraseñas no coinciden";
+                    $mostrar_modal_editar = true;
                 } else {
-                    $mensaje = $userModel->actualizar(
+                    $resultado = $userModel->actualizar(
                         $_POST['id'],
                         $_POST['usuario'],
                         $_POST['nombre'],
@@ -65,8 +73,14 @@ class UsersAdminController {
                         $_POST['email'],
                         $password
                     );
-                    header("Location: index.php?action=usersadmin&mensaje=" . urlencode($mensaje));
-                    exit();
+                    
+                    if (strpos($resultado, 'Error:') === 0) {
+                        $error = $resultado;
+                        $mostrar_modal_editar = true;
+                    } else {
+                        header("Location: index.php?action=usersadmin&mensaje=" . urlencode($resultado));
+                        exit();
+                    }
                 }
             }
         }
@@ -86,31 +100,17 @@ class UsersAdminController {
         $usuario_editar = null;
         if (isset($_GET['editar'])) {
             $usuario_editar = $userModel->obtenerPorId($_GET['editar']);
+            $mostrar_modal_editar = true;
         }
 
         // Obtener datos
         $usuarios = $userModel->obtenerTodos();
         $areas_disponibles = $areaModel->obtenerTodasActivas();
 
-        // DEBUG: Verificar si se están obteniendo las áreas
-        error_log("Áreas obtenidas: " . print_r($areas_disponibles, true));
-
-        
-
         // Pasar variables a la vista
-        $view_data = compact('usuarios', 'areas_disponibles', 'mensaje', 'error', 'form_data', 'usuario_editar');
-        
-        // DEBUG: Verificar qué variables se pasan a la vista
-        error_log("Variables pasadas a la vista: " . print_r(array_keys($view_data), true));
+        $view_data = compact('usuarios', 'areas_disponibles', 'mensaje', 'error', 'form_data', 'usuario_editar', 'mostrar_modal_nuevo', 'mostrar_modal_editar');
         
         extract($view_data);
-
-        // DEBUG: Verificar si $areas_disponibles existe después del extract
-        error_log("Variable areas_disponibles existe: " . (isset($areas_disponibles) ? 'Sí' : 'No'));
-        if (isset($areas_disponibles)) {
-            error_log("Número de áreas: " . count($areas_disponibles));
-        }
-
         mysqli_close($conn);
 
         include __DIR__ . '/../views/usersadmin.php';

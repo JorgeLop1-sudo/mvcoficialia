@@ -30,18 +30,28 @@ class User {
     }
 
     public function crear($usuario, $password, $nombre, $tipo_usuario, $area_id, $email) {
+        // Validar longitud mínima del usuario
+        if (strlen($usuario) < 6) {
+            return "Error: El usuario debe tener al menos 6 caracteres";
+        }
+        
+        // Validar que solo contenga letras y números
+        if (!preg_match('/^[a-zA-Z0-9]+$/', $usuario)) {
+            return "Error: El usuario solo puede contener letras y números";
+        }
+    
         $usuario = mysqli_real_escape_string($this->conn, $usuario);
         $nombre = mysqli_real_escape_string($this->conn, $nombre);
         $tipo_usuario = mysqli_real_escape_string($this->conn, $tipo_usuario);
         $area_id = mysqli_real_escape_string($this->conn, $area_id);
         $email = mysqli_real_escape_string($this->conn, $email);
-
+    
         // Verificar si el usuario ya existe
         $check_query = mysqli_query($this->conn, "SELECT * FROM login WHERE usuario = '$usuario'");
         if (mysqli_num_rows($check_query) > 0) {
             return "Error: El nombre de usuario ya existe";
         }
-
+    
         // Verificar si el correo ya existe
         if (!empty($email)) {
             $check_query = mysqli_query($this->conn, "SELECT * FROM login WHERE email = '$email'");
@@ -49,7 +59,7 @@ class User {
                 return "Error: El correo electrónico ya está registrado";
             }
         }
-
+    
         $password_hashed = password_hash($password, PASSWORD_DEFAULT);
         $insert_query = "INSERT INTO login (usuario, password, nombre, tipo_usuario, area_id, email) 
                         VALUES ('$usuario', '$password_hashed', '$nombre', '$tipo_usuario', '$area_id', '$email')";
@@ -60,6 +70,16 @@ class User {
     }
 
     public function actualizar($id, $usuario, $nombre, $tipo_usuario, $area_id, $email, $password = null) {
+        // Validar longitud mínima del usuario
+        if (strlen($usuario) < 6) {
+            return "Error: El usuario debe tener al menos 6 caracteres";
+        }
+        
+        // Validar que solo contenga letras y números
+        if (!preg_match('/^[a-zA-Z0-9]+$/', $usuario)) {
+            return "Error: El usuario solo puede contener letras y números";
+        }
+    
         $id = mysqli_real_escape_string($this->conn, $id);
         $usuario = mysqli_real_escape_string($this->conn, $usuario);
         $nombre = mysqli_real_escape_string($this->conn, $nombre);
