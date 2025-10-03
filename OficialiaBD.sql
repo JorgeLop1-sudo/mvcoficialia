@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 01-10-2025 a las 00:00:32
+-- Tiempo de generación: 03-10-2025 a las 23:58:32
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -41,8 +41,8 @@ CREATE TABLE `areas` (
 
 INSERT INTO `areas` (`id`, `nombre`, `descripcion`, `fecha_creacion`, `activo`) VALUES
 (1, 'Administracion', 'Altas y bajas de areas y usuarios', '2025-09-05 21:03:00', 1),
-(7, 'Tecnologias', 'Apoyo y mantenimiento', '2025-09-19 15:27:30', 1),
-(13, 'Caseta', 'Registro', '2025-09-24 19:21:29', 1);
+(7, 'TI', 'Apoyo', '2025-09-19 15:27:30', 1),
+(15, 'Caseta', 'Registro oficios', '2025-10-03 18:25:11', 1);
 
 -- --------------------------------------------------------
 
@@ -68,7 +68,11 @@ CREATE TABLE `historial_derivaciones` (
 --
 
 INSERT INTO `historial_derivaciones` (`id`, `oficio_id`, `area_origen_id`, `usuario_origen_id`, `area_destino_id`, `usuario_destino_id`, `respuesta`, `estado`, `fecha_derivacion`, `observaciones`) VALUES
-(12, 27, 1, 23, 1, 1, 'hola', 'pendiente', '2025-09-29 18:27:08', NULL);
+(12, 27, 1, 0, 1, 1, 'hola', 'pendiente', '2025-09-29 18:27:08', NULL),
+(13, 29, 1, 0, 7, NULL, 'hola', 'pendiente', '2025-10-02 20:06:48', NULL),
+(14, 29, 1, 0, 7, 30, 'hola', 'tramite', '2025-10-03 19:02:09', NULL),
+(15, 27, 1, 0, 7, 30, 'OTRO', 'tramite', '2025-10-03 19:08:53', NULL),
+(16, 30, 1, 29, 7, 30, 'es buena', 'pendiente', '2025-10-03 19:16:34', NULL);
 
 -- --------------------------------------------------------
 
@@ -91,10 +95,9 @@ CREATE TABLE `login` (
 --
 
 INSERT INTO `login` (`id`, `usuario`, `password`, `nombre`, `tipo_usuario`, `area_id`, `email`) VALUES
-(1, 'admin', '$2y$10$leoiQsy7CpYfEIB.TpPbAOo00GT0Gx.Pngy5s9jSk4jQfy6jgG7zy', 'Administrador', 'Administrador', 1, 'admin@gmail.com'),
-(18, 'jorge', '$2y$10$V1hqiU7F1YQ.JGMI9jYhV.YCD.WIcSWvrJlONgzZMFFHAidZxxSbW', 'Jorge Julian Rodriguez Lopez', 'Usuario', 7, 'jorge@gmail.com'),
-(20, 'julian', '$2y$10$gOVDij6o2eyPAhvZXbitPOOeE.dSS4Su5WKCU2Wq3hrrBwzmVNVLW', 'Jorge Julian Rodriguez Lopez', 'Usuario', 7, 'julian@gmail.com'),
-(23, 'juan', '$2y$10$IsUoQDY8JxMaJgc6XDHOuuWkhEeVEblNzKcoWAov1Uu/41YAgfJCG', 'Juan Perez', 'Guardia', 13, 'juan@gmail.com');
+(1, 'admin123', '$2y$10$Jb8AR.Fj6jYajw71fxuXHeRjTUkuvZbkwiWXTVP21UYcJ.6/NmZU.', 'Administrador Antonio', 'Administrador', 1, 'admin@gmail.com'),
+(29, 'juan123', '$2y$10$1JcSePwhYmnzZeEgWVu.0Oig7Q1eErsUrgyFJzyxgAu1rVTssqxz.', 'Juan Perez Estrada', 'Guardia', 15, 'juan123@gmail.com'),
+(30, 'julian', '$2y$10$oGld/H4N2bl0gT1.D0RiV.HraNYl10k0caDcY88aXbPvyb9osUHbC', 'Julian Lopez', 'Usuario', 7, 'julian@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -105,8 +108,8 @@ INSERT INTO `login` (`id`, `usuario`, `password`, `nombre`, `tipo_usuario`, `are
 CREATE TABLE `oficios` (
   `id` int(11) NOT NULL,
   `remitente` varchar(255) NOT NULL,
-  `tipo_persona` enum('natural','juridica') NOT NULL,
-  `tipo_documento` enum('carta','ruc_dni') NOT NULL,
+  `tipo_persona` varchar(30) NOT NULL,
+  `dependencia` varchar(30) NOT NULL,
   `numero_documento` varchar(20) DEFAULT NULL,
   `folios` int(11) NOT NULL,
   `correo` varchar(255) NOT NULL,
@@ -130,9 +133,11 @@ CREATE TABLE `oficios` (
 -- Volcado de datos para la tabla `oficios`
 --
 
-INSERT INTO `oficios` (`id`, `remitente`, `tipo_persona`, `tipo_documento`, `numero_documento`, `folios`, `correo`, `telefono`, `asunto`, `archivo_nombre`, `archivo_ruta`, `respuesta`, `area_derivada_id`, `usuario_derivado_id`, `fecha_derivacion`, `fecha_respuesta`, `area_id`, `usuario_id`, `fecha_registro`, `estado`, `activo`) VALUES
-(27, 'messi', 'natural', 'ruc_dni', '987654321', 5, 'jorge@gmail.com', '4622457138', 'camaras', 'oficialiap(1).sql', '../../../uploads/1758911321_oficialiap(1).sql', 'hola', 1, 1, '2025-09-29 18:27:08', NULL, 1, 23, '2025-09-26 18:28:41', 'tramite', 1),
-(28, 'messi', 'natural', 'carta', '', 4, 'jorge@gmail.com', '4622457138', 'camaras buenas', '05-01-24 TBN.pdf', '../../../uploads/1759259536_05-01-24 TBN.pdf', NULL, NULL, NULL, NULL, NULL, 1, 23, '2025-09-30 19:12:16', 'pendiente', 1);
+INSERT INTO `oficios` (`id`, `remitente`, `tipo_persona`, `dependencia`, `numero_documento`, `folios`, `correo`, `telefono`, `asunto`, `archivo_nombre`, `archivo_ruta`, `respuesta`, `area_derivada_id`, `usuario_derivado_id`, `fecha_derivacion`, `fecha_respuesta`, `area_id`, `usuario_id`, `fecha_registro`, `estado`, `activo`) VALUES
+(27, 'messi', 'natural', 'ruc_dni', '987654321', 5, 'jorge@gmail.com', '4622457138', 'camaras', 'oficialiap(1).sql', '../../../uploads/1758911321_oficialiap(1).sql', 'OTRO', 7, 30, '2025-10-03 19:08:53', NULL, 1, 0, '2025-09-26 18:28:41', 'tramite', 1),
+(29, 'messi', 'juridica', 'carta', '', 7, 'jorge@gmail.com', '4622457138', 'camaras', 'oficialiap(2).sql', '../../../uploads/1759435489_oficialiap(2).sql', 'hola', 7, 30, '2025-10-03 19:02:09', NULL, 1, 0, '2025-10-02 20:04:49', 'tramite', 1),
+(30, 'messias', 'natural', 'ruc_dni', '123456789', 5, 'jorge@gmail.commmm', '4622457138', 'camaras buenas', 'ANEXO XXIX Evaluacion y Seguimiento externo.docx', '../../../uploads/1759518881_ANEXO XXIX Evaluacion y Seguimiento externo.docx', 'es buena', 7, 30, '2025-10-03 19:16:34', NULL, 1, 29, '2025-10-03 19:14:41', 'tramite', 1),
+(31, 'cristiano', 'natural', 'Itesi', '1379', 0, 'jorge@gmail.com', '4622457138', 'camaras buenas', '1758911321_oficialiap(1).sql', '../../../uploads/1759525982_1758911321_oficialiap(1).sql', NULL, NULL, NULL, NULL, NULL, 1, 29, '2025-10-03 21:13:02', 'pendiente', 1);
 
 --
 -- Índices para tablas volcadas
@@ -182,25 +187,25 @@ ALTER TABLE `oficios`
 -- AUTO_INCREMENT de la tabla `areas`
 --
 ALTER TABLE `areas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT de la tabla `historial_derivaciones`
 --
 ALTER TABLE `historial_derivaciones`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT de la tabla `login`
 --
 ALTER TABLE `login`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT de la tabla `oficios`
 --
 ALTER TABLE `oficios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- Restricciones para tablas volcadas
@@ -211,10 +216,7 @@ ALTER TABLE `oficios`
 --
 ALTER TABLE `historial_derivaciones`
   ADD CONSTRAINT `historial_derivaciones_ibfk_1` FOREIGN KEY (`oficio_id`) REFERENCES `oficios` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `historial_derivaciones_ibfk_2` FOREIGN KEY (`area_origen_id`) REFERENCES `areas` (`id`),
-  ADD CONSTRAINT `historial_derivaciones_ibfk_3` FOREIGN KEY (`usuario_origen_id`) REFERENCES `login` (`id`),
-  ADD CONSTRAINT `historial_derivaciones_ibfk_4` FOREIGN KEY (`area_destino_id`) REFERENCES `areas` (`id`),
-  ADD CONSTRAINT `historial_derivaciones_ibfk_5` FOREIGN KEY (`usuario_destino_id`) REFERENCES `login` (`id`);
+  ADD CONSTRAINT `historial_derivaciones_ibfk_2` FOREIGN KEY (`area_origen_id`) REFERENCES `areas` (`id`);
 
 --
 -- Filtros para la tabla `login`
@@ -227,9 +229,7 @@ ALTER TABLE `login`
 --
 ALTER TABLE `oficios`
   ADD CONSTRAINT `oficios_ibfk_1` FOREIGN KEY (`area_id`) REFERENCES `areas` (`id`),
-  ADD CONSTRAINT `oficios_ibfk_2` FOREIGN KEY (`usuario_id`) REFERENCES `login` (`id`),
-  ADD CONSTRAINT `oficios_ibfk_3` FOREIGN KEY (`area_derivada_id`) REFERENCES `areas` (`id`),
-  ADD CONSTRAINT `oficios_ibfk_4` FOREIGN KEY (`usuario_derivado_id`) REFERENCES `login` (`id`);
+  ADD CONSTRAINT `oficios_ibfk_3` FOREIGN KEY (`area_derivada_id`) REFERENCES `areas` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
