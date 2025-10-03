@@ -59,22 +59,10 @@ header("Expires: 0");
                         <div class="col-md-6">
 
                             <label class="form-label">Folio de oficio</label>
-                            <!--div class="radio-group">
-                                <div class="radio-option">
-                                    <input type="radio" id="tipoCarta" name="tipoDocumento" value="carta" required>
-                                    <label for="tipoCarta">Carta, oficio, etc.</label>
-                                </div>
-                                <div class="radio-option">
-                                    <input type="radio" id="tipoRucDni" name="tipoDocumento" value="ruc_dni">
-                                    <label for="tipoRucDni">Numero de Oficio</label>
-                                </div>
-                            </div-->
+                            
                             <input type="text" class="form-control" id="numeroDocumento" name="numeroDocumento" placeholder="Número de oficio">
                         </div>
-                        <!--div class="col-md-6">
-                            <label for="folios" class="form-label">Folios</label>
-                            <input type="number" class="form-control" id="folios" name="folios" placeholder="Número de folios" min="1" required>
-                        </div-->
+                        
                     </div>
                 </div>
                 
@@ -125,9 +113,9 @@ header("Expires: 0");
                     <button type="submit" class="btn-action btn-register">
                         <i class="fas fa-check-circle me-2"></i> Registrar
                     </button>
-                    <button type="button" class="btn-action btn-cancel" id="cancelButton">
+                    <a href="index.php?action=registrar" class="btn-action btn-cancel" id="cancelButton">
                         <i class="fas fa-times-circle me-2"></i> Cancelar
-                    </button>
+                    </a>
                 </div>
             </form>
         </div>

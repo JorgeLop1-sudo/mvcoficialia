@@ -39,11 +39,11 @@ contacto con el administrador o jefe
 OFICIOS
 
 
-Arreglar todo en responder_oficio, especificamente en detalles del oficio
+Arreglar todo en responder_oficio, especificamente en detalles del oficio   ✅
 
 En registrar oficio, no puede haber dos oficios con el mismo numero de oficio
 
 En registrar oficio mostrar mensaje con "Oficio agregado o algo asi"
 
-En registrar oficio el boton de cancelar sea para reiniciar la pagina,
+En registrar oficio el boton de cancelar sea para reiniciar la pagina,   ✅
 y que se borren los datos
