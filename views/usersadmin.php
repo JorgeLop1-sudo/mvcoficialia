@@ -129,7 +129,7 @@
                             <a href="index.php?action=usersadmin&editar=<?php echo $user['id']; ?>" class="btn btn-sm btn-primary btn-action">
                                 <i class="fas fa-edit"></i> Editar
                             </a>
-                            <button class="btn btn-sm btn-danger btn-actione" 
+                            <button class="btn btn-sm btn-danger btn-action" 
                                     onclick="confirmarEliminacion(<?php echo $user['id']; ?>, '<?php echo htmlspecialchars($user['usuario']); ?>')">
                                 <i class="fas fa-trash"></i> Eliminar
                             </button>

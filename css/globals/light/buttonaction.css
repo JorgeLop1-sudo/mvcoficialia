@@ -1,3 +1,4 @@
+
 .sectionbutton{
     display: flex;
     justify-content: right;
@@ -17,7 +18,7 @@
     transition: all 0.3s;
 }
 
-.btn-actione {
+.btn-danger {
     background: rgb(253, 68, 68);
     border: none;
     color: white;
@@ -40,6 +41,13 @@
     background: #2980b9;
     transform: translateY(-2px);
     box-shadow: 0 5px 15px var(--shadow-color);
+}
+
+.user-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 15px;
+    gap: 15px;
 }
 
 @media (max-width: 576px) {

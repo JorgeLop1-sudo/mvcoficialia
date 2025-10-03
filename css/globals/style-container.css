@@ -57,17 +57,6 @@
     font-size: 14px;
 }
 
-.user-actions {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 15px;
-}
-
-.user-actions .btn-action {
-    padding: 5px 10px;
-    margin-left: 5px;
-}
-
 .user-list {
     margin-top: 10px;
     padding: 10px;

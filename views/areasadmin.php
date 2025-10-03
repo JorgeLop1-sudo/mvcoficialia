@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="/mvc_oficialiapartes/css/globals/style-sidebar.css">
     <link rel="stylesheet" href="/mvc_oficialiapartes/css/globals/light/buttonnew.css">
     <link rel="stylesheet" href="/mvc_oficialiapartes/css/globals/style-container.css">
+    <link rel="stylesheet" href="/mvc_oficialiapartes/css/globals/light/buttonaction.css">
 
 </head>
 <body>
