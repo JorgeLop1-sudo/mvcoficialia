@@ -530,12 +530,13 @@ body {
 
 .icon-notifi-box button{
     color: var(--light-color);
-    text-shadow: 3px 3px 3px var(--warning-color);
+    text-shadow: 3px 3px 3px var(--light-color);
 }
 
 .icon-notifi-box button:hover {
-    background-color: #fcd597;
-    box-shadow: 3px 3px 3px #fcd597;
+    background-color: var(--light-color);
+    box-shadow: 3px 3px 3px var(--light-color);
+    color: var(--primary-color);
 }
 
 
