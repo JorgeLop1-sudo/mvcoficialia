@@ -99,7 +99,9 @@ class HomeDashController {
             }
         }
 
+        
         include __DIR__ . '/../views/homedash.php';
+        
     }
 
     private function getUsuarioId($conn, $usuario) {

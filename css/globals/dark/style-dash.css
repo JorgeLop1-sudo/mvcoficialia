@@ -528,3 +528,75 @@ body {
 
 
 
+.icon-notifi-box button{
+    color: var(--light-color);
+    text-shadow: 3px 3px 3px var(--warning-color);
+}
+
+.icon-notifi-box button:hover {
+    background-color: #fcd597;
+    box-shadow: 3px 3px 3px #fcd597;
+}
+
+
+.header-notification-items{
+    border-bottom: 2px solid var(--light-color);
+}
+
+.modal-notification-box{
+    background-color: var(--primary-color);
+    box-shadow: 0 5px 15px var(--light-color);
+    border: 1px solid #ddd;
+}
+
+
+.notifi-box {
+    background: var(--primary-color);
+}
+
+.notifi-title {
+    color: var(--light-color);
+}
+
+.notifi-item {
+    color: inherit;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.notifi-icon {
+    background: var(--light-color);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.notifi-item:hover {
+    background-color: rgb(196, 194, 194);
+}
+
+.notifi-content p {
+    color: #dbdbdb;
+}
+
+.notifi-time {
+    color: #cacaca;
+}
+
+
+/* Flecha decorativa en la parte superior */
+.modal-notification-box::before {
+    border-bottom: 10px solid var(--primary-color);
+}
+
+/* Estilo para cuando no hay notificaciones */
+.no-notifications {
+    text-align: center;
+    padding: 30px 20px;
+    color: #dbdbdb;
+}
+
+.no-notifications i {
+    color: #dbdbdb;
+    margin-bottom: 15px;
+}
+
+

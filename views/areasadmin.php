@@ -10,6 +10,7 @@
 
 
     <link rel="stylesheet" href="/mvc_oficialiapartes/css/globals/style-body.css" >
+    <link rel="stylesheet" href="/mvc_oficialiapartes/css/globals/light/notification.css">
     <link rel="stylesheet" href="/mvc_oficialiapartes/css/globals/style-sidebar.css">
     <link rel="stylesheet" href="/mvc_oficialiapartes/css/globals/light/buttonnew.css">
     <link rel="stylesheet" href="/mvc_oficialiapartes/css/globals/style-container.css">

@@ -14,8 +14,8 @@ if (!themeStyle) {
 }
 
 // URLs de los archivos CSS
-const lightThemeCSS = '/mvc_oficialiapartes/css/globals/style-body.css';
-const darkThemeCSS = '/mvc_oficialiapartes/css/globals/dark/style-dash.css';
+const lightThemeCSS = '/mvc_oficialiapartes/css/globals/light/notification.css';
+const darkThemeCSS = '/mvc_oficialiapartes/css/globals/dark/notification.css';
 
 // Detectar preferencia del sistema
 function detectSystemTheme() {
