@@ -22,7 +22,7 @@ class RegistrarController {
         
         // Verificar si el usuario tiene permiso para acceder (guardia, admin, o user según necesites)
         $tipo_usuario = $_SESSION['tipo_usuario'] ?? '';
-        $usuarios_permitidos = ['Guardia', 'Administrador', 'Usuario']; // Ajusta según tus necesidades
+        $usuarios_permitidos = ['Guardia', 'Administrador']; // Ajusta según tus necesidades
         
         if (!in_array($tipo_usuario, $usuarios_permitidos)) {
             header('Location: index.php?action=homedash');
@@ -47,9 +47,8 @@ class RegistrarController {
         // Recoger y sanitizar datos del formulario
         $remitente = mysqli_real_escape_string($this->db, $_POST['remitente']);
         $tipo_persona = mysqli_real_escape_string($this->db, $_POST['tipoPersona']);
-        $tipo_documento = mysqli_real_escape_string($this->db, $_POST['tipoDocumento']);
+        $dependencia = mysqli_real_escape_string($this->db, $_POST['dependencia']);
         $numero_documento = isset($_POST['numeroDocumento']) ? mysqli_real_escape_string($this->db, $_POST['numeroDocumento']) : null;
-        $folios = mysqli_real_escape_string($this->db, $_POST['folios']);
         $correo = mysqli_real_escape_string($this->db, $_POST['correo']);
         $telefono = mysqli_real_escape_string($this->db, $_POST['telefono']);
         $asunto = mysqli_real_escape_string($this->db, $_POST['asunto']);
@@ -79,8 +78,8 @@ class RegistrarController {
         }
         
         // Insertar en la base de datos
-        $insert_query = "INSERT INTO oficios (remitente, tipo_persona, tipo_documento, numero_documento, folios, correo, telefono, asunto, archivo_nombre, archivo_ruta, area_id, usuario_id) 
-                        VALUES ('$remitente', '$tipo_persona', '$tipo_documento', '$numero_documento', '$folios', '$correo', '$telefono', '$asunto', '$archivo_nombre', '$archivo_ruta2', '$area_id', '$usuario_id')";
+        $insert_query = "INSERT INTO oficios (remitente, tipo_persona, dependencia, numero_documento, correo, telefono, asunto, archivo_nombre, archivo_ruta, area_id, usuario_id) 
+                        VALUES ('$remitente', '$tipo_persona', '$dependencia', '$numero_documento', '$correo', '$telefono', '$asunto', '$archivo_nombre', '$archivo_ruta2', '$area_id', '$usuario_id')";
         
         if (mysqli_query($this->db, $insert_query)) {
             return ['mensaje' => "Oficio registrado correctamente.", 'tipo' => "success"];

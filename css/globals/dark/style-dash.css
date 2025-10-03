@@ -601,3 +601,32 @@ body {
 }
 
 
+/*RREGISTRAR*/
+/* Secciones del formulario */
+.form-section {
+    background-color: var(--primary-color);
+    box-shadow: 0px 0px 5px var(--light-color);
+    border-left: 4px solid var(--secondary-color);
+}
+.form-section-title {
+    color: var(--light-color);
+    border-bottom: 1px solid #ddd;
+}
+.form-label {
+    color: var(--light-color);
+}
+.file-upload {
+    border: 2px dashed #ddd;
+    
+}
+.file-name {
+    color: var(--light-color);
+}
+.file-upload p {
+    color: var(--light-color);
+}
+.file-upload:hover {
+    border-color: var(--secondary-color);
+    background-color: rgb(155, 190, 255);
+    box-shadow: 0px 0px 10px var(--light-color);
+}

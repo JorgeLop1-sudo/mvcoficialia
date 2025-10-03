@@ -1,9 +1,14 @@
 <?php
 require_once __DIR__ . '/../models/Area.php';
+require_once __DIR__ . '/../models/Oficio.php';
+require_once __DIR__ . '/../models/OficioUser.php';
 require_once __DIR__ . '/../config/database.php';
+require_once __DIR__ . '/../helpers/NotificationHelper.php';
 
 
-class AreasAdminController { // Nombre correcto de la clase
+class AreasAdminController {
+    use NotificationHelper; 
+
     public function index() {
         if (session_status() === PHP_SESSION_NONE) session_start();
 
@@ -55,9 +60,23 @@ class AreasAdminController { // Nombre correcto de la clase
 
         $areas = $areaModel->obtenerTodas();
 
-        mysqli_close($conn);
+
+        /*Para notificaciones*/
+
+        // Usar el trait para obtener notificaciones
+        $notifications = $this->setupNotifications($conn);
+        
+        if ($notifications) {
+            $estadisticas = $notifications['estadisticas'];
+            $actividad_reciente = $notifications['actividad_reciente'];
+        } else {
+            // Valores por defecto en caso de error
+            $estadisticas = ['pendientes' => 0, 'en_tramite' => 0, 'atendidos' => 0, 'denegados' => 0];
+            $actividad_reciente = [];
+        }
 
         include __DIR__ . '/../views/areasadmin.php';
     }
+
 }
 ?>

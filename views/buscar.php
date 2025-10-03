@@ -177,13 +177,13 @@
                         <h6>Información del Remitente</h6>
                         <p><strong>Remitente:</strong> ${oficio.remitente}</p>
                         <p><strong>Tipo de Persona:</strong> ${oficio.tipo_persona}</p>
+                        <p><strong>Dependencia:</strong> ${oficio.dependencia}</p>
                         <p><strong>N° Documento:</strong> ${oficio.numero_documento}</p>
                         <p><strong>Correo:</strong> ${oficio.correo}</p>
                         <p><strong>Teléfono:</strong> ${oficio.telefono}</p>
                     </div>
                     <div class="col-md-6">
                         <h6>Detalles del Oficio</h6>
-                        <p><strong>Folios:</strong> ${oficio.folios}</p>
                         <p><strong>Asunto:</strong> ${oficio.asunto}</p>
                         <p><strong>Estado:</strong> <span class="status-badge ${estadoClass}">${oficio.estado}</span></p>
                         <p><strong>Fecha de Registro:</strong> ${fechaRegistro}</p>

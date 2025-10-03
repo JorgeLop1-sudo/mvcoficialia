@@ -139,12 +139,19 @@ body {
     width: 100%;
     margin-top: 10px;
     transition: all 0.3s;
+    
 }
 
 .btn-action:hover {
     background: #2980b9;
     transform: translateY(-2px);
     box-shadow: 0 5px 15px var(--shadow-color);
+}
+
+.btndescargar a{
+    display: flex;
+    justify-content: center;
+    text-decoration: none;
 }
 
 /* Estilos para el selector de tipo de login */

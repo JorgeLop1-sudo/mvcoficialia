@@ -53,8 +53,13 @@ header("Expires: 0");
                     
                     <div class="row">
                         <div class="col-md-6">
-                            <label class="form-label">Tipo de Documento</label>
-                            <div class="radio-group">
+                            <label for="dependencia" class="form-label">Dependencia</label>
+                            <input type="text" class="form-control" id="dependencia" name="dependencia" placeholder="Dependencia" required>
+                        </div>
+                        <div class="col-md-6">
+
+                            <label class="form-label">Folio de oficio</label>
+                            <!--div class="radio-group">
                                 <div class="radio-option">
                                     <input type="radio" id="tipoCarta" name="tipoDocumento" value="carta" required>
                                     <label for="tipoCarta">Carta, oficio, etc.</label>
@@ -63,13 +68,13 @@ header("Expires: 0");
                                     <input type="radio" id="tipoRucDni" name="tipoDocumento" value="ruc_dni">
                                     <label for="tipoRucDni">Numero de Oficio</label>
                                 </div>
-                            </div>
-                            <input type="text" class="form-control" id="numeroDocumento" name="numeroDocumento" placeholder="Número de oficio" style="display: none;">
+                            </div-->
+                            <input type="text" class="form-control" id="numeroDocumento" name="numeroDocumento" placeholder="Número de oficio">
                         </div>
-                        <div class="col-md-6">
+                        <!--div class="col-md-6">
                             <label for="folios" class="form-label">Folios</label>
                             <input type="number" class="form-control" id="folios" name="folios" placeholder="Número de folios" min="1" required>
-                        </div>
+                        </div-->
                     </div>
                 </div>
                 

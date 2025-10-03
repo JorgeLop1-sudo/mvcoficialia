@@ -10,6 +10,7 @@
     padding: 8px;
     border-radius: 50%;
     transition: background-color 0.3s;
+    z-index: 1; /* Asegura que el botón esté por encima */
 }
 
 .icon-notifi-box button:hover {
@@ -39,11 +40,13 @@
     right: 0;
     margin-top: 10px;
     z-index: 1000;
+    pointer-events: none; /* Desactiva eventos cuando está cerrado */
 }
 
 .modal-notification-box.show {
     opacity: 1;
     transform: translateY(0) scale(1);
+    pointer-events: auto; /* Activa eventos cuando está abierto */
 }
 
 .notifi-box {

@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/helpers/functions.php';
 require_once __DIR__ . '/controllers/LoginController.php';
 require_once __DIR__ . '/controllers/HomeDashController.php';
 require_once __DIR__ . '/controllers/AreasAdminController.php';
@@ -52,3 +53,4 @@ switch ($action) {
         break;
 }
 
+?>

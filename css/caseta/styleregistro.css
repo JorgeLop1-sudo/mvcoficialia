@@ -24,7 +24,6 @@
             border-bottom: 1px solid #ddd;
         }
 
-        /* Elementos del formulario */
         .form-label {
             font-weight: 600;
             color: var(--primary-color);
@@ -45,7 +44,7 @@
         }
 
         /* Grupo de radio buttons */
-        .radio-group {
+        /*.radio-group {
             display: flex;
             flex-wrap: wrap;
             gap: 20px;
@@ -59,9 +58,9 @@
 
         .radio-option input[type="radio"] {
             margin-right: 8px;
-        }
+        }*/
 
-        /* Subida de archivos */
+        
         .file-upload {
             border: 2px dashed #ddd;
             border-radius: 8px;
