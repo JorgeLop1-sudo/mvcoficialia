@@ -79,28 +79,43 @@
             e.stopPropagation();
             
             if (isModalOpen) {
-                notificationModal.classList.remove('show');
-                isModalOpen = false;
+                closeModal();
             } else {
-                notificationModal.classList.add('show');
-                isModalOpen = true;
+                openModal();
             }
         });
         
         // Cerrar modal al hacer clic fuera de él
         document.addEventListener('click', function(e) {
             if (isModalOpen && !notificationModal.contains(e.target) && e.target !== notificationButton) {
-                notificationModal.classList.remove('show');
-                isModalOpen = false;
+                closeModal();
             }
         });
         
         // Cerrar modal con la tecla Escape
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape' && isModalOpen) {
-                notificationModal.classList.remove('show');
-                isModalOpen = false;
+                closeModal();
             }
+        });
+        
+        function openModal() {
+            notificationModal.classList.add('show');
+            isModalOpen = true;
+            // Agregar clase al body para posible control adicional
+            document.body.classList.add('modal-notification-open');
+        }
+        
+        function closeModal() {
+            notificationModal.classList.remove('show');
+            isModalOpen = false;
+            // Remover clase del body
+            document.body.classList.remove('modal-notification-open');
+        }
+        
+        // Prevenir que los clics dentro del modal se propaguen
+        notificationModal.addEventListener('click', function(e) {
+            e.stopPropagation();
         });
     });
 </script>
