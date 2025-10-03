@@ -20,7 +20,7 @@
                             </div>
                         <?php else: ?>
                         <?php foreach ($actividad_reciente as $oficio): ?>
-                            <a class="notifi-item">
+                            <a class="notifi-item" href="index.php?action=expedientes">
                                 <div class="notifi-icon">
                                     <i class="<?php echo getActivityIcon($oficio['estado']); ?>"></i>
                                 </div>
