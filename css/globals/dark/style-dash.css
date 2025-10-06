@@ -73,6 +73,7 @@ body {
 
 .sidebar-header .user-avatar{
     background: #226ea1;
+    box-shadow: 0 0 10px var(--secondary-color);
 }
 .sidebar-header .toggler {
     color: var(--primary-color);
@@ -562,7 +563,7 @@ body {
 
 .icon-notifi-box button{
     color: var(--light-color);
-    text-shadow: 3px 3px 3px var(--light-color);
+    /*text-shadow: 3px 3px 3px var(--light-color);*/
 }
 
 .icon-notifi-box button:hover {
