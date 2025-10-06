@@ -158,31 +158,31 @@
                                     <td class="action-buttons">
                                     <?php if (!empty($expediente['archivo_ruta'])): ?>
                                         <a href="<?php echo $expediente['archivo_ruta']; ?>" target="_blank" class="btn btn-sm btn-primary" title="Ver documento">
-                                            <i class="fas fa-eye"></i>
+                                            <i class="nav icon material-symbols-rounded">docs</i>
                                         </a>
                                     <?php else: ?>
                                         <button class="btn btn-sm btn-secondary" title="Sin documento" disabled>
-                                            <i class="fas fa-eye-slash"></i>
+                                            <i class="nav icon material-symbols-rounded">unknown_document</i>
                                         </button>
                                     <?php endif; ?>
                                     
                                     <!-- Solo mostrar derivar si es admin o si el oficio está asignado al usuario -->
                                     <?php if ($tipo_usuario === 'Administrador' || $expediente['usuario_derivado_id'] == $_SESSION['id']): ?>
                                         <button class="btn btn-sm btn-warning" title="Derivar documento" onclick="abrirModalDerivacion(<?php echo $expediente['id']; ?>, '<?php echo htmlspecialchars($expediente['respuesta'] ?? ''); ?>')">
-                                            <i class="fas fa-share"></i>
+                                            <i class="nav icon material-symbols-rounded">reply_all</i>
                                         </button>
                                     <?php endif; ?>
                                     
                                     <!-- Solo mostrar responder si el oficio está asignado al usuario actual -->
                                     <?php if ($expediente['usuario_derivado_id'] == $_SESSION['id'] || $tipo_usuario === 'Administrador'): ?>
                                         <a href="index.php?action=responderoficio&id=<?php echo $expediente['id']; ?>" class="btn btn-sm btn-success" title="Responder documento">
-                                            <i class="fas fa-reply"></i>
+                                            <i class="nav icon material-symbols-rounded">reply</i>
                                         </a>
                                     <?php endif; ?>
 
                                     <?php if ($tipo_usuario === 'Administrador'): ?>
                                         <button class="btn btn-sm btn-danger" title="Eliminar documento" onclick="confirmarEliminacion(<?php echo $expediente['id']; ?>)">
-                                            <i class="fas fa-trash"></i>
+                                            <i class="nav icon material-symbols-rounded">delete</i>
                                         </button>
                                     <?php endif; ?>
                                 </td>
