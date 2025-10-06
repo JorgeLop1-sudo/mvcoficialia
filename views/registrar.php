@@ -29,6 +29,17 @@ header("Expires: 0");
         
     <?php include 'partials/header.php'; ?>
 
+        <!-- Mostrar mensajes de éxito/error -->
+    <?php if (isset($mensaje) && !empty($mensaje)): ?>
+        <div class="alert-container">
+            <div class="alert alert-<?php echo $tipoMensaje === 'success' ? 'success' : 'danger'; ?> alert-dismissible fade show" role="alert">
+                <?php echo $mensaje; ?>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        </div>
+    <?php endif; ?>
+
+
         <div class="form-container">
             <form id="registerForm" method="POST" enctype="multipart/form-data">
                 <!-- Sección de Remitente -->
@@ -164,5 +175,6 @@ header("Expires: 0");
     <script src="../mvc_oficialiapartes/scripts/dark_theme_dash.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 </html>
