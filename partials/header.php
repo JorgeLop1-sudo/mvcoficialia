@@ -11,6 +11,7 @@
                             <h3 class="notifi-title">Notificaciones</h3>
                         </div>
                     </div>
+                    
                     <!-- Recent Activity -->
                     <div class="notifi-box">            
                         <?php if (empty($actividad_reciente)): ?>
