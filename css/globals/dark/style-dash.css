@@ -689,3 +689,26 @@ body {
     box-shadow: 0 0 10px var(--light-color);
     border: 1px solid var(--light-color);
 }
+.card-header{
+    background-color: var(--primary-color);
+}
+.timeline-step{
+    color: var(--light-color);
+}
+.section-title{
+    color: var(--light-color);
+}
+.info-box{
+    background-color: var(--primary-color);
+    color: var(--light-color);
+}
+.info-label, .info-value{
+    color: var(--light-color);
+}
+.response-content{
+    background-color: var(--primary-color);
+    color: var(--light-color);
+}
+.text-fecha{
+    color: #b2bfcc;
+}

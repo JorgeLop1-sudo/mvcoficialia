@@ -64,7 +64,7 @@
                                             <?php echo ucfirst($derivacion['estado']); ?>
                                         </span>
                                     </div>
-                                    <small class="text-muted">
+                                    <small class="text-fecha">
                                         <i class="fas fa-clock me-1"></i>
                                         <?php echo date('d/m/Y H:i', strtotime($derivacion['fecha_derivacion'])); ?>
                                     </small>
