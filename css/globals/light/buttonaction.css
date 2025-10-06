@@ -16,19 +16,23 @@
     width: 200px;
     margin-top: 10px;
     transition: all 0.3s;
+    text-decoration: none;
+    
 }
 
 .btn-danger {
     background: rgb(253, 68, 68);
-    border: none;
+    /*border: none;
     color: white;
     padding: 12px;
     border-radius: 10px 0 10px 0;
     font-weight: 600;
     width: 200px;
     margin-top: 10px;
-    transition: all 0.3s;
+    transition: all 0.3s;*/
 }
+
+
 
 .sectionbutton a{
     text-decoration: none;

@@ -13,7 +13,9 @@
     <link rel="stylesheet" href="/mvc_oficialiapartes/css/globals/style-sidebar.css">
     <link rel="stylesheet" href="/mvc_oficialiapartes/css/globals/style-badge.css">
     <link rel="stylesheet" href="/mvc_oficialiapartes/css/dashboard/styleresponderoficio.css">
+    <link rel="stylesheet" href="/mvc_oficialiapartes/css/globals/light/buttonaction.css">
 
+    
 </head>
 <body>
     <!-- Incluir el sidebar -->
@@ -274,7 +276,7 @@
                     <i class="fas fa-file-pdf me-2 text-danger" style="font-size: 2rem;"></i>
                     <div>
                         <div class="fw-bold">Documento adjunto</div>
-                        <div class="text-muted small"><?php echo basename($oficio['archivo_ruta']); ?></div>
+                        <div ><?php echo basename($oficio['archivo_ruta']); ?></div>
                     </div>
                     <div class="ms-auto">
                         <a href="<?php echo $oficio['archivo_ruta']; ?>" target="_blank" class="btn btn-primary btn-sm">
@@ -307,23 +309,17 @@
                     <div class="action-buttons">
                         <div class="d-flex justify-content-between">
 
-                            <?php if ($_SESSION['tipo_usuario'] === 'Administrador'): ?>
-                            <a href="index.php?action=expedientes" class="btn btn-secondary">
-                                <i class="fas fa-arrow-left me-1"></i> Volver
-                            </a>
-                            <?php endif; ?>
-
-                            <?php if ($_SESSION['tipo_usuario'] === 'Usuario'): ?>
-                            <a href="index.php?action=expedientes" class="btn btn-secondary">
+                            <?php if ($_SESSION['tipo_usuario'] === 'Administrador' || $_SESSION['tipo_usuario'] === 'Usuario'): ?>
+                            <a href="index.php?action=expedientes" class="btn-action btn-secondary">
                                 <i class="fas fa-arrow-left me-1"></i> Volver
                             </a>
                             <?php endif; ?>
 
                             <div>
-                                <button type="submit" name="denegar" class="btn btn-danger me-2">
+                                <button type="submit" name="denegar" class="btn-action btn-danger me-2">
                                     <i class="fas fa-times-circle me-1"></i> Denegar
                                 </button>
-                                <button type="submit" name="completar" class="btn btn-success">
+                                <button type="submit" name="completar" class="btn-action btn-success">
                                     <i class="fas fa-check-circle me-1"></i> Completar
                                 </button>
                             </div>

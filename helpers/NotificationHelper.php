@@ -53,8 +53,5 @@ trait NotificationHelper {
         }
         return false;
     }
-    
-    // Elimina formatFecha() y getActivityIcon() de aquí
-    // porque ahora están en functions.php
 }
 ?>

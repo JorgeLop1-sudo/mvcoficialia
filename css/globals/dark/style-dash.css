@@ -12,9 +12,41 @@ body {
     background: 
         radial-gradient(circle at 20% 80%, rgba(25, 24, 60, 0.2) 0%, transparent 65%),
         radial-gradient(circle at 80% 20%, rgba(70, 29, 60, 0.2) 0%, transparent 65%),
-        linear-gradient(135deg, #0f1a35 0%, #160b25 100%);
+        linear-gradient(135deg, #253a70 0%, #160b25 100%);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     box-sizing: border-box;
+    animation: waveMove 8s ease-in-out infinite;
+    background-size: 300% 300%, 300% 300%, 100% 100%;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+@keyframes waveMove {
+    0%, 100% {
+        background-position: 
+            0% 50%,
+            100% 50%,
+            0% 0%;
+    }
+    25% {
+        background-position: 
+            100% 25%,
+            0% 75%,
+            0% 0%;
+    }
+    50% {
+        background-position: 
+            100% 100%,
+            0% 0%,
+            0% 0%;
+    }
+    75% {
+        background-position: 
+            0% 75%,
+            100% 25%,
+            0% 0%;
+    }
 }
 
 
@@ -629,4 +661,31 @@ body {
     border-color: var(--secondary-color);
     background-color: rgb(155, 190, 255);
     box-shadow: 0px 0px 10px var(--light-color);
+}
+
+.document-details {
+    background-color: var(--primary-color);
+    color: var(--light-color);
+    box-shadow: 0 0 10px var(--light-color);
+}
+.detail-row {
+    border-bottom: 1px solid var(--light-color);
+}
+.detail-label {
+    font-weight: bold;
+    color: var(--light-color);
+}
+.detail-value {
+    color: var(--light-color);
+}
+.file-preview {
+    background-color: var(--primary-color);
+    box-shadow: 0 0 5px var(--light-color);
+    color: var(--light-color);
+}
+.card{
+    background-color: var(--primary-color);
+    color: var(--light-color);
+    box-shadow: 0 0 10px var(--light-color);
+    border: 1px solid var(--light-color);
 }

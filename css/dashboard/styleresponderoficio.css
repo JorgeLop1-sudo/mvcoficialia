@@ -1,13 +1,14 @@
 .document-details {
-    background-color: #f8f9fa;
+    background-color: #ecf0f1;
     border-radius: 8px;
     padding: 20px;
     margin-bottom: 20px;
+    border: 1px solid #ecf0f1;
 }
 .detail-row {
     margin-bottom: 10px;
     padding-bottom: 10px;
-    border-bottom: 1px solid #e9ecef;
+    border-bottom: 1px solid #151A2D;
 }
 .detail-label {
     font-weight: bold;
@@ -17,8 +18,8 @@
     color: #212529;
 }
 .file-preview {
-    background-color: white;
-    border: 1px solid #dee2e6;
+    background-color: #ecf0f1;
+    border: 1px solid #ecf0f1;
     border-radius: 5px;
     padding: 15px;
     margin-top: 20px;
@@ -26,7 +27,7 @@
 .action-buttons {
     margin-top: 30px;
     padding-top: 20px;
-    border-top: 1px solid #dee2e6;
+    border-top: 1px solid #ecf0f1;
 }
 
 
@@ -46,7 +47,7 @@
 
 .timeline-item.current .timeline-marker {
     color: #28a745;
-    background-color: #fff;
+    background-color: #ecf0f1;
     border: 2px solid #28a745;
 }
 
@@ -58,7 +59,7 @@
     height: 30px;
     border-radius: 50%;
     background-color: #007bff;
-    color: white;
+    color: #ecf0f1;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -76,8 +77,8 @@
 }
 
 .timeline-header {
-    background-color: #f8f9fa;
-    border-bottom: 1px solid #dee2e6;
+    background-color: #ecf0f1;
+    border-bottom: 1px solid #ecf0f1;
 }
 
 .timeline-step {
@@ -88,12 +89,12 @@
     color: #495057;
     font-size: 0.9rem;
     margin-bottom: 10px;
-    border-bottom: 1px dashed #dee2e6;
+    border-bottom: 1px dashed #ecf0f1;
     padding-bottom: 5px;
 }
 
 .info-box {
-    background-color: #f8f9fa;
+    background-color: #ecf0f1;
     padding: 10px;
     border-radius: 5px;
 }
@@ -118,8 +119,8 @@
 }
 
 .response-content {
-    background-color: #fff;
-    border: 1px solid #e9ecef;
+    background-color: #ecf0f1;
+    border: 1px solid #ecf0f1;
     border-radius: 5px;
     padding: 10px;
     font-size: 0.9rem;
@@ -138,7 +139,7 @@
     top: 0;
     bottom: 0;
     width: 2px;
-    background-color: #dee2e6;
+    background-color: #ecf0f1;
     z-index: 1;
 }
 

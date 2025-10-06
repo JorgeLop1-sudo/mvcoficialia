@@ -30,13 +30,42 @@ body {
     background: 
         radial-gradient(circle at 20% 80%, rgba(154, 154, 240, 0.4) 0%, transparent 65%),
         radial-gradient(circle at 80% 20%, rgba(56, 72, 95, 0.4) 0%, transparent 65%),
-        linear-gradient(135deg, #bcd1ee 0%, #466cb8 100%);
+        linear-gradient(135deg, #c7d9f3 0%, #2054bd 100%);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     min-height: 100vh;
     padding: 0;
     margin: 0;
     box-sizing: border-box;
     transition: all 0.3s;
+    animation: waveMove 8s ease-in-out infinite;
+    background-size: 300% 300%, 300% 300%, 100% 100%;
+}
+
+@keyframes waveMove {
+    0%, 100% {
+        background-position: 
+            0% 50%,
+            100% 50%,
+            0% 0%;
+    }
+    25% {
+        background-position: 
+            100% 25%,
+            0% 75%,
+            0% 0%;
+    }
+    50% {
+        background-position: 
+            100% 100%,
+            0% 0%,
+            0% 0%;
+    }
+    75% {
+        background-position: 
+            0% 75%,
+            100% 25%,
+            0% 0%;
+    }
 }
 
 .main-content {
