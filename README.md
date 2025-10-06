@@ -10,10 +10,6 @@ de eliminar lo mismo pasa con la de usuarios, y quiero que ese mensaje de exito 
 
 Al editar o agregar un area, el modal hacerlo mejor     ✅
 
-En areas, que salga cuantos oficios hay en cada area que estan
-en tramite con color azul, completado con color verde y denegado     
-con color rojo
-
 Buscar no sirve     ✅
 
 Agregar usuario: cuando es un usuario igual, muestra un mensaje de 
@@ -33,7 +29,7 @@ En login se ve chueco el contenido       ✅
 En login que deje ver la contrase�a     ✅
 
 En login una opcion que si se le olvido su contrase�a, se ponga en
-contacto con el administrador o jefe
+contacto con el administrador o jefe  
 
 
 OFICIOS
@@ -43,7 +39,7 @@ Arreglar todo en responder_oficio, especificamente en detalles del oficio   ✅
 
 En registrar oficio, no puede haber dos oficios con el mismo numero de oficio
 
-En registrar oficio mostrar mensaje con "Oficio agregado o algo asi"
+En registrar oficio mostrar mensaje con "Oficio agregado o algo asi" ✅
 
 En registrar oficio el boton de cancelar sea para reiniciar la pagina,   ✅
 y que se borren los datos
