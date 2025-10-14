@@ -122,12 +122,12 @@ body {
     border: 2px solid var(--border-color);
     transition: all 0.3s;
     background-color: white;
-    color: var(--text-color);
+    color: var(--text-color-gris);
 }
 
 .form-control:focus {
     border-color: var(--secondary-color);
-    box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+    box-shadow:  0 0 5px var(--light-color);
 }
 
 .btn-action {

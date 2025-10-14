@@ -3,7 +3,7 @@
     <h2 class="mb-0">Dashboard</h2>
     <div class="user-info">
         <?php if ($_SESSION['tipo_usuario'] === 'Administrador' || $_SESSION['tipo_usuario'] === 'Usuario'): ?>
-            <div class="icon-notifi-box">
+            <!--div class="icon-notifi-box">
                 <button class="material-symbols-rounded" id="notificationButton">notifications</button>
                 <div class="modal-notification-box" id="notificationModal">
                     <div class="header-notification">
@@ -12,7 +12,7 @@
                         </div>
                     </div>
                     
-                    <!-- Recent Activity -->
+                    
                     <div class="notifi-box">            
                         <?php if (empty($actividad_reciente)): ?>
                             <div class="no-notifications">
@@ -58,7 +58,7 @@
                         <?php endif; ?>
                     </div>
                 </div>
-            </div>
+            </div-->
         <?php endif; ?>
         <div>
             <div class="fw-bold"><?php echo $_SESSION['nombre']; ?></div>
